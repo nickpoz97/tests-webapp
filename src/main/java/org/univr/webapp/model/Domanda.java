@@ -1,13 +1,11 @@
-package org.univr.webapp.model.domandaModel;
+package org.univr.webapp.model;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
 import lombok.Data;
-import org.univr.webapp.model.testModel.Test;
 
 @Entity
 @Table(name = "domanda")
@@ -29,6 +27,6 @@ public class Domanda{
     @Column(name = "risposteconnumero", nullable = false)
     private boolean risposteConNumero = false;
 
-    @ManyToMany(mappedBy = "domanda", fetch = FetchType.LAZY)
-    private Set<Test> tests = new HashSet<>();
+    @ManyToMany(mappedBy = "domandeSet")
+    private Set<Test> testSet;
 }

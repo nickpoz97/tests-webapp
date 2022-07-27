@@ -1,7 +1,6 @@
-package org.univr.webapp.model.rispostaModel;
+package org.univr.webapp.model;
 
 import lombok.Data;
-import org.univr.webapp.model.domandaModel.Domanda;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
