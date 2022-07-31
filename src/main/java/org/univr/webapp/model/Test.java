@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Set;
 
 @Entity
@@ -13,10 +13,10 @@ import java.util.Set;
 public class Test {
     @Data
     @Embeddable
-    private static class TestID implements Serializable {
-        @Column(name = "data")
-        private LocalDateTime data;
-        @Column(name = "nome")
+    public static class TestID implements Serializable {
+        @Column(name = "data", nullable = false)
+        private OffsetDateTime data;
+        @Column(name = "nome", nullable = false)
         private String nome;
     }
 

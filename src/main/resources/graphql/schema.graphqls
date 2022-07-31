@@ -1,0 +1,30 @@
+scalar BigDecimal
+scalar DateTime
+scalar Long
+
+type Domanda{
+    nome: String!
+    testo: String!
+    punti: BigDecimal
+    ordineCasuale: Boolean!
+    risposteConNumero: Boolean!
+}
+
+type Test{
+    data: DateTime!
+    nome: String!
+    ordineCasuale: Boolean!
+    domandeConNumero: Boolean!
+}
+
+type Risposta{
+    id: Long!
+    testo: String!
+    punteggio: BigDecimal
+    domanda: Domanda
+}
+
+type Query{
+    getAllTests: [Test!]!
+    getAllDomande: [Domanda!]!
+}

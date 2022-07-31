@@ -23,7 +23,7 @@ CREATE DATABASE webapp
 -- create tables for the database
 
 CREATE TABLE Test (
-    data TIMESTAMP NOT NULL ,
+    data TIMESTAMP WITH TIME ZONE NOT NULL ,
     nome VARCHAR NOT NULL ,
     ordineCasuale BOOLEAN DEFAULT FALSE , --le domande devono essere presentate in ordine casuale
     domandeConNumero BOOLEAN DEFAULT FALSE , --le domande devono essere numerate
