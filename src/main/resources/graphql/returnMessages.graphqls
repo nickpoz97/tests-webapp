@@ -1,0 +1,6 @@
+enum TestInsertionMessage{
+    OK
+    NO_QUESTIONS
+    NOT_EXISTING_QUESTION
+    ILLEGAL_DATE_TIME
+}

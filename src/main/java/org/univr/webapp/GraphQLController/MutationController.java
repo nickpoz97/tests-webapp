@@ -3,10 +3,8 @@ package org.univr.webapp.GraphQLController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
-import org.univr.webapp.GraphQL.TestInsertionMessage;
+import org.univr.webapp.GraphQLController.returnMessages.TestInsertionMessage;
 import org.univr.webapp.Repository.DomandaRepository;
 import org.univr.webapp.Repository.RispostaRepository;
 import org.univr.webapp.Repository.TestRepository;
@@ -14,31 +12,21 @@ import org.univr.webapp.model.Domanda;
 import org.univr.webapp.model.Test;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Controller
-public class GeneralController {
+public class MutationController {
     private final TestRepository testRepository;
     private final DomandaRepository domandaRepository;
     private final RispostaRepository rispostaRepository;
 
     @Autowired
-    public GeneralController(TestRepository testRepository, DomandaRepository domandaRepository, RispostaRepository rispostaRepository) {
+    public MutationController(TestRepository testRepository, DomandaRepository domandaRepository, RispostaRepository rispostaRepository) {
         this.testRepository = testRepository;
         this.domandaRepository = domandaRepository;
         this.rispostaRepository = rispostaRepository;
     }
-
-    @QueryMapping
-    public List<Test> getAllTests(){
-        return testRepository.findAll();
-    }
-
-    @QueryMapping
-    public List<Domanda> getAllDomande() { return domandaRepository.findAll(); }
 
     record TestInput(
         int giornoDelMese,
@@ -73,7 +61,7 @@ public class GeneralController {
             );
         }
         catch (DateTimeException e){
-            return TestInsertionMessage.ILLEGAL_DATE;
+            return TestInsertionMessage.ILLEGAL_DATE_TIME;
         }
 
         Test.TestID testID = new Test.TestID(
@@ -85,30 +73,5 @@ public class GeneralController {
         testRepository.save(test);
 
         return TestInsertionMessage.OK;
-    }
-
-    @SchemaMapping
-    public List<Domanda> domande(Test test){
-        return test.getDomandeList();
-    }
-
-    @SchemaMapping
-    public List<Test> tests(Domanda domanda){
-        return domanda.getTestList();
-    }
-
-    @SchemaMapping
-    public String nome(Test test){
-        return test.getTestID().getNome();
-    }
-
-    @SchemaMapping
-    public LocalDate data(Test test){
-        return test.getTestID().getData().toLocalDate();
-    }
-
-    @SchemaMapping
-    public LocalTime orario(Test test){
-        return test.getTestID().getData().toLocalTime();
     }
 }

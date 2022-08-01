@@ -1,33 +1,3 @@
-scalar BigDecimal
-scalar Date
-scalar LocalTime
-scalar Long
-
-type Domanda{
-    nome: String!
-    testo: String!
-    punti: BigDecimal
-    ordineCasuale: Boolean!
-    risposteConNumero: Boolean!
-    tests: [Test!]!
-}
-
-type Test{
-    data: Date
-    orario: LocalTime
-    nome: String!
-    ordineCasuale: Boolean!
-    domandeConNumero: Boolean!
-    domande: [Domanda!]!
-}
-
-type Risposta{
-    id: Long!
-    testo: String!
-    punteggio: BigDecimal
-    domanda: Domanda
-}
-
 type Query{
     getAllTests: [Test!]!
     getAllDomande: [Domanda!]!
@@ -47,11 +17,4 @@ input TestInput{
     ordineCasuale: Boolean!
     domandeConNumero: Boolean!
     nomeDomande: [String!]!
-}
-
-enum TestInsertionMessage{
-    OK
-    NO_QUESTIONS
-    NOT_EXISTING_QUESTION
-    ILLEGAL_DATE
 }

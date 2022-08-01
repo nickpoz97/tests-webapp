@@ -1,0 +1,24 @@
+type Domanda{
+    nome: String!
+    testo: String!
+    punti: BigDecimal
+    ordineCasuale: Boolean!
+    risposteConNumero: Boolean!
+    tests: [Test!]!
+}
+
+type Test{
+    data: Date
+    orario: LocalTime
+    nome: String!
+    ordineCasuale: Boolean!
+    domandeConNumero: Boolean!
+    domande: [Domanda!]!
+}
+
+type Risposta{
+    id: Long!
+    testo: String!
+    punteggio: BigDecimal
+    domanda: Domanda
+}

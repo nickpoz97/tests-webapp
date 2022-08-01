@@ -1,0 +1,4 @@
+scalar BigDecimal
+scalar Date
+scalar LocalTime
+scalar Long
