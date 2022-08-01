@@ -4,7 +4,7 @@ type Domanda{
     punti: BigDecimal
     ordineCasuale: Boolean!
     risposteConNumero: Boolean!
-    tests: [Test!]!
+    risposte: [Risposta!]!
 }
 
 type Test{

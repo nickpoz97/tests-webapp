@@ -1,6 +1,7 @@
 package org.univr.webapp.GraphQLController;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
@@ -17,16 +18,8 @@ import java.util.List;
 
 @Controller
 public class MutationController {
-    private final TestRepository testRepository;
-    private final DomandaRepository domandaRepository;
-    private final RispostaRepository rispostaRepository;
-
     @Autowired
-    public MutationController(TestRepository testRepository, DomandaRepository domandaRepository, RispostaRepository rispostaRepository) {
-        this.testRepository = testRepository;
-        this.domandaRepository = domandaRepository;
-        this.rispostaRepository = rispostaRepository;
-    }
+    private ApplicationContext appContext;
 
     record TestInput(
         int giornoDelMese,
@@ -45,7 +38,7 @@ public class MutationController {
             return TestInsertionMessage.NO_QUESTIONS;
         }
 
-        List<Domanda> domande = domandaRepository.findAllById(testInput.nomeDomande());
+        List<Domanda> domande = appContext.getBean(DomandaRepository.class).findAllById(testInput.nomeDomande());
         if (domande.size() != testInput.nomeDomande.size()){
             return TestInsertionMessage.NOT_EXISTING_QUESTION;
         }
@@ -70,7 +63,7 @@ public class MutationController {
         );
 
         Test test = new Test(testID, testInput.ordineCasuale, testInput.domandeConNumero, domande);
-        testRepository.save(test);
+        appContext.getBean(TestRepository.class).save(test);
 
         return TestInsertionMessage.OK;
     }

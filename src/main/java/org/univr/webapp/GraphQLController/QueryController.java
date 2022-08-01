@@ -1,6 +1,7 @@
 package org.univr.webapp.GraphQLController;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import org.univr.webapp.Repository.DomandaRepository;
@@ -13,22 +14,14 @@ import java.util.List;
 
 @Controller
 public class QueryController {
-    private final TestRepository testRepository;
-    private final DomandaRepository domandaRepository;
-    private final RispostaRepository rispostaRepository;
-
     @Autowired
-    public QueryController(TestRepository testRepository, DomandaRepository domandaRepository, RispostaRepository rispostaRepository) {
-        this.testRepository = testRepository;
-        this.domandaRepository = domandaRepository;
-        this.rispostaRepository = rispostaRepository;
-    }
+    private ApplicationContext appContext;
 
     @QueryMapping
     public List<Test> getAllTests(){
-        return testRepository.findAll();
+        return appContext.getBean(TestRepository.class).findAll();
     }
 
     @QueryMapping
-    public List<Domanda> getAllDomande() { return domandaRepository.findAll(); }
+    public List<Domanda> getAllDomande() { return appContext.getBean(DomandaRepository.class).findAll(); }
 }
