@@ -1,4 +1,4 @@
-package org.univr.webapp;
+package org.univr.webapp.GraphQL;
 
 import graphql.scalars.ExtendedScalars;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +12,7 @@ public class GraphQLConfig {
         return builder -> builder
             .scalar(ExtendedScalars.GraphQLBigDecimal)
             .scalar(ExtendedScalars.GraphQLLong)
-            .scalar(ExtendedScalars.DateTime);
+            .scalar(ExtendedScalars.LocalTime)
+            .scalar(ExtendedScalars.Date);
     }
 }

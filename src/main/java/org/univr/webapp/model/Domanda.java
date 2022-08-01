@@ -1,7 +1,7 @@
 package org.univr.webapp.model;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -27,6 +27,6 @@ public class Domanda{
     @Column(name = "risposteconnumero", nullable = false)
     private boolean risposteConNumero = false;
 
-    @ManyToMany(mappedBy = "domandeSet")
-    private Set<Test> testSet;
+    @ManyToMany(mappedBy = "domandeList")
+    private List<Test> testList;
 }

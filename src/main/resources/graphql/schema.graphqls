@@ -1,5 +1,6 @@
 scalar BigDecimal
-scalar DateTime
+scalar Date
+scalar LocalTime
 scalar Long
 
 type Domanda{
@@ -8,13 +9,16 @@ type Domanda{
     punti: BigDecimal
     ordineCasuale: Boolean!
     risposteConNumero: Boolean!
+    tests: [Test!]!
 }
 
 type Test{
-    data: DateTime!
+    data: Date
+    orario: LocalTime
     nome: String!
     ordineCasuale: Boolean!
     domandeConNumero: Boolean!
+    domande: [Domanda!]!
 }
 
 type Risposta{
@@ -27,4 +31,27 @@ type Risposta{
 type Query{
     getAllTests: [Test!]!
     getAllDomande: [Domanda!]!
+}
+
+type Mutation{
+    addTest(testInput: TestInput): TestInsertionMessage
+}
+
+input TestInput{
+    giornoDelMese: Int!
+    mese: Int!
+    anno: Int!
+    ora: Int!
+    minuto: Int!
+    nome: String!
+    ordineCasuale: Boolean!
+    domandeConNumero: Boolean!
+    nomeDomande: [String!]!
+}
+
+enum TestInsertionMessage{
+    OK
+    NO_QUESTIONS
+    NOT_EXISTING_QUESTION
+    ILLEGAL_DATE
 }

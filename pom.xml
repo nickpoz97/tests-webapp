@@ -14,7 +14,7 @@
 	<name>webapp</name>
 	<description>management of multiple choice tests</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>18</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
