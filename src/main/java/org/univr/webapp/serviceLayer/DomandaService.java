@@ -1,8 +1,9 @@
 package org.univr.webapp.serviceLayer;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.univr.webapp.model.Domanda;
-import org.univr.webapp.model.Risposta;
+import org.univr.webapp.model.webappData.Domanda;
+import org.univr.webapp.model.webappData.Risposta;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ public class DomandaService extends AbstractService{
                 .collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasRole('STUDENTE')")
     public List<Domanda> getAllDomande(){
         return getDomandaRepository().findAll();
     }

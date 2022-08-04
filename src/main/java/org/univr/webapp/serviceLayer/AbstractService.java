@@ -1,9 +1,9 @@
 package org.univr.webapp.serviceLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.univr.webapp.dataLayer.DomandaRepository;
-import org.univr.webapp.dataLayer.RispostaRepository;
-import org.univr.webapp.dataLayer.TestRepository;
+import org.univr.webapp.dataLayer.webappData.DomandaRepository;
+import org.univr.webapp.dataLayer.webappData.RispostaRepository;
+import org.univr.webapp.dataLayer.webappData.TestRepository;
 
 public abstract class AbstractService {
     @Autowired

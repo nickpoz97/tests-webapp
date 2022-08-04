@@ -1,9 +1,10 @@
 package org.univr.webapp.serviceLayer;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.univr.webapp.GraphQLController.inputTypes.TestInput;
-import org.univr.webapp.model.Domanda;
-import org.univr.webapp.model.Test;
+import org.univr.webapp.model.webappData.Domanda;
+import org.univr.webapp.model.webappData.Test;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -93,6 +94,7 @@ public class TestService extends AbstractService{
         }
     }
 
+    @PreAuthorize("hasRole('INSEGNANTE')")
     public List<Test> getAllTests(){
         return getTestRepository().findAll();
     }

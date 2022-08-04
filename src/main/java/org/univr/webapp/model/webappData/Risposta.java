@@ -1,4 +1,4 @@
-package org.univr.webapp.model;
+package org.univr.webapp.model.webappData;
 
 import lombok.Data;
 

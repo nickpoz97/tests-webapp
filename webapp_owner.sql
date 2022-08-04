@@ -1,0 +1,11 @@
+-- Role: webapp_user
+-- DROP ROLE IF EXISTS webapp_user;
+
+CREATE ROLE webapp_user WITH
+    LOGIN
+    SUPERUSER
+    INHERIT
+    CREATEDB
+    CREATEROLE
+    NOREPLICATION
+    ENCRYPTED PASSWORD 'SCRAM-SHA-256$4096:3eJdJNdEYT0XDvsmm+79Dw==$37MbYGv1KsC+rx0mm0VJgX726bfim9jPnVzpxvc5w9Y=:rq4cnslWVkM2nj7d6LkjFFPPajPir2DyeaVu9h2KBRk=';

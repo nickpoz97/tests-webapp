@@ -4,7 +4,7 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
 import org.univr.webapp.GraphQLController.inputTypes.TestInput;
-import org.univr.webapp.model.Test;
+import org.univr.webapp.model.webappData.Test;
 
 @Controller
 public class MutationController extends AbstractController {

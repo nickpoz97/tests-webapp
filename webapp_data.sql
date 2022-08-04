@@ -1,19 +1,7 @@
--- Role: webapp_user
--- DROP ROLE IF EXISTS webapp_user;
-
-CREATE ROLE webapp_user WITH
-    LOGIN
-    SUPERUSER
-    INHERIT
-    CREATEDB
-    CREATEROLE
-    NOREPLICATION
-    ENCRYPTED PASSWORD 'SCRAM-SHA-256$4096:3eJdJNdEYT0XDvsmm+79Dw==$37MbYGv1KsC+rx0mm0VJgX726bfim9jPnVzpxvc5w9Y=:rq4cnslWVkM2nj7d6LkjFFPPajPir2DyeaVu9h2KBRk=';
-
 -- Database: webapp
 -- DROP DATABASE IF EXISTS webapp;
 
-CREATE DATABASE webapp
+CREATE DATABASE webapp_data
     WITH
     OWNER = webapp_user
     ENCODING = 'UTF8'
@@ -29,6 +17,7 @@ CREATE TABLE Test (
     domandeConNumero BOOLEAN DEFAULT FALSE , --le domande devono essere numerate
     PRIMARY KEY (data , nome )
 );
+
 CREATE TABLE Domanda (
     nome VARCHAR PRIMARY KEY ,
     testo VARCHAR NOT NULL ,

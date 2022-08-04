@@ -2,9 +2,9 @@ package org.univr.webapp.GraphQLController;
 
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
-import org.univr.webapp.model.Domanda;
-import org.univr.webapp.model.Risposta;
-import org.univr.webapp.model.Test;
+import org.univr.webapp.model.webappData.Domanda;
+import org.univr.webapp.model.webappData.Risposta;
+import org.univr.webapp.model.webappData.Test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
