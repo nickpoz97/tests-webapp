@@ -4,7 +4,7 @@ type Query{
 }
 
 type Mutation{
-    addTest(testInput: TestInput): Test
+    addTest(testInput: TestInput!): Test
 }
 
 input TestInput{

@@ -1,4 +1,4 @@
-package org.univr.webapp.GraphQLController;
+package org.univr.webapp.GraphQLController.webappData;
 
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -7,8 +7,8 @@ import org.univr.webapp.model.webappData.Test;
 
 import java.util.List;
 
-@Controller
-public class QueryController extends AbstractController {
+@Controller("DataQueryController")
+public class QueryController extends AbstractDataController {
 
     @QueryMapping
     public List<Test> getAllTests(){

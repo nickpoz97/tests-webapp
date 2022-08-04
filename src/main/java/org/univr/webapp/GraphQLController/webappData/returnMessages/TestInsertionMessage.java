@@ -1,4 +1,4 @@
-package org.univr.webapp.GraphQLController.returnMessages;
+package org.univr.webapp.GraphQLController.webappData.returnMessages;
 
 public enum TestInsertionMessage {
     OK,

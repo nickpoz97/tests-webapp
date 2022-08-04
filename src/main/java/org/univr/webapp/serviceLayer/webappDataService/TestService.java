@@ -1,8 +1,8 @@
-package org.univr.webapp.serviceLayer;
+package org.univr.webapp.serviceLayer.webappDataService;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.univr.webapp.GraphQLController.inputTypes.TestInput;
+import org.univr.webapp.GraphQLController.webappData.inputTypes.TestInput;
 import org.univr.webapp.model.webappData.Domanda;
 import org.univr.webapp.model.webappData.Test;
 
@@ -13,7 +13,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
-public class TestService extends AbstractService{
+public class TestService extends AbstractDataService {
     public LocalDate getData(Test test){
         return test.getTestID().getData().toLocalDate();
     }
@@ -80,12 +80,12 @@ public class TestService extends AbstractService{
                     testInput.minuto()
             );
 
-            Test.TestID testID = new Test.TestID(
-                    data,
-                    testInput.nome()
+            Test test = new Test(
+                    data, testInput.nome(),
+                    testInput.ordineCasuale(),
+                    testInput.domandeConNumero(),
+                    domande
             );
-
-            Test test = new Test(testID, testInput.ordineCasuale(), testInput.domandeConNumero(), domande);
             getTestRepository().save(test);
             return test;
         }

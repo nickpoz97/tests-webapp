@@ -1,4 +1,4 @@
-package org.univr.webapp.serviceLayer;
+package org.univr.webapp.serviceLayer.webappDataService;
 
 import graphql.ErrorType;
 import graphql.GraphQLError;

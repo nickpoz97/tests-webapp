@@ -1,4 +1,4 @@
-package org.univr.webapp.GraphQLController.inputTypes;
+package org.univr.webapp.GraphQLController.webappData.inputTypes;
 
 import java.util.List;
 

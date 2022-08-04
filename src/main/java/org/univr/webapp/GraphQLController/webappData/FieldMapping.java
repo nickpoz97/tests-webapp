@@ -1,4 +1,4 @@
-package org.univr.webapp.GraphQLController;
+package org.univr.webapp.GraphQLController.webappData;
 
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Controller
-public class FieldMapping extends AbstractController {
+public class FieldMapping extends AbstractDataController {
     @SchemaMapping
     public List<Risposta> risposte(Domanda domanda){
         return getDomandaService().getRisposte(domanda);

@@ -1,4 +1,4 @@
-package org.univr.webapp.serviceLayer;
+package org.univr.webapp.serviceLayer.webappDataService;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class DomandaService extends AbstractService{
+public class DomandaService extends AbstractDataService {
     public List<Risposta> getRisposte(Domanda domanda){
         return this.getRispostaRepository()
                 .findAll()

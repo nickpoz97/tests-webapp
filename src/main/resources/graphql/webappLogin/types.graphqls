@@ -1,0 +1,10 @@
+type Login{
+    username: String!
+    password: String!
+    ruolo: Ruolo!
+}
+
+enum Ruolo{
+    STUDENTE,
+    INSEGGNANTE
+}

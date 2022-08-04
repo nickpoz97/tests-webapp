@@ -1,11 +1,11 @@
-package org.univr.webapp.GraphQLController;
+package org.univr.webapp.GraphQLController.webappData;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.univr.webapp.serviceLayer.DomandaService;
-import org.univr.webapp.serviceLayer.RispostaService;
-import org.univr.webapp.serviceLayer.TestService;
+import org.univr.webapp.serviceLayer.webappDataService.DomandaService;
+import org.univr.webapp.serviceLayer.webappDataService.RispostaService;
+import org.univr.webapp.serviceLayer.webappDataService.TestService;
 
-public abstract class AbstractController {
+public abstract class AbstractDataController {
     @Autowired
     private DomandaService domandaService;
     @Autowired

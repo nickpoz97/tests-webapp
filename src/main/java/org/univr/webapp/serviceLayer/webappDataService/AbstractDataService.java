@@ -1,11 +1,11 @@
-package org.univr.webapp.serviceLayer;
+package org.univr.webapp.serviceLayer.webappDataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.univr.webapp.dataLayer.webappData.DomandaRepository;
 import org.univr.webapp.dataLayer.webappData.RispostaRepository;
 import org.univr.webapp.dataLayer.webappData.TestRepository;
 
-public abstract class AbstractService {
+public abstract class AbstractDataService {
     @Autowired
     private DomandaRepository domandaRepository;
     @Autowired

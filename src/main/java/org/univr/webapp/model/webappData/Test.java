@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,13 +18,20 @@ import java.util.List;
 public class Test {
     @Data
     @Embeddable
-    @AllArgsConstructor
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class TestID implements Serializable {
         @Column(name = "data", nullable = false)
         private LocalDateTime data;
         @Column(name = "nome", nullable = false)
         private String nome;
+    }
+
+    public Test(LocalDateTime data, String nome, boolean ordineCasuale, boolean domandeConNumero, List<Domanda> domandeList) {
+        this.testID = new TestID(data, nome);
+        this.ordineCasuale = ordineCasuale;
+        this.domandeConNumero = domandeConNumero;
+        this.domandeList = domandeList;
     }
 
     @EmbeddedId
