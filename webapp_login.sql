@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS login
 (
     username VARCHAR PRIMARY KEY,
     password CHAR(64) NOT NULL,
-    ruolo RUOLO NOT NULL,
+    autorizzazione Autorizzazione NOT NULL,
 )
 
 ALTER TABLE IF EXISTS Login
