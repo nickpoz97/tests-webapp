@@ -13,8 +13,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -42,8 +44,8 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             //.authorizeRequests(requests -> requests.anyRequest().permitAll())
             .authorizeRequests(requests -> requests.anyRequest().authenticated())
-            .httpBasic(withDefaults())
                 .formLogin(withDefaults())
+            .httpBasic(withDefaults())
             .build();
     }
 
@@ -71,7 +73,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new MessageDigestPasswordEncoder("SHA-256");
     }
 
 }
