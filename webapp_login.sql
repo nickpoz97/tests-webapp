@@ -9,8 +9,8 @@ CREATE DATABASE webapp_login
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
 
-CREATE DOMAIN Ruolo AS VARCHAR(10)
-    CHECK (UPPER(value) in ('studente', 'insegnante'));
+CREATE DOMAIN Autorizzazione AS VARCHAR(10)
+    CHECK (value in ('STUDENTE', 'INSEGNANTE'));
 
 CREATE TABLE IF NOT EXISTS login
 (
