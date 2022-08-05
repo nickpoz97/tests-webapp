@@ -12,12 +12,12 @@ public class Login {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 64)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ruolo", nullable = false)
-    private Ruolo ruolo;
+    @Column(name = "autorizzazione", nullable = false)
+    private Autorizzazione autorizzazione;
 
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;

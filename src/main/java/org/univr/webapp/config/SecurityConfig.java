@@ -10,18 +10,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.univr.webapp.serviceLayer.webappLoginService.LoginService;
 
 import javax.sql.DataSource;
 
@@ -34,7 +27,7 @@ public class SecurityConfig {
     private final DataSource dataSource;
 
     @Autowired
-    public SecurityConfig(LoginService loginService, @Qualifier("loginDataSource") DataSource dataSource) {
+    public SecurityConfig(@Qualifier("loginDataSource") DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -44,15 +37,10 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             //.authorizeRequests(requests -> requests.anyRequest().permitAll())
             .authorizeRequests(requests -> requests.anyRequest().authenticated())
-                .formLogin(withDefaults())
+            //.formLogin(withDefaults())
             .httpBasic(withDefaults())
             .build();
     }
-
-//    @Bean
-//    public InMemoryUserDetailsManager userDetailsService() {
-//        return new InMemoryUserDetailsManager(loginService.getAllUsers());
-//    }
 
     @Bean
     public UserDetailsManager users(DataSource dataSource) {
@@ -66,7 +54,7 @@ public class SecurityConfig {
             .usersByUsernameQuery("select username,password,enabled "
                     + "from login "
                     + "where username = ?")
-            .authoritiesByUsernameQuery("select username,ruolo "
+            .authoritiesByUsernameQuery("select username,autorizzazione "
                     + "from login "
                     + "where username = ?");
     }
