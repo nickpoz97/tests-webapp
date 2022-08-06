@@ -1,21 +1,20 @@
 import React from "react";
 
 const TESTS_QUERY = `
-    query {
-        getAllTests {
-        data,
-        nome,
-        ordineCasuale,
-        domandeConNumero
-        }
+query {
+    getAllTests {
+    data,
+    nome,
+    ordineCasuale,
+    domandeConNumero
     }
-    `;
+}
+`;
 
 const Form = () => {
     
     React.useEffect(() => {
         fetch('http://localhost:8080/graphql', {
-            mode:"no-cors",
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({query: TESTS_QUERY})
