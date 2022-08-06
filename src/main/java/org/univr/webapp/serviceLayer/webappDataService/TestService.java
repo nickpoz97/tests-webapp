@@ -94,7 +94,7 @@ public class TestService extends AbstractDataService {
         }
     }
 
-    @PreAuthorize("hasRole('INSEGNANTE')")
+    @PreAuthorize("hasAnyAuthority('STUDENTE', 'INSEGNANTE')")
     public List<Test> getAllTests(){
         return getTestRepository().findAll();
     }
