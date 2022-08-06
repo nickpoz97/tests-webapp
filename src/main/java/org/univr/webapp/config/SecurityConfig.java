@@ -34,12 +34,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeRequests(requests -> requests.anyRequest().permitAll())
-            //.authorizeRequests(requests -> requests.anyRequest().authenticated())
-            //.formLogin(withDefaults())
-            .httpBasic(withDefaults())
-            .build();
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests(requests -> requests.anyRequest().permitAll())
+                //.authorizeRequests(requests -> requests.anyRequest().authenticated())
+                //.formLogin(withDefaults())
+                .httpBasic(withDefaults())
+                .build();
     }
 
     @Bean
@@ -50,13 +50,13 @@ public class SecurityConfig {
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.jdbcAuthentication()
-            .dataSource(dataSource)
-            .usersByUsernameQuery("select username,password,enabled "
-                    + "from login "
-                    + "where username = ?")
-            .authoritiesByUsernameQuery("select username,autorizzazione "
-                    + "from login "
-                    + "where username = ?");
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select username,password,enabled "
+                        + "from login "
+                        + "where username = ?")
+                .authoritiesByUsernameQuery("select username,autorizzazione "
+                        + "from login "
+                        + "where username = ?");
     }
 
     @Bean

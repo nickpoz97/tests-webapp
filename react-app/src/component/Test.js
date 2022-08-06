@@ -14,7 +14,8 @@ const TESTS_QUERY = `
 const Form = () => {
     
     React.useEffect(() => {
-        fetch('http://localhost:8080/graphql/', {
+        fetch('http://localhost:8080/graphql', {
+            mode:"no-cors",
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({query: TESTS_QUERY})
