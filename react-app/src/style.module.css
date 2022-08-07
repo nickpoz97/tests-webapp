@@ -19,10 +19,10 @@
     text-align: left;
 }
 
-tr:nth-child(even){background-color: #dadfdf;}
+tr:nth-child(even){background-color: #dedfda;}
 
 tr:hover{
-    background-color: #ddd;
+    background-color: #f5df4f;
     border: 1px solid #000;
 }
 

@@ -1,5 +1,9 @@
 import React from "react";
 import styles from "../style.module.css";
+import Appbar from "./Appbar";
+import { Link } from 'react-router-dom';
+
+
 
 const TESTS_QUERY = `
     query {
@@ -18,7 +22,7 @@ function formatDate(date){
     return newData;
 }
 
-const Form = () => {
+const Test = () => {
     const [tests, setTests] = React.useState([]);
     React.useEffect(() => {
         fetch('http://localhost:8080/graphql', {
@@ -30,6 +34,7 @@ const Form = () => {
     },[]);    
     return(
         <div>
+            <Appbar></Appbar>
             <table className={styles.testTable}>
                 <tbody>
                     <tr className={styles.testTr}>
@@ -38,7 +43,7 @@ const Form = () => {
                     </tr>
                     {tests.map((test) => (
                     <tr key={test.data + test.nome} className={styles.testTr}>
-                        <td className={styles.testTd}>{test.nome}</td>
+                        <td className={styles.testTd}><a href={"/test/"+ test.data + test.nome}> {test.nome}</a></td>
                         <td className={styles.testTd}> {formatDate(test.data)}</td>
                     </tr>
                     ))}
@@ -47,5 +52,5 @@ const Form = () => {
         </div>
     )
 }
-export default Form;
+export default Test;
 
