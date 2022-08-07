@@ -12,13 +12,13 @@ const TESTS_QUERY = `
     `;
 
 const Form = () => {
+    
     React.useEffect(() => {
-        console.log("ciao");
-        fetch("http://localhost:8080/graphql/", {
-            mode: "no-cors",
+        fetch('http://localhost:8080/graphql', {
+            mode:"no-cors",
             method: "POST",
-            headers: {"Content-Type": "application/graphql"},
-            body: JSON.stringify({query: TESTS_QUERY}),
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({query: TESTS_QUERY})
         }).then(response => response.json()).then(data => console.log(data))
     },[]);
     
@@ -29,5 +29,3 @@ const Form = () => {
     )
 }
 export default Form;
-
-
