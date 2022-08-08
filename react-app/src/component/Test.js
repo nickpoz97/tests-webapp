@@ -21,10 +21,6 @@ function formatDate(date){
     return newData;
 }
 
-function formatOrario(orario){
-    console.log(orario);
-}
-
 
 const Test = () => {
     const [tests, setTests] = React.useState([]);
