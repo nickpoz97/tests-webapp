@@ -6,6 +6,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
+import styles from "../style.module.css";
+
+
 
 export default function Appbar() {
   return (
@@ -22,7 +26,7 @@ export default function Appbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Test
+            <Link className={styles.linkToHome} to="/">Test</Link>
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>

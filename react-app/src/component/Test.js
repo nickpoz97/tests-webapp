@@ -22,6 +22,7 @@ function formatDate(date){
     return newData;
 }
 
+
 const Test = () => {
     const [tests, setTests] = React.useState([]);
     React.useEffect(() => {
@@ -43,7 +44,7 @@ const Test = () => {
                     </tr>
                     {tests.map((test) => (
                     <tr key={test.data + test.nome} className={styles.testTr}>
-                        <td className={styles.testTd}><a href={"/test/"+ test.data + test.nome}> {test.nome}</a></td>
+                        <td className={styles.testTd}><a href={"/test/"+test.nome}> {test.nome}</a></td>
                         <td className={styles.testTd}> {formatDate(test.data)}</td>
                     </tr>
                     ))}

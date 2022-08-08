@@ -2,6 +2,8 @@ import AppBar from "./component/Appbar";
 import Test from "./component/Test"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TestDetail from "./component/TestDetail"
+import React from 'react';
+
 
 
 function App() {
@@ -9,11 +11,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Test />}>
-            <Route path="/test/1" element={<TestDetail></TestDetail>}></Route>
-          </Route>
+          <Route exact path="/" element={<Test />}></Route>
+          <Route path="/test/:id" element={<TestDetail/>}></Route>
         </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
     </div>
   );
 }

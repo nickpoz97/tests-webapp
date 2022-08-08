@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 const TestDetail = () => {
-  return <h1>Single Post</h1>
+  console.log("ciao");
+  return(
+    <div>
+      <h1>Dettaglio Test</h1>
+    </div>
+  )
 };
 
 export default TestDetail;

@@ -31,3 +31,8 @@ tr:hover{
     padding: 0.5%;
     padding-left: 2%;
 }
+
+.linkToHome{
+    color: inherit; 
+    text-decoration: none;
+}
