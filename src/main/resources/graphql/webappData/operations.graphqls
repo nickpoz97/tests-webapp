@@ -1,6 +1,7 @@
 type Query{
     getAllTests: [Test!]!
     getAllDomande: [Domanda!]!
+    getTestById(data: Date!, orario: LocalTime!, nome: String!): Test
 }
 
 type Mutation{
@@ -18,3 +19,4 @@ input TestInput{
     domandeConNumero: Boolean!
     nomeDomande: [String!]!
 }
+
