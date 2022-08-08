@@ -1,5 +1,6 @@
 package org.univr.webapp.serviceLayer.webappDataService;
 
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.univr.webapp.GraphQLController.webappData.inputTypes.TestInput;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TestService extends AbstractDataService {
@@ -97,5 +99,12 @@ public class TestService extends AbstractDataService {
     @PreAuthorize("hasAnyAuthority('STUDENTE', 'INSEGNANTE')")
     public List<Test> getAllTests(){
         return getTestRepository().findAll();
+    }
+
+    @PreAuthorize("hasAnyAuthority('STUDENTE', 'INSEGNANTE')")
+    public Optional<Test> getTestById(LocalDate data, LocalTime orario, String nome){
+        return getTestRepository().findById(
+                new Test.TestID(LocalDateTime.of(data, orario), nome)
+        );
     }
 }
