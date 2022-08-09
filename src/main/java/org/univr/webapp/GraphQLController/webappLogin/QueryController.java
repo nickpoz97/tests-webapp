@@ -9,10 +9,10 @@ import org.univr.webapp.serviceLayer.webappLoginService.LoginService;
 
 @Controller("LoginQueryController")
 public class QueryController {
-    private final LoginService loginService;
-
-    @Autowired
-    public QueryController(LoginService loginService) {
-        this.loginService = loginService;
-    }
+//    private final LoginService loginService;
+//
+//    @Autowired
+//    public QueryController(LoginService loginService) {
+//        this.loginService = loginService;
+//    }
 }

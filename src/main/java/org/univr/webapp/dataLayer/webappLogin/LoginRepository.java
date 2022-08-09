@@ -6,4 +6,5 @@ import org.univr.webapp.model.webappLogin.Login;
 
 @GraphQlRepository
 public interface LoginRepository extends JpaRepository<Login, String> {
+
 }

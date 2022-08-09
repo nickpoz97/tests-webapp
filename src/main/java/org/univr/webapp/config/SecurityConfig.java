@@ -21,42 +21,19 @@ import javax.sql.DataSource;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    private final DataSource dataSource;
-
-    @Autowired
-    public SecurityConfig(@Qualifier("loginDataSource") DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeRequests(requests -> requests.anyRequest().permitAll())
+                .authorizeRequests(requests -> requests.anyRequest().authenticated())
                 //.authorizeRequests(requests -> requests.anyRequest().authenticated())
                 //.formLogin(withDefaults())
                 .httpBasic(withDefaults())
                 .build();
-    }
-
-    @Bean
-    public UserDetailsManager users(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
-    }
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select username,password,enabled "
-                        + "from login "
-                        + "where username = ?")
-                .authoritiesByUsernameQuery("select username,autorizzazione "
-                        + "from login "
-                        + "where username = ?");
     }
 
     @Bean
