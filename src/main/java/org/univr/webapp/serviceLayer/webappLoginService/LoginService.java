@@ -1,69 +1,70 @@
 package org.univr.webapp.serviceLayer.webappLoginService;
 
+import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.univr.webapp.dataLayer.webappLogin.LoginRepository;
-import org.univr.webapp.model.webappLogin.Autorizzazione;
 import org.univr.webapp.model.webappLogin.Login;
 
-import java.util.Arrays;
+import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-public class LoginService implements UserDetails {
-    private final Login login;
+@Service
+public class LoginService {
+    private final LoginRepository loginRepository;
+    private final HttpSession httpSession;
 
-    public LoginService(Login login) {
-        this.login = login;
+    @Autowired
+    public LoginService(LoginRepository loginRepository, HttpSession httpSession) {
+        this.loginRepository = loginRepository;
+        this.httpSession = httpSession;
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Login user = loginRepository.findById(username)
-//            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-//
-//        return User
-//            .withUsername(user.getUsername())
-//            .password(user.getPassword())
-//            .authorities(user.getRuolo().name())
-//            .build();
-//    }
 
-    @Override
-    public List<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(login.getAutorizzazione().name()));
+    public String login(String username, String password) throws NoSuchAlgorithmException {
+        Optional<Login> loginQuery = loginRepository.findById(username);
+        validateLogin(username, password, loginQuery);
+        return httpSession.getId();
     }
 
-    @Override
-    public String getPassword() {
-        return login.getPassword();
+    private void validateLogin(String username, String password, Optional<Login> loginQuery) {
+        if (loginQuery.isPresent()){
+            Login login = loginQuery.get();
+            String hash = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+            if (login.getPassword().equals(hash)){
+                setAuthentication(username, login, hash);
+            }
+            else{
+                throw new BadCredentialsException("Password non valida");
+            }
+        }
+        else{
+            throw new BadCredentialsException("Utente non esistente");
+        }
     }
 
-    @Override
-    public String getUsername() {
-        return login.getUsername();
+    private void setAuthentication(String username, Login login, String hash) {
+        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(login.getAutorizzazione().name()));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, hash, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        httpSession.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return login.getEnabled();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return login.getEnabled();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return login.getEnabled();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return login.getEnabled();
+    public String logout(){
+        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.clearContext();
+        return "Logout success";
     }
 }
