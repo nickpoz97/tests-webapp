@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "../style.module.css";
 import Appbar from "./Appbar";
-import { Link } from 'react-router-dom';
-
 
 
 const TESTS_QUERY = `
@@ -10,6 +8,7 @@ const TESTS_QUERY = `
         getAllTests {
         data,
         nome,
+        orario, 
         ordineCasuale,
         domandeConNumero
         }
@@ -43,8 +42,8 @@ const Test = () => {
                         <th className={styles.testTh}>Data</th>
                     </tr>
                     {tests.map((test) => (
-                    <tr key={test.data + test.nome} className={styles.testTr}>
-                        <td className={styles.testTd}><a href={"/test/"+test.nome}> {test.nome}</a></td>
+                    <tr key={test.data + test.nome + test.orario} className={styles.testTr}>
+                        <td className={styles.testTd}><a href={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</a></td>
                         <td className={styles.testTd}> {formatDate(test.data)}</td>
                     </tr>
                     ))}
