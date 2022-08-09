@@ -7,14 +7,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.univr.webapp.dataLayer.webappLogin.LoginRepository;
 import org.univr.webapp.model.webappLogin.Login;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
@@ -25,11 +23,13 @@ import java.util.Optional;
 public class LoginService {
     private final LoginRepository loginRepository;
     private final HttpSession httpSession;
+    private final HttpServletRequest request;
 
     @Autowired
-    public LoginService(LoginRepository loginRepository, HttpSession httpSession) {
+    public LoginService(LoginRepository loginRepository, HttpSession httpSession, HttpServletRequest request) {
         this.loginRepository = loginRepository;
         this.httpSession = httpSession;
+        this.request = request;
     }
 
 
@@ -63,8 +63,7 @@ public class LoginService {
     }
 
     public String logout(){
-        SecurityContextHolder.getContext().setAuthentication(null);
-        SecurityContextHolder.clearContext();
+        new SecurityContextLogoutHandler().logout(request, null, null);
         return "Logout success";
     }
 }

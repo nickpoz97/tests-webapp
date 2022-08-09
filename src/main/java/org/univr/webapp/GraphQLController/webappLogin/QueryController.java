@@ -19,8 +19,13 @@ public class QueryController {
         this.loginService = loginService;
     }
 
-    @MutationMapping()
+    @MutationMapping
     public String login(@Argument String username, @Argument String password) throws NoSuchAlgorithmException {
         return loginService.login(username, password);
+    }
+
+    @MutationMapping
+    public String logout(){
+        return loginService.logout();
     }
 }
