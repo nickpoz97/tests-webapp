@@ -29,6 +29,7 @@ export default function Appbar() {
             <Link className={styles.linkToHome} to="/">Test</Link>
           </Typography>
           <Button color="inherit">Login</Button>
+          <Button color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>

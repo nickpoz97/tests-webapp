@@ -4,6 +4,7 @@ import Appbar from "./Appbar";
 import styles from "../style.module.css";
 import { useParams } from "react-router-dom";
 import { style } from "@mui/system";
+import { Button } from "@mui/material";
 
 
 function formatId(id){
@@ -66,6 +67,10 @@ const TestDetail = () => {
                       <label className={styles.testDetailLabel}>{risposta.testo}</label>
                     </div>
                   ))}
+                  <div>
+                    <button className={styles.testDetailButton}>Indietro</button>
+                    <button className={styles.testDetailButton}>Avanti</button>
+                  </div>
                 </div>
             </div>
           ))}
