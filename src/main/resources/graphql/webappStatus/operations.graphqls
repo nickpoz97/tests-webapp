@@ -1,0 +1,8 @@
+extend type Mutation{
+    addRisposta(
+        nomeTest: String!,
+        dataTest: Date!,
+        orarioTest: LocalTime!
+        idRisposta: Long!
+    ) : MutationResult!
+}
