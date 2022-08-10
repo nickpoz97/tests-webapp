@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TestDetail from "./component/TestDetail"
 import Domanda from "./component/Domanda";
 import React from 'react';
+import CreateTest from "./component/CreateTest";
 
 
 
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Test />}></Route>
           <Route path="/test/:id" element={<Domanda/>}></Route>
+          <Route path="/createtest" element={<CreateTest/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
@@ -21,9 +23,3 @@ function App() {
 }
 
 export default App;
-////
-
-  /*
-      <AppBar></AppBar>
-      <Test></Test>
-      */
