@@ -5,7 +5,8 @@ type Query{
 }
 
 type Mutation{
-    addTest(testInput: TestInput!): Test
+    addTest(testInput: TestInput!): MutationResult!
+    addDomanda(domandaInput: DomandaInput!): MutationResult!
 }
 
 input TestInput{
@@ -18,5 +19,19 @@ input TestInput{
     ordineCasuale: Boolean!
     domandeConNumero: Boolean!
     nomeDomande: [String!]!
+}
+
+input DomandaInput{
+    nome: String!
+    testo: String!
+    punti: BigDecimal
+    ordineCasuale: Boolean!
+    risposteConNumero: Boolean!
+    risposte: [RispostaInput!]!
+}
+
+input RispostaInput{
+    testo: String!
+    punteggio: BigDecimal!
 }
 

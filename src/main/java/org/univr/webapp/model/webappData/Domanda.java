@@ -1,15 +1,18 @@
 package org.univr.webapp.model.webappData;
 
-import java.math.BigDecimal;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-import lombok.Data;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "domanda")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Domanda{
     @Id
     @Column(name  = "nome")
@@ -29,4 +32,12 @@ public class Domanda{
 
     @ManyToMany(mappedBy = "domandeList")
     private List<Test> testList;
+
+    public Domanda(String nome, String testo, BigDecimal punti, boolean ordineCasuale, boolean risposteConNumero) {
+        this.nome = nome;
+        this.testo = testo;
+        this.punti = punti;
+        this.ordineCasuale = ordineCasuale;
+        this.risposteConNumero = risposteConNumero;
+    }
 }

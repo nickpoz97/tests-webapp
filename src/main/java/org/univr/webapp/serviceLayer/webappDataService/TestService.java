@@ -1,9 +1,9 @@
 package org.univr.webapp.serviceLayer.webappDataService;
 
-import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.univr.webapp.GraphQLController.webappData.inputTypes.TestInput;
+import org.univr.webapp.GraphQLController.webappData.returnMessages.MutationResult;
 import org.univr.webapp.model.webappData.Domanda;
 import org.univr.webapp.model.webappData.Test;
 
@@ -63,14 +63,14 @@ public class TestService extends AbstractDataService {
         return TestInsertionMessage.OK;
     }*/
 
-    public Test insertTest(TestInput testInput){
+    public MutationResult insertTest(TestInput testInput){
         if (testInput.nomeDomande().isEmpty()){
-            throw new TestInputFieldException(1, "Inserire almeno 1 domanda per test");
+            return new MutationResult(false, "Inserire almeno 1 domanda per test");
         }
 
         List<Domanda> domande = getDomandaRepository().findAllById(testInput.nomeDomande());
         if (domande.size() != testInput.nomeDomande().size()){
-            throw new TestInputFieldException(2, "Alcuni dei titoli di domande inseriti non sono esistenti");
+            return new MutationResult(false, "Alcuni dei titoli di domande inseriti non sono esistenti");
         }
 
         try{
@@ -89,11 +89,11 @@ public class TestService extends AbstractDataService {
                     domande
             );
             getTestRepository().save(test);
-            return test;
         }
         catch (DateTimeException e){
-            throw new TestInputFieldException(3, "Data errata");
+            return new MutationResult(false, "Data errata");
         }
+        return new MutationResult(true, "Test Aggiunto");
     }
 
     @PreAuthorize("hasAnyAuthority('INSEGNANTE')")

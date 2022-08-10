@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
+import org.univr.webapp.GraphQLController.webappData.returnMessages.MutationResult;
 import org.univr.webapp.dataLayer.webappLogin.LoginRepository;
 import org.univr.webapp.model.webappLogin.Login;
 
@@ -33,10 +34,15 @@ public class LoginService {
     }
 
 
-    public String login(String username, String password) throws NoSuchAlgorithmException {
-        Optional<Login> loginQuery = loginRepository.findById(username);
-        validateLogin(username, password, loginQuery);
-        return httpSession.getId();
+    public MutationResult login(String username, String password) throws NoSuchAlgorithmException {
+        try{
+            Optional<Login> loginQuery = loginRepository.findById(username);
+            validateLogin(username, password, loginQuery);
+        }
+        catch (Exception e){
+            return new MutationResult(false, e.getMessage());
+        }
+        return new MutationResult(true, httpSession.getId());
     }
 
     private void validateLogin(String username, String password, Optional<Login> loginQuery) {
@@ -62,8 +68,13 @@ public class LoginService {
         httpSession.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
     }
 
-    public String logout(){
-        new SecurityContextLogoutHandler().logout(request, null, null);
-        return "Logout success";
+    public MutationResult logout(){
+        try{
+            new SecurityContextLogoutHandler().logout(request, null, null);
+        }
+        catch (Exception e){
+            return new MutationResult(false, e.getMessage());
+        }
+        return new MutationResult(true, "Logout success");
     }
 }
