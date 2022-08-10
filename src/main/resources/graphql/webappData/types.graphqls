@@ -19,6 +19,6 @@ type Test{
 type Risposta{
     id: Long!
     testo: String!
-    punteggio: BigDecimal
-    domanda: Domanda
+    punteggio: BigDecimal!
+    domanda: Domanda!
 }

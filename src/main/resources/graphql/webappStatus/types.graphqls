@@ -1,0 +1,4 @@
+type Stato{
+    test: Test!
+    risposteDate: [Risposta!]!
+}

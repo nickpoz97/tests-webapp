@@ -6,7 +6,6 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -19,34 +18,33 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-    entityManagerFactoryRef = "dataEntityManagerFactory",
-    transactionManagerRef = "dataTransactionManager",
-    basePackages = {"org.univr.webapp.dataAccessLayer.webappData", "org.univr.webapp.model.webappData"}
+        entityManagerFactoryRef = "statusEntityManagerFactory",
+        transactionManagerRef = "statusTransactionManager",
+        basePackages = {"org.univr.webapp.dataAccessLayer.webappStatus", "org.univr.webapp.model.webappStatus"}
 )
-public class WebappDataConfig {
-    @Bean(name= "dataDataSource")
-    @Primary
-    @ConfigurationProperties(prefix="spring.dsdata")
-    public DataSource dataDatasource(){
+public class WebappStatusConfig {
+
+    @Bean("statusDataSource")
+    @ConfigurationProperties(prefix = "spring.dsstatus")
+    public DataSource statusDatasource(){
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
-    @Bean(name = "dataEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean dataDbEntityManagerFactory(
+    @Bean(name = "statusEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean statusDbEntityManagerFactory(
             EntityManagerFactoryBuilder builder,
-            @Qualifier("dataDataSource") DataSource dataDataSource
+            @Qualifier("statusDataSource") DataSource statusDataSource
     ){
         return builder
-            .dataSource(dataDataSource)
-            .packages("org.univr.webapp.dataLayer.webappData", "org.univr.webapp.model.webappData")
-            .build();
+                .dataSource(statusDataSource)
+                .packages("org.univr.webapp.dataLayer.webappStatus", "org.univr.webapp.model.webappStatus")
+                .build();
     }
 
-    @Bean(name= "dataTransactionManager")
-    public PlatformTransactionManager dataDbTransactionManager(
-            @Qualifier("dataEntityManagerFactory") EntityManagerFactory dataDbEntityManagerFactory
+    @Bean(name= "statusTransactionManager")
+    public PlatformTransactionManager statusDbTransactionManager(
+            @Qualifier("statusEntityManagerFactory") EntityManagerFactory statusDbEntityManagerFactory
     ){
-        return new JpaTransactionManager(dataDbEntityManagerFactory);
+        return new JpaTransactionManager(statusDbEntityManagerFactory);
     }
 }
