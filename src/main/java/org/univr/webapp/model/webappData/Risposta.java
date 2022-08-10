@@ -12,7 +12,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Risposta {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="risposta_id")
+    @SequenceGenerator(name="risposta_id",sequenceName="risposta_id_seq", allocationSize=1)
     @Column(name = "id")
     private long id;
 

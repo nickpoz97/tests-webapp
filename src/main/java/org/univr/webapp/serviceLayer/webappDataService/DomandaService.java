@@ -2,7 +2,7 @@ package org.univr.webapp.serviceLayer.webappDataService;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.univr.webapp.GraphQLController.webappData.inputTypes.DomandaInput;
 import org.univr.webapp.GraphQLController.webappData.inputTypes.RispostaInput;
 import org.univr.webapp.GraphQLController.webappData.returnMessages.MutationResult;
@@ -29,7 +29,7 @@ public class DomandaService extends AbstractDataService {
         return getDomandaRepository().findAll();
     }
 
-    @Transactional(transactionManager = "dataTransactionManager", rollbackFor = Exception.class)
+
     public MutationResult addDomanda(DomandaInput domandaInput){
         if (domandaInput.risposte().size() < 2){
             return new MutationResult(false, "Inserire almeno 2 risposte");
@@ -55,8 +55,14 @@ public class DomandaService extends AbstractDataService {
             risposte.add(new Risposta(domandaInput.testo(), rispostaInput.punteggio(), domanda));
         }
 
-        getRispostaRepository().saveAll(risposte);
-        getDomandaRepository().save(domanda);
+        try {
+            getDomandaRepository().save(domanda);
+            getRispostaRepository().saveAll(risposte);
+        }
+        catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new MutationResult(false, e.getMessage());
+        }
 
         return new MutationResult(true, "Domanda Aggiunta");
     }
