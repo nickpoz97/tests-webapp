@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
-import org.univr.webapp.businessLogicLayer.webappLoginService.LoginService;
+import org.univr.webapp.businessLogicLayer.webappLogin.LoginService;
 import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResult;
 
 import java.security.NoSuchAlgorithmException;

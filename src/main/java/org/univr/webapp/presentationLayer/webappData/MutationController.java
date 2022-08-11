@@ -7,7 +7,7 @@ import org.univr.webapp.presentationLayer.webappData.inputTypes.DomandaInput;
 import org.univr.webapp.presentationLayer.webappData.inputTypes.TestInput;
 import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResult;
 
-@Controller
+@Controller("DataMutationController")
 public class MutationController extends AbstractDataController {
     @MutationMapping
     public MutationResult addTest(@Argument TestInput testInput) {

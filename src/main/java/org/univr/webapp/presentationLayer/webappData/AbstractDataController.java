@@ -1,10 +1,12 @@
 package org.univr.webapp.presentationLayer.webappData;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.univr.webapp.businessLogicLayer.webappDataService.DomandaService;
-import org.univr.webapp.businessLogicLayer.webappDataService.RispostaService;
-import org.univr.webapp.businessLogicLayer.webappDataService.TestService;
+import org.univr.webapp.businessLogicLayer.webappData.DomandaService;
+import org.univr.webapp.businessLogicLayer.webappData.RispostaService;
+import org.univr.webapp.businessLogicLayer.webappData.TestService;
 
+@Getter
 public abstract class AbstractDataController {
     @Autowired
     private DomandaService domandaService;
@@ -12,16 +14,4 @@ public abstract class AbstractDataController {
     private RispostaService rispostaService;
     @Autowired
     private TestService testService;
-
-    public DomandaService getDomandaService() {
-        return domandaService;
-    }
-
-    public RispostaService getRispostaService() {
-        return rispostaService;
-    }
-
-    public TestService getTestService() {
-        return testService;
-    }
 }

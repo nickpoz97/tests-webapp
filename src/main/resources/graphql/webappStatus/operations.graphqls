@@ -6,3 +6,11 @@ extend type Mutation{
         idRisposta: Long!
     ) : MutationResult!
 }
+
+extend type Query{
+    getRisposte(
+        nomeTest: String!
+        dataTest: Date!
+        orarioTest: LocalTime!
+    ) : [Risposta!]!
+}

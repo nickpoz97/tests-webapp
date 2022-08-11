@@ -11,7 +11,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "stato")
 @Data
-public class Stato {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Status {
     @Data
     @Embeddable
     @NoArgsConstructor
