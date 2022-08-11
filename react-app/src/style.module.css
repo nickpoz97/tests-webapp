@@ -144,5 +144,12 @@ tr:hover{
 }
 
 .rimuoviCreateTest{
-    font-size: 1.2em;
 }
+
+.creaTestButton{
+    font-size: 1.2em;
+    background-color:#61e86d;
+    border-radius: 5px;
+    margin: 0;
+}
+
