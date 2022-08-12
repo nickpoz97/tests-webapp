@@ -8,10 +8,10 @@ import React from "react";
 const Domanda = () =>{
   
   const location = useLocation()
-  const { ordineDomande, domande} = location.state;
-  //console.log(domande[0].risposte[0].testo);
+  const {ordineDomande, domande, nomeTest} = location.state;
 
   const [index, setIndex] = useState(0);
+
 
   const increment = () => {
     if(index == domande.length-1){
@@ -36,7 +36,8 @@ const Domanda = () =>{
     <div>
        <Appbar></Appbar>
        <div className={styles.divDomanda}>
-          <h1>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h1>
+          <h1>{nomeTest}</h1>
+          <h2>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h2>
           <h3>{domande[ordineDomande[index]-1].testo}</h3>
           <h4></h4>
        </div>

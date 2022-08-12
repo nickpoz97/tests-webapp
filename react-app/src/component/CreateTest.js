@@ -136,7 +136,7 @@ const CreateTest = () =>{
     },[]);  
 
 
-  function RenderInsert(){
+  function RenderInsertTest(){
     for(var i=0; i<tests.length;i++){
       if(tests[i]){
           if(tests[i].nome == nomeTest && tests[i].data.localeCompare(data)==0){
@@ -163,13 +163,13 @@ const CreateTest = () =>{
     
   }
 
-  const[submitted, setSumbitted] = useState(false);
+  const[submitted, setSubmitted] = useState(false);
   const[query, setQuery] = useState("");
   const[data, setData] = useState();
   const[nomeTest, setNomeTest] = useState();
 
   const handleSubmit = (event) => {
-    setSumbitted(true);
+    setSubmitted(true);
     event.preventDefault();
     var nome_test = document.getElementById("nome_test");
     var data = document.getElementById("data");
@@ -207,7 +207,7 @@ const CreateTest = () =>{
         }
         `;
         setQuery(str_query);
-        RenderInsert();
+        RenderInsertTest();
   }
 
 
@@ -249,12 +249,12 @@ const CreateTest = () =>{
                 <input id="domandeConNumero" name="domandeConNumero" type="checkbox"></input>
                 <label for="domandeConNumero">Domande con numero</label>
                 <br></br><br></br>
-                <button id="creaTest" className={styles.creaTestButton}>Crea Test</button>
+                <button id="creaTest" className={styles.creaButton}>Crea Test</button>
               </div>
             </div>
         </div>
        </form>
-       <RenderInsert/>
+       <RenderInsertTest/>
     </div>
   )
 }

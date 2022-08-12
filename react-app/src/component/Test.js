@@ -84,7 +84,7 @@ const Test = () => {
                     {tests.map((test) => (
                     //inzio componente domanda 
                     <tr key={test.data + test.nome + test.orario} className={styles.testTr}>
-                        <td className={styles.testTd}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande }} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></td>
+                        <td className={styles.testTd}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, nomeTest:test.nome }} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></td>
                         <td className={styles.testTd}> {formatDate(test.data)}</td>
                     </tr>
                     //fine componente domanda 

@@ -28,6 +28,7 @@ export default function Appbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link className={styles.linkToHome} to="/">Home</Link>
             <Link className={styles.linkToHome} to="/createtest">Crea Test</Link>
+            <Link className={styles.linkToHome} to="/createquestion">Crea Domanda</Link>
           </Typography>
           <Button color="inherit">Login</Button>
           <Button color="inherit">Logout</Button>
