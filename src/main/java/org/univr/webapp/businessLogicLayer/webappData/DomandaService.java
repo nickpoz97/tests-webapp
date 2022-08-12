@@ -1,4 +1,4 @@
-package org.univr.webapp.businessLogicLayer.webappDataService;
+package org.univr.webapp.businessLogicLayer.webappData;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;

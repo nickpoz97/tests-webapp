@@ -1,4 +1,4 @@
-package org.univr.webapp.businessLogicLayer.webappLoginService;
+package org.univr.webapp.businessLogicLayer.webappLogin;
 
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;

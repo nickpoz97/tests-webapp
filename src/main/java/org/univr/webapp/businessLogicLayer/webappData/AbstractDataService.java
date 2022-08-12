@@ -1,4 +1,4 @@
-package org.univr.webapp.businessLogicLayer.webappDataService;
+package org.univr.webapp.businessLogicLayer.webappData;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.univr.webapp.dataAccessLayer.webappData.DomandaRepository;
