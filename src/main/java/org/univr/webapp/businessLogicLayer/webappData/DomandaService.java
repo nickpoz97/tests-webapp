@@ -35,6 +35,10 @@ public class DomandaService extends AbstractDataService {
             return new MutationResult(false, "Inserire almeno 2 risposte");
         }
 
+        if (getDomandaRepository().findById(domandaInput.nome()).isPresent()){
+            return new MutationResult(false, "Domanda gia presente");
+        }
+
         Domanda domanda = new Domanda(
                 domandaInput.nome(),
                 domandaInput.testo(),
