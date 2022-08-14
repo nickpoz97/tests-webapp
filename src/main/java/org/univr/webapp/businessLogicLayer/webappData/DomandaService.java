@@ -52,7 +52,7 @@ public class DomandaService extends AbstractDataService {
             if (rispostaInput.punteggio().compareTo(new BigDecimal("0.0")) < 0){
                 return new MutationResult(false, "Non sono ammessi punteggi negativi");
             }
-            risposte.add(new Risposta(domandaInput.testo(), rispostaInput.punteggio(), domanda));
+            risposte.add(new Risposta(rispostaInput.testo(), rispostaInput.punteggio(), domanda));
         }
 
         try {
