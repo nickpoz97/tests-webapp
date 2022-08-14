@@ -134,22 +134,63 @@ tr:hover{
     margin-left: 10%;
 }
 
-.createTestButton{
-    font-size: 1.5em;
-}
 
 .liCreateTest{
     margin-top: 2%;
     font-size: 1.5em;
 }
 
-.rimuoviCreateTest{
-}
-
-.creaTestButton{
+.creaButton{
     font-size: 1.2em;
     background-color:#61e86d;
     border-radius: 5px;
-    margin: 0;
+    margin-top:5%;
 }
 
+.insertTestSuccess{
+    margin: auto;
+    margin-top: 2%;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    background-color: #e7eeee;
+    padding: 2%;
+    color: green;
+}
+
+.insertRispostaSuccess{
+    margin: auto;
+    margin-top: 2%;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    background-color: #e7eeee;
+    padding: 2%;
+    color: green;
+}
+
+.insertTestError{
+    margin: auto;
+    margin-top: 2%;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    background-color: #e7eeee;
+    padding: 2%;
+    color: red;
+}
+
+.insertRispostaError{
+    margin: auto;
+    margin-top: 2%;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    background-color: #e7eeee;
+    padding: 2%;
+    color: red;
+}
+
+.h1Risposte{
+    margin-top: 5%;
+}
