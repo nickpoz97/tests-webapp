@@ -15,42 +15,37 @@ const Domanda = () =>{
   var numDomande = 0;
 
 
-  var ranRisposte = [];
-  var arrayRisposte = [];
-  
-  console.log(domande);
+  var numeri_prog = [];
 
   for(var i = 0; i<domande.length; i++){
-    var ranRisposte = [];
     if(domande[i].ordineCasuale){
-      var num_risposte = domande[i].risposte.length;
-      var j = 0;
-      var pos;
-      ranRisposte = [];
-      for(var k=0; k<num_risposte; k++){
-        ranRisposte.push(-1);
-        arrayRisposte.push(k);
+      var posizioni = [];
+      for(var j=0; j<domande[i].risposte.length; j++){
+        posizioni.push(-1);
+        numeri_prog.push(j)
       }
-      while(j<num_risposte){
-        pos = Math.floor(Math.random() * (num_risposte));
-        if(ranRisposte[pos] == -1){
-          ranRisposte[pos] = arrayRisposte[j];
+      var j = 0
+      while(j<domande[i].risposte.length){
+        var posRandom = Math.floor(Math.random() * (domande[i].risposte.length));
+        if(posizioni[posRandom] == -1){
+          posizioni[posRandom] = numeri_prog[j];
           j++;
         }
       }
     }
     else{
-      for(var i=0; i<num_risposte; i++){
-        ranRisposte.push(i);
-      }
-    }
-    for(var i = 0; i< domande.length; i++){
-      var newRisposte = [];
+      var posizioni = [];
       for(var j=0; j<domande[i].risposte.length; j++){
-        newRisposte.push(domande[i].risposte[ranRisposte[j]]);
+        posizioni.push(j)
       }
-      domande[i].risposte = newRisposte;
     }
+    var risposteOrdinate = [];
+    for(var j=0; j<domande[i].risposte.length; j++){
+      risposteOrdinate.push(domande[i].risposte[posizioni[j]]);
+    }
+
+    domande[i].risposte = risposteOrdinate;
+    
   }
 
   function RenderNumRisp(props){

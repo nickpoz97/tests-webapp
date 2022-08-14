@@ -6,9 +6,8 @@ import {useEffect, useState} from 'react';
 const InsertQuestion = (props) => {
     const [result, setResult] = React.useState([]);
     
-    console.log("ciao");
+    console.log(props.post);
     
-    //console.log(props.post);
     
     
     useEffect(()=>{fetch('http://localhost:8080/graphql', {
