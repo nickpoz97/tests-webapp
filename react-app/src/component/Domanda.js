@@ -12,11 +12,12 @@ const Domanda = () =>{
   const {ordineDomande, domande, nomeTest} = location.state;
 
   const [index, setIndex] = useState(0);
+  //const [numRisp, setNumRisp] = useState(0);
+  var numRisp =0;
 
   var ranRisposte = [];
   var arrayRisposte = [];
   
-  console.log("-----------");
   for(var i = 0; i<domande.length; i++){
     var ranRisposte = [];
     if(domande[i].ordineCasuale){
@@ -47,6 +48,13 @@ const Domanda = () =>{
         newRisposte.push(domande[i].risposte[ranRisposte[j]]);
       }
       domande[i].risposte = newRisposte;
+    }
+  }
+
+  function RenderNum(props){
+    if(props.risposteConNumero){
+      console.log(numRisp);
+      return ++numRisp;
     }
   }
   
@@ -81,8 +89,9 @@ const Domanda = () =>{
        <div className={styles.divRisposte}>
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <div className="styles.divRisposte">
-             <input className={styles.rispostaRadio} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
-             <label className={styles.rispostaLabel}>{risposta.testo}</label>
+              <RenderNum risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
+              <input className={styles.rispostaRadio} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
+              <label className={styles.rispostaLabel}>{risposta.testo}</label>
             </div>
           ))}
        </div>
