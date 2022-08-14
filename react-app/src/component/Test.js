@@ -17,6 +17,8 @@ const TESTS_QUERY = `
             nome
             testo
             punti
+            ordineCasuale
+            risposteConNumero
             risposte{
               id
               testo
@@ -38,9 +40,10 @@ function ordineDomande(test){
     var array_domande = [];
     var ranDomande = [];
     var pos;
+
     for(var i=1; i<=num_domande; i++){
         array_domande.push(i);
-        ranDomande.push(0);
+        ranDomande.push(-1);
     }
 
     if(test.ordineCasuale === true){
@@ -48,12 +51,13 @@ function ordineDomande(test){
 
         while(i<num_domande){
             pos = Math.floor(Math.random() * (num_domande));
-            if(ranDomande[pos]===0){
+            if(ranDomande[pos]===-1){
                 ranDomande[pos] = array_domande[i];
                 i++;
             }
         }
         return ranDomande;
+        
     }
     return array_domande;
 }
@@ -84,7 +88,7 @@ const Test = () => {
                     {tests.map((test) => (
                     //inzio componente domanda 
                     <tr key={test.data + test.nome + test.orario} className={styles.testTr}>
-                        <td className={styles.testTd}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, nomeTest:test.nome }} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></td>
+                        <td className={styles.testTd}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, nomeTest:test.nome}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></td>
                         <td className={styles.testTd}> {formatDate(test.data)}</td>
                     </tr>
                     //fine componente domanda 

@@ -2,11 +2,19 @@ import Appbar from "./Appbar";
 import React from "react";
 import styles from "../style.module.css";
 import { useState } from 'react';
+import InsertDomanda from "./InsertDomanda";
 
 
 const CreaDomanda = () =>{
     const[submitted, setSubmitted] = useState(false);
     const[numRisposte, setNumRisposte] = useState(2);
+    const[domanda, setDomanda] = useState({
+        nome: "",
+        testo: "",
+        punti: 0,
+        ordineCasuale: false,
+        risposteConNumero: false,
+    });
     const [arrayRisposte, setArrayRisposte] = useState([
     {
         numero: 1,
@@ -27,11 +35,13 @@ const CreaDomanda = () =>{
         testo: "",
         punti: 0,
         domanda: ""
-      };
+    };
+
+
 
     function RenderInsertQuestion(){
-        var flag = 0;
         console.log(arrayRisposte);
+        var flag = 0;
         for(var i=0; i<arrayRisposte.length; i++){
             if(arrayRisposte[i].punti == 1){
                 flag=1;
@@ -45,14 +55,10 @@ const CreaDomanda = () =>{
             )
         }
         else if(submitted){
-            return(
-                <div>
-                    <h1 className={styles.insertRispostaSuccess}>Ok</h1>
-                </div>
-            )
+            return <InsertDomanda post={"YES"}/>;
         }
         else{
-            return <h1>Tasto non ancora schiacciato</h1>
+            return <div></div>
         }
     }
     
@@ -60,17 +66,33 @@ const CreaDomanda = () =>{
         event.preventDefault();
         
         setSubmitted(true);
-        console.log("eccoci");
-        console.log(document.getElementById("risposta"+(1)).value);
+        var nome_domanda = document.getElementById("nome_domanda").value;
+        var testo_domanda = document.getElementById("testo_domanda").value;
+        var punti_domanda = document.getElementById("punti_domanda").value;
+        var ordineCasuale = document.getElementById("ordineCasuale").checked;
+        var risposteConNumero = document.getElementById("risposteConNumero").checked;
 
-        //WORK IN PROGRESS
+        var domanda = {
+            nome: nome_domanda,
+            testo: testo_domanda,
+            punti: parseInt(punti_domanda),
+            ordineCasuale: ordineCasuale,
+            risposteConNumero: risposteConNumero,
+        };
+
+        console.log(domanda);
+
+        setDomanda(domanda);
+
         for(var i=0; i<arrayRisposte.length; i++){
             arrayRisposte[i].testo = document.getElementById("risposta"+(i+1)).value
+            arrayRisposte[i].punti = document.getElementById("punti"+(i+1)).value
         }
 
-        console.log(arrayRisposte);
-        //qua fai un nuovo vettore di risposta e aggiorna lo stato di array domanda, così quando renderizzi è aggiornato
-        RenderInsertQuestion()
+        //QUA COSTRUIRE LA STRINGA DI QUERY 
+
+        setArrayRisposte(arrayRisposte);
+        RenderInsertQuestion();
     }
 
     function aggiungiRisposta(){
@@ -88,7 +110,6 @@ const CreaDomanda = () =>{
         var index = array.indexOf(risposta)
         array.splice(index, 1);
         setArrayRisposte(array);
-        console.log(arrayRisposte);
     }
 
     return(
@@ -99,6 +120,7 @@ const CreaDomanda = () =>{
                 <form onSubmit={handleSubmit}>
                     <h3> Nome domanda: <input required id="nome_domanda" type="text"/> </h3>
                     <h3> Testo domanda: <input required id="testo_domanda" type="text"/> </h3>
+                    <h3> Punti domanda: <input required id="punti_domanda" type="text"/> </h3>
                     <h1 className={styles.h1Risposte}>Aggiungi risposte:</h1>
                     <input id="ordineCasuale" name="ordineCasuale" type="checkbox"></input>
                     <label for="ordineCasuale">Risposte in ordine casuale</label>
