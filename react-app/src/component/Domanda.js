@@ -55,7 +55,7 @@ const Domanda = () =>{
   }
 
   function RenderNumDom(props){
-      if(numeraDomande)
+      if(props.domandeConNumero)
         return <h1>Domanda n° {++numDomande} </h1>;
   }
   
@@ -83,7 +83,7 @@ const Domanda = () =>{
        <Appbar></Appbar>
        <div className={styles.divDomanda}>
           <h1>{nomeTest}</h1>
-          <RenderNumDom/><h2>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h2>
+          <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}/><h2>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h2>
           <h3>{domande[ordineDomande[index]-1].testo}</h3>
           <h4></h4>
        </div>
