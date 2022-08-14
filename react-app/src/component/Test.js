@@ -74,7 +74,9 @@ const Test = () => {
             body: JSON.stringify({query: TESTS_QUERY})
         }).then(response => response.json())
         .then(data => setTests(data.data.getAllTests))
-    },[]);    
+    },[]);  
+    
+    console.log(tests);
     return(
         <div>
             <Appbar></Appbar>
