@@ -3,21 +3,23 @@ import { useLocation } from 'react-router-dom'
 import styles from "../style.module.css";
 import { useState } from 'react';
 import React from "react";
-import { deepPurple } from "@mui/material/colors";
 
 
 const Domanda = () =>{
   
   const location = useLocation()
-  const {ordineDomande, domande, nomeTest} = location.state;
+  const {ordineDomande, domande, nomeTest, numeraDomande} = location.state;
 
   const [index, setIndex] = useState(0);
-  //const [numRisp, setNumRisp] = useState(0);
-  var numRisp =0;
+  var numRisp = 0;
+  var numDomande = 0;
+
 
   var ranRisposte = [];
   var arrayRisposte = [];
   
+  console.log(domande);
+
   for(var i = 0; i<domande.length; i++){
     var ranRisposte = [];
     if(domande[i].ordineCasuale){
@@ -51,11 +53,15 @@ const Domanda = () =>{
     }
   }
 
-  function RenderNum(props){
+  function RenderNumRisp(props){
     if(props.risposteConNumero){
-      console.log(numRisp);
-      return ++numRisp;
+      return ++numRisp + ")";
     }
+  }
+
+  function RenderNumDom(props){
+      if(numeraDomande)
+        return <h1>Domanda n° {++numDomande} </h1>;
   }
   
   const increment = () => {
@@ -82,14 +88,14 @@ const Domanda = () =>{
        <Appbar></Appbar>
        <div className={styles.divDomanda}>
           <h1>{nomeTest}</h1>
-          <h2>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h2>
+          <RenderNumDom/><h2>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h2>
           <h3>{domande[ordineDomande[index]-1].testo}</h3>
           <h4></h4>
        </div>
        <div className={styles.divRisposte}>
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <div className="styles.divRisposte">
-              <RenderNum risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
+              <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
               <input className={styles.rispostaRadio} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
               <label className={styles.rispostaLabel}>{risposta.testo}</label>
             </div>

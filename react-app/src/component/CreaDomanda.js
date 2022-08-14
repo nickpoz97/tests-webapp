@@ -2,12 +2,13 @@ import Appbar from "./Appbar";
 import React from "react";
 import styles from "../style.module.css";
 import { useState } from 'react';
-import InsertDomanda from "./InsertDomanda";
+import InsertQuestion from "./InsertQuestion";
 
 
 const CreaDomanda = () =>{
     const[submitted, setSubmitted] = useState(false);
     const[numRisposte, setNumRisposte] = useState(2);
+    const[query, setQuery] = useState("");
     const[domanda, setDomanda] = useState({
         nome: "",
         testo: "",
@@ -40,7 +41,6 @@ const CreaDomanda = () =>{
 
 
     function RenderInsertQuestion(){
-        console.log(arrayRisposte);
         var flag = 0;
         for(var i=0; i<arrayRisposte.length; i++){
             if(arrayRisposte[i].punti == 1){
@@ -55,16 +55,27 @@ const CreaDomanda = () =>{
             )
         }
         else if(submitted){
-            return <InsertDomanda post={"YES"}/>;
+            return <InsertQuestion post={query}/>;
         }
         else{
             return <div></div>
         }
     }
+
+    function costruisciStringaRisposte(arrayRisposte){
+        var stringaRisposte = '[';
+        for(var i = 0; i<arrayRisposte.length; i++){
+            stringaRisposte+='{ testo: "'+arrayRisposte[i].testo+'" punteggio: ' + arrayRisposte[i].punti + '}';
+            if(i<arrayRisposte.length-1){
+                stringaRisposte+=',';
+            }
+        }
+        stringaRisposte+=']'
+        return stringaRisposte;
+    }
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        
         setSubmitted(true);
         var nome_domanda = document.getElementById("nome_domanda").value;
         var testo_domanda = document.getElementById("testo_domanda").value;
@@ -80,7 +91,6 @@ const CreaDomanda = () =>{
             risposteConNumero: risposteConNumero,
         };
 
-        console.log(domanda);
 
         setDomanda(domanda);
 
@@ -89,9 +99,30 @@ const CreaDomanda = () =>{
             arrayRisposte[i].punti = document.getElementById("punti"+(i+1)).value
         }
 
-        //QUA COSTRUIRE LA STRINGA DI QUERY 
-
         setArrayRisposte(arrayRisposte);
+        var stringaRisposte = costruisciStringaRisposte(arrayRisposte);
+
+        var insertDomandaQuery = `
+            mutation{
+                addDomanda(
+                    domandaInput:{
+                        nome: "`+domanda.nome+`"
+                        testo: "`+domanda.testo+`"
+                        punti: `+domanda.punti+`
+                        ordineCasuale: `+domanda.ordineCasuale+`
+                        risposteConNumero: `+domanda.risposteConNumero+`
+                        risposte: `+stringaRisposte+`
+                    }
+                ){
+                    success
+                    message
+                }
+            }
+        `
+
+        setQuery(insertDomandaQuery);
+        //console.log(insertDomandaQuery);
+
         RenderInsertQuestion();
     }
 
@@ -129,8 +160,8 @@ const CreaDomanda = () =>{
                     {arrayRisposte.map((risposta) => (
                     //inzio componente domanda 
                         <div>
-                            Testo: <input id={"risposta" + risposta.numero} name={"risposta" + risposta.numero} ></input> <tab></tab>
-                            Punti: <input id={"punti" + risposta.numero} name={"punti" + risposta.numero} placeholder={risposta.punti}></input> <tab></tab>
+                            Testo: <input required id={"risposta" + risposta.numero} name={"risposta" + risposta.numero} ></input> <tab></tab>
+                            Punti: <input required id={"punti" + risposta.numero} name={"punti" + risposta.numero} placeholder={risposta.punti}></input> <tab></tab>
                             <button type="button" onClick={() => { rimuoviRisposta(risposta) }}>Rimuovi Risposta</button><br></br><br></br><br></br>
                         </div>
                     //fine componente domanda 
