@@ -1,6 +1,5 @@
 package org.univr.webapp.businessLogicLayer.webappLogin;
 
-import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +14,6 @@ import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResu
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
@@ -48,9 +46,8 @@ public class LoginService {
     private void validateLogin(String username, String password, Optional<Login> loginQuery) {
         if (loginQuery.isPresent()){
             Login login = loginQuery.get();
-            String hash = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
-            if (login.getPassword().equals(hash)){
-                setAuthentication(username, login, hash);
+            if (login.getPassword().equals(password)){
+                setAuthentication(username, login, password);
             }
             else{
                 throw new BadCredentialsException("Password non valida");
