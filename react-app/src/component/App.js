@@ -1,10 +1,10 @@
-import Test from "./component/Test"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Domanda from "./component/Domanda";
+import Test from "./Test"
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Domanda from "./Domanda";
 import React from 'react';
-import CreateTest from "./component/CreateTest";
-import InsertTest from "./component/InsertTest";
-import CreaDomanda from "./component/CreaDomanda";
+import CreateTest from "./CreateTest";
+import InsertTest from "./InsertTest";
+import CreaDomanda from "./CreaDomanda";
 
 
 function App() {
