@@ -2,8 +2,9 @@ import {Button, Paper, Stack, TextField} from "@mui/material"
 import React, {useState} from "react"
 import {SHA256} from "crypto-js"
 import App from './App'
+import graphqlRequest from "../utils/GraphqlRequest";
 
-const query = `
+const queryBody = `
 mutation($username:String!, $password:String!){
     login(
       username: $username
@@ -14,20 +15,6 @@ mutation($username:String!, $password:String!){
     }
   }  
 `
-
-const graphqlEnpoint = 'http://localhost:8080/graphql'
-
-const request = (variables) => fetch(
-    graphqlEnpoint,
-    {
-        method:'POST',
-        body: JSON.stringify({
-            query: query,
-            variables: variables
-        }),
-        headers: { "Content-Type": "application/json" },
-    }
-).then(reply => reply.json()).then(data => data.data)
 
 const Login = () => {
     const paperStyle = {padding:'20px', width:'280px'}
@@ -45,7 +32,7 @@ const Login = () => {
             alert("Username e/o password non inseriti")
         }
 
-        request({
+        graphqlRequest(queryBody, {
             username: username,
             password: SHA256(password).toString()
         }).then(data => (data.login.success ? setLoginStatus("success") : setLoginStatus("fail")))
