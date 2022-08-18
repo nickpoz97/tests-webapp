@@ -1,4 +1,4 @@
-import {Button, Grid, Paper, TextField} from "@mui/material"
+import {Button, Paper, Stack, TextField} from "@mui/material"
 import React, {useState} from "react"
 import {SHA256} from "crypto-js"
 import App from './App'
@@ -30,10 +30,8 @@ const request = (variables) => fetch(
 ).then(reply => reply.json()).then(data => data.data)
 
 const Login = () => {
-    const paperStyle = {padding:'20px', width:'280px'} 
-    const textFiledStyle = {margin: '0px 0px 20px 0px'}
-    const buttonStyle = {margin: '0 100%'}
-    const loginMessageStyle = {color: 'red'}
+    const paperStyle = {padding:'20px', width:'280px'}
+    const loginMessageStyle = {color: 'red', padding: '20px, 0, 20px, 0'}
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -53,38 +51,35 @@ const Login = () => {
         }).then(data => (data.login.success ? setLoginStatus("success") : setLoginStatus("fail")))
     }
 
-    const loginMessage = loginStatus === "fail" ? <p style={loginMessageStyle}>Id o password errati</p> : ""
-
     if (loginStatus === "success"){
         return <App />
     }
     return(
-        <Grid container justifyContent='center'>
+        <Stack direction='row' justifyContent='center'>
             <Paper elevation={10} style = {paperStyle}>
-                <Grid container justifyContent='center'>
+                <Stack direction='column' alignItems='center' spacing='20px'>
                     <h1>Login</h1>
                     <TextField 
                         label='id utente'
                         placeholder="inserisci il tuo id"
                         fullWidth
-                        style={textFiledStyle}
                         onChange={usernameHandler}
                     />
                     <TextField
                         label='password' 
                         placeholder="inserisci la password dell' id"
                         fullWidth
-                        style={textFiledStyle}
                         type='password'
                         onChange={passwordHandler}
                     />
-                    <Button type='submit' variant='contained' size='medium' onClick={submit} style={buttonStyle}>
+                    <Button type='submit' variant='contained' size='medium' onClick={submit}>
                         Invia
                     </Button>
-                    {loginMessage}
-                </Grid>
+                    {loginStatus === "fail" ?
+                        <p style={loginMessageStyle}>Id o password errati</p> : ""}
+                </Stack>
             </Paper>
-        </Grid>
+        </Stack>
     )
 }
 
