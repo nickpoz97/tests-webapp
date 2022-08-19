@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "../style.module.css";
-import Appbar from "./Appbar";
-import Domanda from "./Domanda";
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 const TESTS_QUERY = `
@@ -79,7 +77,6 @@ const Test = () => {
     console.log(tests);
     return(
         <div>
-            <Appbar></Appbar>
             <table className={styles.testTable}>
                 <tbody>
                     <tr className={styles.testTr}>

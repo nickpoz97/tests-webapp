@@ -1,13 +1,6 @@
-import Appbar from "./Appbar";
-import { useQuery } from 'react-query'
 import styles from "../style.module.css";
-import { useState } from 'react';
+import React, {useState} from 'react';
 import InsertTest from "./InsertTest";
-import { Navigate } from 'react-router';
-
-
-import React from "react";
-import { Summarize } from "@mui/icons-material";
 
 
 const DOMANDE_QUERY = `
@@ -213,7 +206,6 @@ const CreateTest = () =>{
 
   return(
     <div>
-       <Appbar></Appbar>
        <form onSubmit={handleSubmit}>
         <div className={styles.divDomanda}>
             <h1>Creazione Test</h1>

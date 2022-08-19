@@ -6,12 +6,19 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import styles from "../style.module.css";
+import Test from "./Test";
+import CreaDomanda from "./CreaDomanda";
+import {CreateNewFolder} from "@mui/icons-material";
 
+const status = {
+  base: <Test />,
+  creaDomanda: <CreaDomanda />,
+  creaTest: <CreateNewFolder />
+}
 
-
-export default function Appbar() {
+export default function Appbar(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -30,10 +37,12 @@ export default function Appbar() {
             <Link className={styles.linkToHome} to="/createtest">Crea Test</Link>
             <Link className={styles.linkToHome} to="/createquestion">Crea Domanda</Link>
           </Typography>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Logout</Button>
+          {/*<Button color="inherit">Login</Button>*/}
+          <Button color="inherit" onClick={props.logoutCallback}>Logout</Button>
         </Toolbar>
       </AppBar>
+
+      <Test />
     </Box>
   );
 }

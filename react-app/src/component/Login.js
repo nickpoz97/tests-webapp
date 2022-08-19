@@ -3,8 +3,9 @@ import React, {useState} from "react"
 import {SHA256} from "crypto-js"
 import App from './App'
 import graphqlRequest from "../utils/GraphqlRequest";
+import styles from "../style.module.css"
 
-const queryBody = `
+const loginQuery = `
 mutation($username:String!, $password:String!){
     login(
       username: $username
@@ -14,6 +15,14 @@ mutation($username:String!, $password:String!){
       success
     }
   }  
+`
+
+const logoutQuery = `
+mutation{
+    logout{
+        success
+    }
+}
 `
 
 const Login = () => {
@@ -33,23 +42,25 @@ const Login = () => {
             return
         }
 
-        graphqlRequest(queryBody, {
+        graphqlRequest(loginQuery, {
             username: username,
             password: SHA256(password).toString()
         }).then(data => (data.login.success ? setLoginStatus("success") : setLoginStatus("fail")))
     }
 
-    const logout = () => {setLoginStatus("pending")}
+    const logout = () => {
+        graphqlRequest(logoutQuery).then(data => setLoginStatus("pending"))
+    }
 
     if (loginStatus === "success"){
-        return <App />
+        return <App logoutCallback={logout} />
     }
     return(
         //<Stack direction='row' justifyContent='center'>
         <Stack direction='row' justifyContent='center'>
             <Paper elevation={10} sx = {paperStyle}>
                 <Stack direction='column' alignItems='center' spacing='20px'>
-                    <h1>Login</h1>
+                    <h1 className={styles.loginForm}>Login</h1>
                     <TextField 
                         label='id utente'
                         placeholder="inserisci il tuo id"

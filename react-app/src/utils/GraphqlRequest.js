@@ -1,6 +1,6 @@
 const graphqlEndpoint = 'http://localhost:8080/graphql'
 
-const graphqlRequest = (queryBody, variables) => fetch(
+const graphqlRequest = (queryBody, variables={}) => fetch(
         graphqlEndpoint,
     {
             method:'POST',
