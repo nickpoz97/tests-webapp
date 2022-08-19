@@ -1,8 +1,6 @@
-import Appbar from "./Appbar";
-import { useLocation } from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import styles from "../style.module.css";
-import { useState } from 'react';
-import React from "react";
+import React, {useState} from 'react';
 
 
 const Domanda = () =>{
@@ -80,7 +78,6 @@ const Domanda = () =>{
 
   return(
     <div>
-       <Appbar></Appbar>
        <div className={styles.divDomanda}>
           <h1>{nomeTest}</h1>
           <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}/><h2>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h2>

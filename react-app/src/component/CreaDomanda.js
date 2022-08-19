@@ -1,7 +1,5 @@
-import Appbar from "./Appbar";
-import React from "react";
+import React, {useState} from "react";
 import styles from "../style.module.css";
-import { useState } from 'react';
 import InsertQuestion from "./InsertQuestion";
 
 
@@ -145,7 +143,6 @@ const CreaDomanda = () =>{
 
     return(
         <div>
-            <Appbar></Appbar>
             <div className={styles.divDomanda}>
                 <h1>Crea una domanda:</h1>
                 <form onSubmit={handleSubmit}>
