@@ -17,7 +17,7 @@ mutation($username:String!, $password:String!){
 `
 
 const Login = () => {
-    const paperStyle = {padding:'20px', width:'280px'}
+    const paperStyle = {padding:'20px', width:'80%'}
     const loginMessageStyle = {color: 'red', padding: '20px, 0, 20px, 0'}
 
     const [username, setUsername] = useState("")
@@ -30,6 +30,7 @@ const Login = () => {
         //console.log(`Username: ${username}, Password: ${SHA256(password).toString()}`)
         if(username === '' || password === ''){
             alert("Username e/o password non inseriti")
+            return
         }
 
         graphqlRequest(queryBody, {
@@ -38,12 +39,15 @@ const Login = () => {
         }).then(data => (data.login.success ? setLoginStatus("success") : setLoginStatus("fail")))
     }
 
+    const logout = () => {setLoginStatus("pending")}
+
     if (loginStatus === "success"){
         return <App />
     }
     return(
+        //<Stack direction='row' justifyContent='center'>
         <Stack direction='row' justifyContent='center'>
-            <Paper elevation={10} style = {paperStyle}>
+            <Paper elevation={10} sx = {paperStyle}>
                 <Stack direction='column' alignItems='center' spacing='20px'>
                     <h1>Login</h1>
                     <TextField 
@@ -51,6 +55,7 @@ const Login = () => {
                         placeholder="inserisci il tuo id"
                         fullWidth
                         onChange={usernameHandler}
+                        size='large'
                     />
                     <TextField
                         label='password' 
@@ -58,8 +63,9 @@ const Login = () => {
                         fullWidth
                         type='password'
                         onChange={passwordHandler}
+                        size='large'
                     />
-                    <Button type='submit' variant='contained' size='medium' onClick={submit}>
+                    <Button type='submit' variant='contained' size='large' onClick={submit} fullWidth>
                         Invia
                     </Button>
                     {loginStatus === "fail" ?
