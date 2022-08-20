@@ -1,12 +1,12 @@
 import {useLocation} from 'react-router-dom'
 import styles from "../style.module.css";
 import React, {useState} from 'react';
-
+import saveAnswer from "../utils/SaveAnswer";
 
 const Domanda = () =>{
   
   const location = useLocation()
-  const {ordineDomande, domande, nomeTest, numeraDomande} = location.state;
+  const {ordineDomande, domande, test, numeraDomande} = location.state;
 
   const [index, setIndex] = useState(0);
   var numRisp = 0;
@@ -65,11 +65,22 @@ const Domanda = () =>{
     setIndex(index-1);
   }
 
+  const answerHandler = (e) => {
+      const variables = {
+          nomeTest: test.nome,
+          orarioTest: test.orario,
+          dataTest: test.data,
+          idRisposta: e.target.dataset.id,
+          nomeDomanda: domande[ordineDomande[index]-1].nome
+      }
+      //console.log(variables.nomeDomanda)
+      saveAnswer(variables).then(info => console.log(info))
+  }
 
   return(
     <div>
        <div className={styles.divDomanda}>
-          <h1>{nomeTest}</h1>
+          <h1>{test.nome}</h1>
           <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}/><h2>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h2>
           <h3>{domande[ordineDomande[index]-1].testo}</h3>
           <h4></h4>
@@ -78,7 +89,7 @@ const Domanda = () =>{
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <div className="styles.divRisposte">
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
-              <input className={styles.rispostaRadio} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
+              <input className={styles.rispostaRadio} onClick={answerHandler} data-id={risposta.id} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
               <label className={styles.rispostaLabel}>{risposta.testo}</label>
             </div>
           ))}
@@ -86,7 +97,7 @@ const Domanda = () =>{
        <div className={styles.divBottoniDomanda}>
           <button className={styles.bottoneDomanda} disabled={index === 0} onClick={decrement}>Indietro</button>
           <button className={styles.bottoneDomanda} disabled={index === domande.length-1} onClick={increment}>Avanti</button>
-        </div>
+       </div>
     </div>
   )
 }

@@ -25,10 +25,11 @@ public class Status {
         private String nomeTest;
         @Column(name="idutente", nullable=false)
         private String idUtente;
-        @Column(name="idrisposta", nullable = false)
-        private Long idRisposta;
+        @Column(name="nomedomanda", nullable = false)
+        private String nomeDomanda;
     }
-
     @EmbeddedId
     private StatoPK statoPK;
+    @Column(name="idrisposta", nullable = false)
+    private Long idRisposta;
 }

@@ -14,7 +14,9 @@ public class MutationController extends  AbstractStatusController{
     public MutationResult addRisposta(@Argument String nomeTest,
                                       @Argument LocalDate dataTest,
                                       @Argument LocalTime orarioTest,
-                                      @Argument Long idRisposta){
-        return getStatusService().addRisposta(nomeTest, dataTest, orarioTest, idRisposta);
+                                      @Argument Long idRisposta,
+                                      @Argument String nomeDomanda
+    ){
+        return getStatusService().addRisposta(nomeTest, dataTest, orarioTest, idRisposta, nomeDomanda);
     }
 }

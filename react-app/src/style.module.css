@@ -100,6 +100,7 @@ tr:hover{
     border-collapse: collapse;
     width: 90%;
     background-color: #e7eeee;
+    padding: 2%;
 }
 
 .divBottoniDomanda{
@@ -119,10 +120,6 @@ tr:hover{
 
 .rispostaRadio{
     margin-top: 3%;
-}
-
-.divRisposte{
-    padding: 2%;
 }
 
 .listaDomande{
