@@ -36,7 +36,7 @@ public class StatusService {
     public List<Risposta> getRisposte(String nomeTest, LocalDate data, LocalTime orario){
         List<Long> idRisposte = statusRepository.findAll().stream()
                 .filter(s -> userAndTestFilter(s, nomeTest, data, orario))
-                .map(s -> s.getStatoPK().getIdRisposta())
+                .map(Status::getIdRisposta)
                 .toList();
 
         return rispostaRepository.findAllById(idRisposte);
@@ -51,7 +51,7 @@ public class StatusService {
                 statusPK.getIdUtente().equals(authentication.getName());
     }
 
-    public MutationResult addRisposta(String nomeTest, LocalDate data, LocalTime orario, Long idRisposta){
+    public MutationResult addRisposta(String nomeTest, LocalDate data, LocalTime orario, Long idRisposta, String nomeDomanda){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LocalDateTime testTimestamp = LocalDateTime.of(data, orario);
 
@@ -76,7 +76,9 @@ public class StatusService {
                             testTimestamp,
                             nomeTest,
                             authentication.getName(),
-                            idRisposta)
+                            nomeDomanda
+                            ),
+                    idRisposta
                 )
         );
         return new MutationResult(true, "Risposta salvata");
