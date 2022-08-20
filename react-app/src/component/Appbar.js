@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,15 +11,20 @@ import {Link} from 'react-router-dom';
 import styles from "../style.module.css";
 import Test from "./Test";
 import CreaDomanda from "./CreaDomanda";
-import {CreateNewFolder} from "@mui/icons-material";
+import CreateTest from "./CreateTest";
 
 const status = {
   base: <Test />,
   creaDomanda: <CreaDomanda />,
-  creaTest: <CreateNewFolder />
+  creaTest: <CreateTest />
 }
 
 export default function Appbar(props) {
+  const [state, setState] = useState(status.base)
+  const clickHandler = (e) => {
+    setState(status[e.target.name])
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,21 +34,20 @@ export default function Appbar(props) {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2, display: {xs: "block", md: 'none'} }}
           >
-            <MenuIcon />
+          <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link className={styles.linkToHome} to="/">Home</Link>
-            <Link className={styles.linkToHome} to="/createtest">Crea Test</Link>
-            <Link className={styles.linkToHome} to="/createquestion">Crea Domanda</Link>
+            <Link name="base" className={styles.linkToHome} onClick={clickHandler} to="#">Home</Link>
+            <Link name="creaTest" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Test</Link>
+            <Link name="creaDomanda" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Domanda</Link>
           </Typography>
           {/*<Button color="inherit">Login</Button>*/}
           <Button color="inherit" onClick={props.logoutCallback}>Logout</Button>
         </Toolbar>
       </AppBar>
-
-      <Test />
+      {state}
     </Box>
   );
 }

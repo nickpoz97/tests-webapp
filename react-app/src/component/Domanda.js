@@ -12,7 +12,6 @@ const Domanda = () =>{
   var numRisp = 0;
   var numDomande = 0;
 
-
   var numeri_prog = [];
 
   for(var i = 0; i<domande.length; i++){
@@ -57,22 +56,13 @@ const Domanda = () =>{
         return <h1>Domanda n° {++numDomande} </h1>;
   }
   
-  const increment = () => {
-    if(index == domande.length-1){
-        setIndex(0)
-    }
-    else{
-      setIndex(index+1);
-    }
+  const increment = (e) => {
+    setIndex(index+1);
+    e.target.disabled = false
   }
 
-  const decrement = () => {
-    if(index == 0){
-        setIndex(domande.length-1)
-    }
-    else{
-      setIndex(index-1);
-    }
+  const decrement = (e) => {
+    setIndex(index-1);
   }
 
 
@@ -94,8 +84,8 @@ const Domanda = () =>{
           ))}
        </div>
        <div className={styles.divBottoniDomanda}>
-          <button className={styles.bottoneDomanda} onClick={decrement}>Indietro</button>
-          <button className={styles.bottoneDomanda} onClick={increment}>Avanti</button>
+          <button className={styles.bottoneDomanda} disabled={index === 0} onClick={decrement}>Indietro</button>
+          <button className={styles.bottoneDomanda} disabled={index === domande.length-1} onClick={increment}>Avanti</button>
         </div>
     </div>
   )
