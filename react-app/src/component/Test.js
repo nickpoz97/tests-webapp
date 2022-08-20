@@ -82,6 +82,7 @@ const Test = () => {
                     <tr className={styles.testTr}>
                         <th className={styles.testTh}>Nome</th>
                         <th className={styles.testTh}>Data</th>
+                        <th className={styles.testTh}>Orario</th>
                     </tr>
                     
                     {tests.map((test) => (
@@ -89,6 +90,7 @@ const Test = () => {
                     <tr key={test.data + test.nome + test.orario} className={styles.testTr}>
                         <td className={styles.testTd}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, nomeTest:test.nome, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></td>
                         <td className={styles.testTd}> {formatDate(test.data)}</td>
+                        <td className={styles.testTd}> {test.orario} </td>
                     </tr>
                     //fine componente domanda 
                     ))}

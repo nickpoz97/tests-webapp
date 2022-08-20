@@ -1,5 +1,5 @@
 import {Button, Paper, Stack, TextField} from "@mui/material"
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {SHA256} from "crypto-js"
 import App from './App'
 import graphqlRequest from "../utils/GraphqlRequest";
@@ -45,11 +45,35 @@ const Login = () => {
         graphqlRequest(loginQuery, {
             username: username,
             password: SHA256(password).toString()
-        }).then(data => (data.login.success ? setLoginStatus("success") : setLoginStatus("fail")))
+        }).then(data => {
+            if (data.login.success){
+                sessionStorage.setItem("logged", "1")
+                setLoginStatus("success")
+            }
+            else{
+                setLoginStatus("fail")
+            }
+        })
     }
 
-    const logout = () => {
+    useEffect(() =>{
+        if (sessionStorage.getItem("logged")){
+            setLoginStatus("success")
+        }
+    }, [])
+
+    const handleKeypress = e => {
+        //it triggers by pressing the enter key
+        if (e.keyCode === 13) {
+            submit();
+        }
+    };
+
+    const logout = async () => {
         graphqlRequest(logoutQuery).then(data => setLoginStatus("pending"))
+        setUsername("")
+        setPassword("")
+        sessionStorage.clear()
     }
 
     if (loginStatus === "success"){
@@ -58,7 +82,7 @@ const Login = () => {
     return(
         //<Stack direction='row' justifyContent='center'>
         <Stack direction='row' justifyContent='center'>
-            <Paper elevation={10} sx = {paperStyle}>
+            <Paper elevation={10} sx = {paperStyle} onKeyDown={handleKeypress}>
                 <Stack direction='column' alignItems='center' spacing='20px'>
                     <h1 className={styles.loginForm}>Login</h1>
                     <TextField 
