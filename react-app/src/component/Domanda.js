@@ -9,6 +9,8 @@ const Domanda = () =>{
   const {ordineDomande, domande, test, numeraDomande} = location.state;
 
   const [index, setIndex] = useState(0);
+  var actualAnswer = undefined;
+
   var numRisp = 0;
   var numDomande = 0;
 
@@ -57,20 +59,25 @@ const Domanda = () =>{
   }
   
   const increment = (e) => {
+    storeAnswer();
     setIndex(index+1);
-    e.target.disabled = false
   }
 
   const decrement = (e) => {
+    storeAnswer();
     setIndex(index-1);
   }
 
-  const answerHandler = (e) => {
+  const storeAnswer = () => {
+      if (actualAnswer === undefined){
+          return
+      }
+
       const variables = {
           nomeTest: test.nome,
           orarioTest: test.orario,
           dataTest: test.data,
-          idRisposta: e.target.dataset.id,
+          idRisposta: actualAnswer,
           nomeDomanda: domande[ordineDomande[index]-1].nome
       }
       //console.log(variables.nomeDomanda)
@@ -89,7 +96,7 @@ const Domanda = () =>{
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <div className="styles.divRisposte">
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
-              <input className={styles.rispostaRadio} onClick={answerHandler} data-id={risposta.id} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
+              <input className={styles.rispostaRadio} onClick={actualAnswer=risposta.id} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
               <label className={styles.rispostaLabel}>{risposta.testo}</label>
             </div>
           ))}
