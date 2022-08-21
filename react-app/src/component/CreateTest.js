@@ -1,52 +1,14 @@
 import styles from "../style.module.css";
 import React, {useState} from 'react';
 import InsertTest from "./InsertTest";
+import getAllDomande from "../utils/GetAllDomande";
+import getAllTests from "../utils/GetAllTests";
 
-
-const DOMANDE_QUERY = `
-    query {
-      getAllDomande {
-          nome
-          testo
-          punti
-          ordineCasuale
-          risposteConNumero
-          risposte{
-              id
-              testo
-          }
-      }
-    }
-    `;
-
-  const TESTS_QUERY = `
-    query {
-        getAllTests {
-        data,
-        nome,
-        orario, 
-        ordineCasuale,
-        domandeConNumero
-        domande{
-            nome
-            testo
-            punti
-            risposte{
-              id
-              testo
-              punteggio
-            }
-          }
-        }
-    }
-    `;
-  
 function getOrario(){
   var today = new Date();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   return time;
 }
-
 
 function getToday(){
   var date = new Date();
@@ -60,7 +22,7 @@ function getToday(){
   if (day.length < 2) {
     day = '0' + day;
   }
-  return [year, month, day].join('-');;
+  return [year, month, day].join('-');
 }
 
 const CreateTest = () =>{
@@ -80,17 +42,17 @@ const CreateTest = () =>{
 
     var flag = 0;
 
-    if(arrayDomande.length == 0){
+    if(arrayDomande.length === 0){
       setArrayDomande([...arrayDomande, domanda]);
     }
     else{
       for(var i = 0; i<arrayDomande.length; i++){
-       if(arrayDomande[i].id == id){
+       if(arrayDomande[i].id === id){
         flag = 1
         break;
        }
       }
-      if(flag ==1){
+      if(flag === 1){
         alert("Domanda già inserita");
       }
       else{
@@ -109,30 +71,20 @@ const CreateTest = () =>{
 
 
   const [domande, setDomande] = React.useState([]);
-    React.useEffect(() => {
-        fetch('http://localhost:8080/graphql', {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({query: DOMANDE_QUERY})
-        }).then(response => response.json())
-        .then(data => setDomande(data.data.getAllDomande))
-    },[]); 
-
     const [tests, setTests] = React.useState([]);
-    React.useEffect(() => {
-        fetch('http://localhost:8080/graphql', {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({query: TESTS_QUERY})
-        }).then(response => response.json())
-        .then(data => setTests(data.data.getAllTests))
-    },[]);  
 
+    React.useEffect(() => {
+        getAllDomande()
+        .then(result => setDomande(result))
+
+        getAllTests()
+        .then(result => setTests(result))
+    },[]);
 
   function RenderInsertTest(){
     for(var i=0; i<tests.length;i++){
       if(tests[i]){
-          if(tests[i].nome == nomeTest && tests[i].data.localeCompare(data)==0){
+          if(tests[i].nome === nomeTest && tests[i].data.localeCompare(data) === 0){
             return(
               <div>
                   <h1 className={styles.insertTestError}>Test con lo stesso nome già esistente alla data specificata</h1>

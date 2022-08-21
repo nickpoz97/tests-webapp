@@ -1,31 +1,7 @@
 import React from "react";
 import styles from "../style.module.css";
 import {Link} from 'react-router-dom'
-
-
-const TESTS_QUERY = `
-    query {
-        getAllTests {
-        data,
-        nome,
-        orario, 
-        ordineCasuale,
-        domandeConNumero
-        domande{
-            nome
-            testo
-            punti
-            ordineCasuale
-            risposteConNumero
-            risposte{
-              id
-              testo
-              punteggio
-            }
-          }
-        }
-    }
-    `;
+import getAllTests from "../utils/GetAllTests";
 
 function formatDate(date){
     var data =  date.split("-");
@@ -60,18 +36,14 @@ function ordineDomande(test){
     return array_domande;
 }
 
-
-
-
 const Test = () => {
     const [tests, setTests] = React.useState([]);
     React.useEffect(() => {
-        fetch('http://localhost:8080/graphql', {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({query: TESTS_QUERY})
-        }).then(response => response.json())
-        .then(data => setTests(data.data.getAllTests))
+        getAllTests()
+        .then(data => {
+            console.log(data)
+            setTests(data)
+        })
     },[]);  
     
     console.log(tests);

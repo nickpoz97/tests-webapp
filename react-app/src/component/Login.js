@@ -13,6 +13,7 @@ mutation($username:String!, $password:String!){
     )
     {
       success
+      message
     }
   }  
 `
@@ -34,7 +35,8 @@ const Login = () => {
     const [loginStatus, setLoginStatus] = useState("pending")
 
     const usernameHandler = (event) => {setUsername(event.target.value)}  
-    const passwordHandler = (event) => {setPassword(event.target.value)} 
+    const passwordHandler = (event) => {setPassword(event.target.value)}
+
     const submit = () => {
         //console.log(`Username: ${username}, Password: ${SHA256(password).toString()}`)
         if(username === '' || password === ''){
@@ -47,7 +49,7 @@ const Login = () => {
             password: SHA256(password).toString()
         }).then(data => {
             if (data.login.success){
-                sessionStorage.setItem("logged", "1")
+                sessionStorage.setItem("logId", data.login.message)
                 setLoginStatus("success")
             }
             else{
@@ -57,7 +59,7 @@ const Login = () => {
     }
 
     useEffect(() =>{
-        if (sessionStorage.getItem("logged")){
+        if (sessionStorage.getItem("logId")){
             setLoginStatus("success")
         }
     }, [])

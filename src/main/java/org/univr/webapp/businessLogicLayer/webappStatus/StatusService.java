@@ -51,6 +51,7 @@ public class StatusService {
                 statusPK.getIdUtente().equals(authentication.getName());
     }
 
+    @PreAuthorize("hasAnyAuthority('STUDENTE', 'INSEGNANTE')")
     public MutationResult addRisposta(String nomeTest, LocalDate data, LocalTime orario, Long idRisposta, String nomeDomanda){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LocalDateTime testTimestamp = LocalDateTime.of(data, orario);

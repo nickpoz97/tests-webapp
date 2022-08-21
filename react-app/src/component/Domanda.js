@@ -1,6 +1,6 @@
 import {useLocation} from 'react-router-dom'
 import styles from "../style.module.css";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import saveAnswer from "../utils/SaveAnswer";
 
 const Domanda = () =>{
@@ -9,7 +9,11 @@ const Domanda = () =>{
   const {ordineDomande, domande, test, numeraDomande} = location.state;
 
   const [index, setIndex] = useState(0);
-  var actualAnswer = undefined;
+
+  var actualAnswer;
+  useEffect(() => {
+      actualAnswer = undefined;
+  }, [index])
 
   var numRisp = 0;
   var numDomande = 0;
@@ -17,8 +21,10 @@ const Domanda = () =>{
   var numeri_prog = [];
 
   for(var i = 0; i<domande.length; i++){
+      // TODO check if external posizioni array influences behavior
+    var posizioni = [];
+
     if(domande[i].ordineCasuale){
-      var posizioni = [];
       for(var j=0; j<domande[i].risposte.length; j++){
         posizioni.push(-1);
         numeri_prog.push(j)
@@ -26,14 +32,13 @@ const Domanda = () =>{
       var j = 0
       while(j<domande[i].risposte.length){
         var posRandom = Math.floor(Math.random() * (domande[i].risposte.length));
-        if(posizioni[posRandom] == -1){
+        if(posizioni[posRandom] === -1){
           posizioni[posRandom] = numeri_prog[j];
           j++;
         }
       }
     }
     else{
-      var posizioni = [];
       for(var j=0; j<domande[i].risposte.length; j++){
         posizioni.push(j)
       }
@@ -44,7 +49,6 @@ const Domanda = () =>{
     }
 
     domande[i].risposte = risposteOrdinate;
-    
   }
 
   function RenderNumRisp(props){
@@ -96,7 +100,7 @@ const Domanda = () =>{
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <div className="styles.divRisposte">
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
-              <input className={styles.rispostaRadio} onClick={actualAnswer=risposta.id} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
+              <input className={styles.rispostaRadio} onClick={() => {actualAnswer = (risposta.id)}} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
               <label className={styles.rispostaLabel}>{risposta.testo}</label>
             </div>
           ))}
