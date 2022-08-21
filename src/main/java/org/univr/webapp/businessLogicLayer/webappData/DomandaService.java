@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class DomandaService extends AbstractDataService {
+    @PreAuthorize("!isAnonymous()")
     public List<Risposta> getRisposte(Domanda domanda){
         return this.getRispostaRepository()
                 .findAll()
@@ -24,12 +25,13 @@ public class DomandaService extends AbstractDataService {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasAnyAuthority('STUDENTE', 'INSEGNANTE')")
+    @PreAuthorize("!isAnonymous()")
     public List<Domanda> getAllDomande(){
         return getDomandaRepository().findAll();
     }
 
 
+    @PreAuthorize("hasAuthority('INSEGNANTE')")
     public MutationResult addDomanda(DomandaInput domandaInput){
         if (domandaInput.risposte().size() < 2){
             return new MutationResult(false, "Inserire almeno 2 risposte");

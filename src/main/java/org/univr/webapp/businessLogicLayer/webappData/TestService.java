@@ -28,41 +28,7 @@ public class TestService extends AbstractDataService {
         return test.getDomandeList();
     }
 
-/*    public TestInsertionMessage insertTest(TestInput testInput){
-        if (testInput.nomeDomande().isEmpty()){
-            return TestInsertionMessage.NO_QUESTIONS;
-        }
-
-        List<Domanda> domande = appContext.getBean(DomandaRepository.class).findAllById(testInput.nomeDomande());
-        if (domande.size() != testInput.nomeDomande().size()){
-            return TestInsertionMessage.NOT_EXISTING_QUESTION;
-        }
-
-        LocalDateTime data;
-        try{
-            data = LocalDateTime.of(
-                    testInput.anno(),
-                    testInput.mese(),
-                    testInput.giornoDelMese(),
-                    testInput.ora(),
-                    testInput.minuto()
-            );
-        }
-        catch (DateTimeException e){
-            return TestInsertionMessage.ILLEGAL_DATE_TIME;
-        }
-
-        Test.TestID testID = new Test.TestID(
-                data,
-                testInput.nome()
-        );
-
-        Test test = new Test(testID, testInput.ordineCasuale(), testInput.domandeConNumero(), domande);
-        appContext.getBean(TestRepository.class).save(test);
-
-        return TestInsertionMessage.OK;
-    }*/
-
+    @PreAuthorize("hasAuthority('INSEGNANTE')")
     public MutationResult insertTest(TestInput testInput){
         if (testInput.nomeDomande().isEmpty()){
             return new MutationResult(false, "Inserire almeno 1 domanda per test");
@@ -96,12 +62,12 @@ public class TestService extends AbstractDataService {
         return new MutationResult(true, "Test Aggiunto");
     }
 
-    @PreAuthorize("hasAnyAuthority('INSEGNANTE')")
+    @PreAuthorize("!isAnonymous()")
     public List<Test> getAllTests(){
         return getTestRepository().findAll();
     }
 
-    @PreAuthorize("hasAnyAuthority('STUDENTE', 'INSEGNANTE')")
+    @PreAuthorize("!isAnonymous()")
     public Optional<Test> getTestById(LocalDate data, LocalTime orario, String nome){
         return getTestRepository().findById(
                 new Test.TestID(LocalDateTime.of(data, orario), nome)

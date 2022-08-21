@@ -4,11 +4,14 @@ const graphqlRequest = (queryBody, variables={}) => fetch(
         graphqlEndpoint,
     {
             method:'POST',
+            credentials: 'include',
             body: JSON.stringify({
                 query: queryBody,
-                variables: variables
+                variables: variables,
             }),
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json" ,
+            }
         }
 ).then(reply => reply.json()).then(data => data.data)
 
