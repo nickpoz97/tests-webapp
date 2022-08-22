@@ -6,6 +6,7 @@ import InsertTest from "./InsertTest";
 import CreaDomanda from "./CreaDomanda";
 import Appbar from "./Appbar";
 import getAllTests from "../utils/GetAllTests";
+import Result from "./Result";
 
 
 function App(props) {
@@ -20,6 +21,7 @@ function App(props) {
           <Route path="/createtest" element={<CreateTest/>}></Route>
           <Route path="/createtest/inserttest" element={<InsertTest/>}></Route>
           <Route path="/createquestion" element={<CreaDomanda/>}></Route>
+          <Route path="/result/:nomeTest/:timeStamp" element={<Result />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

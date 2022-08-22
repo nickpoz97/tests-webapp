@@ -1,14 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "../style.module.css";
-import {useEffect, useState} from 'react';
 
 
 const InsertQuestion = (props) => {
     const [result, setResult] = React.useState([]);
     
     console.log(props.post);
-    
-    
     
     useEffect(()=>{fetch('http://localhost:8080/graphql', {
         method: "POST",

@@ -1,7 +1,9 @@
-import {useLocation} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import styles from "../style.module.css";
 import React, {useEffect, useState} from 'react';
 import saveAnswer from "../utils/SaveAnswer";
+import Button from "@mui/material/Button";
+import {Stack} from "@mui/material";
 
 const Domanda = () =>{
   
@@ -88,6 +90,37 @@ const Domanda = () =>{
       saveAnswer(variables).then(info => console.log(info))
   }
 
+  const EndButton = () => {
+      return (
+          <Link to={`/result/${test.nome}/${test.data}+${test.orario}`} state={{test: test}}>
+              <Button
+                  variant="contained"
+                  color="success"
+                  onClick={() => {}}
+                  className={styles.LinkButton}
+              >
+                      Concludi
+              </Button>
+          </Link>
+      )
+  }
+
+  const NextButton = () => {
+      return (
+          <Button
+              variant="outlined"
+              color="primary"
+              onClick={increment}
+          >
+              Avanti
+          </Button>
+      )
+  }
+
+  const RightButton = () => {
+      return (index === domande.length -1 ? <EndButton /> : <NextButton />);
+  }
+
   return(
     <div>
        <div className={styles.divDomanda}>
@@ -98,17 +131,17 @@ const Domanda = () =>{
        </div>
        <div className={styles.divRisposte}>
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
-            <div className="styles.divRisposte">
+            <div className="styles.divRisposte" key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
               <input className={styles.rispostaRadio} onClick={() => {actualAnswer = (risposta.id)}} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
               <label className={styles.rispostaLabel}>{risposta.testo}</label>
             </div>
           ))}
        </div>
-       <div className={styles.divBottoniDomanda}>
-          <button className={styles.bottoneDomanda} disabled={index === 0} onClick={decrement}>Indietro</button>
-          <button className={styles.bottoneDomanda} disabled={index === domande.length-1} onClick={increment}>Avanti</button>
-       </div>
+       <Stack direction="row" justifyContent="space-evenly">
+          <Button variant="outlined" className={styles.bottoneDomanda} disabled={index === 0} onClick={decrement}>Indietro</Button>
+           <RightButton />
+       </Stack>
     </div>
   )
 }
