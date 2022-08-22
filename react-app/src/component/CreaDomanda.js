@@ -41,11 +41,11 @@ const CreaDomanda = () =>{
     function RenderInsertQuestion(){
         var flag = 0;
         for(var i=0; i<arrayRisposte.length; i++){
-            if(arrayRisposte[i].punti == 1){
+            if(arrayRisposte[i].punti === 1){
                 flag=1;
             }
         }
-        if(submitted && flag == 0){
+        if(submitted && flag === 0){
             return(
                 <div>
                     <h1 className={styles.insertRispostaError}>Deve esserci almeno una risposta con punteggio 1</h1>
@@ -119,7 +119,6 @@ const CreaDomanda = () =>{
         `
 
         setQuery(insertDomandaQuery);
-        //console.log(insertDomandaQuery);
 
         RenderInsertQuestion();
     }

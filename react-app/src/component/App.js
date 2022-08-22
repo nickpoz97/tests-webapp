@@ -5,13 +5,10 @@ import CreateTest from "./CreateTest";
 import InsertTest from "./InsertTest";
 import CreaDomanda from "./CreaDomanda";
 import Appbar from "./Appbar";
-import getAllTests from "../utils/GetAllTests";
 import Result from "./Result";
 
 
 function App(props) {
-    getAllTests().then(result => console.log(result)).catch(error => console.log(error))
-
   return (
     <div className="App">
       <BrowserRouter>

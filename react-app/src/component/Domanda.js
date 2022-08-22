@@ -8,7 +8,10 @@ import {Stack} from "@mui/material";
 const Domanda = () =>{
   
   const location = useLocation()
-  const {ordineDomande, domande, test, numeraDomande} = location.state;
+  const {ordineDomande, test, numeraDomande} = location.state;
+  const domande = test.domande
+
+  console.log(domande)
 
   const [index, setIndex] = useState(0);
 
@@ -27,11 +30,11 @@ const Domanda = () =>{
     var posizioni = [];
 
     if(domande[i].ordineCasuale){
-      for(var j=0; j<domande[i].risposte.length; j++){
+      for(let j=0; j<domande[i].risposte.length; j++){
         posizioni.push(-1);
         numeri_prog.push(j)
       }
-      var j = 0
+      let j = 0
       while(j<domande[i].risposte.length){
         var posRandom = Math.floor(Math.random() * (domande[i].risposte.length));
         if(posizioni[posRandom] === -1){
@@ -41,12 +44,12 @@ const Domanda = () =>{
       }
     }
     else{
-      for(var j=0; j<domande[i].risposte.length; j++){
+      for(let j=0; j<domande[i].risposte.length; j++){
         posizioni.push(j)
       }
     }
     var risposteOrdinate = [];
-    for(var j=0; j<domande[i].risposte.length; j++){
+    for(let j=0; j<domande[i].risposte.length; j++){
       risposteOrdinate.push(domande[i].risposte[posizioni[j]]);
     }
 
@@ -86,18 +89,16 @@ const Domanda = () =>{
           idRisposta: actualAnswer,
           nomeDomanda: domande[ordineDomande[index]-1].nome
       }
-      //console.log(variables.nomeDomanda)
-      saveAnswer(variables).then(info => console.log(info))
+      saveAnswer(variables)
   }
 
   const EndButton = () => {
       return (
-          <Link to={`/result/${test.nome}/${test.data}+${test.orario}`} state={{test: test}}>
+          <Link className={styles.LinkButton} to={`/result/${test.nome}/${test.data}+${test.orario}`} state={{test: test}}>
               <Button
                   variant="contained"
                   color="success"
                   onClick={() => {}}
-                  className={styles.LinkButton}
               >
                       Concludi
               </Button>
@@ -133,7 +134,7 @@ const Domanda = () =>{
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <div className="styles.divRisposte" key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
-              <input className={styles.rispostaRadio} onClick={() => {actualAnswer = (risposta.id)}} name={domande[ordineDomande[index]-1]} type="radio" key={risposta.id} value={risposta.testo}></input>
+              <input className={styles.rispostaRadio} onClick={() => {actualAnswer = (risposta.id)}} name={domande[ordineDomande[index]-1]} type="radio" value={risposta.testo}></input>
               <label className={styles.rispostaLabel}>{risposta.testo}</label>
             </div>
           ))}

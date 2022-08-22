@@ -25,8 +25,7 @@ const Result = () => {
     }
 
     useEffect( () => {
-        getRisposte().then(result => {
-            console.log(result);
+        getRisposte(test.nome, test.data, test.orario).then(result => {
             setListRisposte(result)
             setYourScore(getYourScore(result))
             setMaxScore(getMaxScore(result))

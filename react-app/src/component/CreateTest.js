@@ -93,7 +93,7 @@ const CreateTest = () =>{
           }
       }
     }
-    if(submitted && arrayDomande.length == 0){
+    if(submitted && arrayDomande.length === 0){
       return(
         <div>
             <h1 className={styles.insertTestError}>Errore inserimento: nessuna domanda inserita</h1>
