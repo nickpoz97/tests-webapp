@@ -38,7 +38,6 @@ const Login = () => {
     const passwordHandler = (event) => {setPassword(event.target.value)}
 
     const submit = () => {
-        //console.log(`Username: ${username}, Password: ${SHA256(password).toString()}`)
         if(username === '' || password === ''){
             alert("Username e/o password non inseriti")
             return

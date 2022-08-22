@@ -5,8 +5,6 @@ import styles from "../style.module.css";
 const InsertQuestion = (props) => {
     const [result, setResult] = React.useState([]);
     
-    console.log(props.post);
-    
     useEffect(()=>{fetch('http://localhost:8080/graphql', {
         method: "POST",
         headers: {"Content-Type": "application/json"},

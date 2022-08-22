@@ -1,11 +1,11 @@
 import graphqlRequest from "./GraphqlRequest";
 
 const queryBody = `
-query{
+query($nomeTest: String!, $orarioTest: LocalTime!, $dataTest: Date!){
   getRisposte(
-    nomeTest: "Basi di Dati - II appello laboratorio"
-    orarioTest:"09:00:00"
-    dataTest:"2020-07-07"
+    nomeTest: $nomeTest
+    orarioTest: $orarioTest
+    dataTest: $dataTest
   ){
     id
     testo
@@ -22,6 +22,16 @@ query{
 }
 `
 
-const getRisposte = () => graphqlRequest(queryBody).then(data => data.getRisposte);
+const getRisposte = (nomeTest, dataTest, orarioTest) => {
+    const variables = {
+        nomeTest: nomeTest,
+        dataTest: dataTest,
+        orarioTest: orarioTest
+    }
+
+    console.log(JSON.stringify(variables))
+
+    return graphqlRequest(queryBody, variables).then(data => data.getRisposte);
+}
 
 export default getRisposte;

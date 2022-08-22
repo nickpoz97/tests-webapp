@@ -5,8 +5,7 @@ import getAllTests from "../utils/GetAllTests";
 
 function formatDate(date){
     var data =  date.split("-");
-    var newData = data[2] + "/" + data[1] + "/" + data[0];
-    return newData;
+    return data[2] + "/" + data[1] + "/" + data[0];
 }
 
 function ordineDomande(test){
@@ -41,12 +40,10 @@ const Test = () => {
     React.useEffect(() => {
         getAllTests()
         .then(data => {
-            console.log(data)
             setTests(data)
         })
     },[]);  
-    
-    console.log(tests);
+
     return(
         <div>
             <table className={styles.testTable}>
