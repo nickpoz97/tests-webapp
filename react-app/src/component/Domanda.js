@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import saveAnswer from "../utils/SaveAnswer";
 import Button from "@mui/material/Button";
 import {Stack} from "@mui/material";
+import shuffleArray from "../utils/ShuffleArray";
 
 const Domanda = () =>{
   
@@ -11,7 +12,7 @@ const Domanda = () =>{
   const {ordineDomande, test, numeraDomande} = location.state;
   const domande = test.domande
 
-  console.log(domande)
+  console.log(test)
 
   const [index, setIndex] = useState(0);
 
@@ -23,37 +24,14 @@ const Domanda = () =>{
   var numRisp = 0;
   var numDomande = 0;
 
-  var numeri_prog = [];
+  if(test.ordineCasuale){
+      shuffleArray(domande)
+  }
 
   for(var i = 0; i<domande.length; i++){
-      // TODO check if external posizioni array influences behavior
-    var posizioni = [];
-
-    if(domande[i].ordineCasuale){
-      for(let j=0; j<domande[i].risposte.length; j++){
-        posizioni.push(-1);
-        numeri_prog.push(j)
-      }
-      let j = 0
-      while(j<domande[i].risposte.length){
-        var posRandom = Math.floor(Math.random() * (domande[i].risposte.length));
-        if(posizioni[posRandom] === -1){
-          posizioni[posRandom] = numeri_prog[j];
-          j++;
-        }
-      }
+    if(domande[i].ordineCasuale) {
+        shuffleArray(domande[i].risposte)
     }
-    else{
-      for(let j=0; j<domande[i].risposte.length; j++){
-        posizioni.push(j)
-      }
-    }
-    var risposteOrdinate = [];
-    for(let j=0; j<domande[i].risposte.length; j++){
-      risposteOrdinate.push(domande[i].risposte[posizioni[j]]);
-    }
-
-    domande[i].risposte = risposteOrdinate;
   }
 
   function RenderNumRisp(props){
