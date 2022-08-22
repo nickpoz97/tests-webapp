@@ -14,13 +14,13 @@ const Result = () => {
 
     const getYourScore = (risposte) => {
         let yourScore = 0;
-        risposte.forEach((r) => {yourScore += r.punteggio});
+        risposte.forEach((r) => {yourScore += r.punteggio * r.domanda.punti});
         return yourScore;
     }
 
     const getMaxScore = (risposte) => {
         let maxScore = 0;
-        risposte.forEach((r) => {maxScore += getScoreRispostaEsatta(r.domanda)})
+        risposte.forEach((r) => {maxScore += getScoreRispostaEsatta(r.domanda) * r.domanda.punti})
         return maxScore
     }
 
@@ -59,7 +59,13 @@ const Result = () => {
                         Risposta Corretta
                     </TableCell>
                     <TableCell>
-                        Punti
+                        Punti Risposta Data
+                    </TableCell>
+                    <TableCell>
+                        Punti Ottenuti
+                    </TableCell>
+                    <TableCell>
+                        Punti Max
                     </TableCell>
                 </TableRow>
             </TableHead>
@@ -72,7 +78,10 @@ const Result = () => {
                                         <TableCell>{risposta.testo}</TableCell>
                                         <TableCell>{getRispostaEsatta(risposta.domanda)}</TableCell>
                                         <TableCell>{risposta.punteggio}</TableCell>
-                                    </TableRow>)}
+                                        <TableCell>{risposta.domanda.punti * risposta.punteggio}</TableCell>
+                                        <TableCell>{risposta.domanda.punti}</TableCell>
+                                    </TableRow>)
+                        }
                 </TableBody>
             </Table>
             <h2 className={styles.result}>
