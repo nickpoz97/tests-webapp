@@ -195,3 +195,16 @@ tr:hover{
 h1.loginForm{
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.result{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#resultHomeButton{
+    margin: 20px auto;
+}
+
+.LinkButton{
+    text-decoration: none;
+}
+
