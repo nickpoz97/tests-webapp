@@ -1,24 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "../style.module.css";
-
-const TESTS_QUERY = `
-    query {
-        getAllTests {
-        data,
-        nome,
-        }
-    }
-    `;
+import addTest from "../utils/AddTest";
 
 const InsertTest = (props) => {
-    const [result, setResult] = React.useState([]);
+    const [result, setResult] = React.useState();
 
-    fetch('http://localhost:8080/graphql', {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({query: props.post})
-    }).then(response => response.json())
-        .then(data => setResult(data.data.addTest));
+    useEffect( () =>
+        {
+            addTest(props.input).then(result => setResult(result)).catch(error => console.log(error))
+        }, []
+    )
 
     if(result){
         return(

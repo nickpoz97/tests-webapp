@@ -13,6 +13,9 @@ const graphqlRequest = (queryBody, variables={}) => fetch(
                 "Content-Type": "application/json" ,
             }
         }
-).then(reply => reply.json()).then(data => data.data)
+).then(reply => reply.json()).then(data => {
+    console.log(data)
+    return data.data
+})
 
 export default graphqlRequest

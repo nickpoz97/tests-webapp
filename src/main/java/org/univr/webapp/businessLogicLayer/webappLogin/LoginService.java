@@ -1,5 +1,6 @@
 package org.univr.webapp.businessLogicLayer.webappLogin;
 
+import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,8 @@ import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResu
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
@@ -33,9 +36,12 @@ public class LoginService {
 
 
     public MutationResult login(String username, String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        String hash = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+
         try{
             Optional<Login> loginQuery = loginRepository.findById(username);
-            validateLogin(username, password, loginQuery);
+            validateLogin(username, hash, loginQuery);
         }
         catch (Exception e){
             return new MutationResult(false, e.getMessage());

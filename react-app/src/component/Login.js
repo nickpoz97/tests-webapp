@@ -1,6 +1,5 @@
 import {Button, Paper, Stack, TextField} from "@mui/material"
 import React, {useEffect, useState} from "react"
-import {SHA256} from "crypto-js"
 import App from './App'
 import graphqlRequest from "../utils/GraphqlRequest";
 import styles from "../style.module.css"
@@ -45,7 +44,7 @@ const Login = () => {
 
         graphqlRequest(loginQuery, {
             username: username,
-            password: SHA256(password).toString()
+            password: password
         }).then(data => {
             if (data.login.success){
                 sessionStorage.setItem("logId", data.login.message)
