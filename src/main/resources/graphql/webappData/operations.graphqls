@@ -10,11 +10,8 @@ type Mutation{
 }
 
 input TestInput{
-    giornoDelMese: Int!
-    mese: Int!
-    anno: Int!
-    ora: Int!
-    minuto: Int!
+    data: Date!
+    orario: LocalTime!
     nome: String!
     ordineCasuale: Boolean!
     domandeConNumero: Boolean!

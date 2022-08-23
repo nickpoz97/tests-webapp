@@ -72,11 +72,10 @@ const Domanda = () =>{
 
   const EndButton = () => {
       return (
-          <Link className={styles.LinkButton} to={`/result/${test.nome}/${test.data}+${test.orario}`} state={{test: test}}>
+          <Link className={styles.LinkButton} to={`/result/${test.nome}/${test.data}+${test.orario}`} state={{test: test}} onClick={increment}>
               <Button
                   variant="contained"
                   color="success"
-                  onClick={() => {}}
               >
                       Concludi
               </Button>

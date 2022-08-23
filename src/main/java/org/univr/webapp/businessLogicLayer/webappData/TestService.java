@@ -39,17 +39,12 @@ public class TestService extends AbstractDataService {
             return new MutationResult(false, "Alcuni dei titoli di domande inseriti non sono esistenti");
         }
 
-        try{
-            LocalDateTime data = LocalDateTime.of(
-                    testInput.anno(),
-                    testInput.mese(),
-                    testInput.giornoDelMese(),
-                    testInput.ora(),
-                    testInput.minuto()
-            );
+        LocalDateTime timestamp = LocalDateTime.of(testInput.data(), testInput.orario());
 
+        try{
             Test test = new Test(
-                    data, testInput.nome(),
+                    timestamp,
+                    testInput.nome(),
                     testInput.ordineCasuale(),
                     testInput.domandeConNumero(),
                     domande
