@@ -1,53 +1,42 @@
 import {Button, Paper, Stack, TextField} from "@mui/material"
 import React, {useEffect, useState} from "react"
 import App from './App'
-import graphqlRequest from "../utils/GraphqlRequest";
 import styles from "../style.module.css"
+import logout from "../utils/Logout";
+import login from "../utils/Login";
 
-const loginQuery = `
-mutation($username:String!, $password:String!){
-    login(
-      username: $username
-      password: $password
-    )
-    {
-      success
-      message
-    }
-  }  
-`
-
-const logoutQuery = `
-mutation{
-    logout{
-        success
-    }
+const emptyCredentials = {
+    username: "",
+    password: ""
 }
-`
 
-const Login = () => {
+const LoginPage = () => {
     const paperStyle = {padding:'20px', width:'80%'}
     const loginMessageStyle = {color: 'red', padding: '20px, 0, 20px, 0'}
 
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+    const [credentials, setCredentials] = useState(emptyCredentials)
     const [loginStatus, setLoginStatus] = useState("pending")
 
-    const usernameHandler = (event) => {setUsername(event.target.value)}  
-    const passwordHandler = (event) => {setPassword(event.target.value)}
+    const getUsernameText = () => document.getElementById('username').value;
+    const getPasswordText = () => document.getElementById('password').value;
+
+    const textHandler = () => {
+        setCredentials({
+            username: getUsernameText(),
+            password: getPasswordText()
+        })
+    }
 
     const submit = () => {
-        if(username === '' || password === ''){
+        if(credentials.username === '' || credentials.password === ''){
             alert("Username e/o password non inseriti")
             return
         }
 
-        graphqlRequest(loginQuery, {
-            username: username,
-            password: password
-        }).then(data => {
+        login(credentials).then(data => {
             if (data.login.success){
-                sessionStorage.setItem("logId", data.login.message)
+                sessionStorage.setItem("logId", data.login.id)
+                sessionStorage.setItem("role", data.login.role)
                 setLoginStatus("success")
             }
             else{
@@ -69,15 +58,16 @@ const Login = () => {
         }
     };
 
-    const logout = async () => {
-        graphqlRequest(logoutQuery).then(data => setLoginStatus("pending"))
-        setUsername("")
-        setPassword("")
-        sessionStorage.clear()
+    const logoutCallback = () => {
+        logout().then(() => {
+            sessionStorage.clear();
+            setCredentials(emptyCredentials);
+            setLoginStatus("pending");
+        })
     }
 
     if (loginStatus === "success"){
-        return <App logoutCallback={logout} />
+        return <App logoutCallback={logoutCallback}/>
     }
     return(
         //<Stack direction='row' justifyContent='center'>
@@ -87,18 +77,20 @@ const Login = () => {
                     <h1 className={styles.loginForm}>Login</h1>
                     <TextField 
                         label='id utente'
-                        placeholder="inserisci il tuo id"
+                        placeholder=""
                         fullWidth
-                        onChange={usernameHandler}
+                        onChange={textHandler}
                         size='large'
+                        id='username'
                     />
                     <TextField
                         label='password' 
-                        placeholder="inserisci la password dell' id"
+                        placeholder=""
                         fullWidth
                         type='password'
-                        onChange={passwordHandler}
+                        onChange={textHandler}
                         size='large'
+                        id='password'
                     />
                     <Button type='submit' variant='contained' size='large' onClick={submit} fullWidth>
                         Invia
@@ -111,4 +103,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default LoginPage

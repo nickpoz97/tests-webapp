@@ -14,15 +14,26 @@ import CreaDomanda from "./CreaDomanda";
 import CreateTest from "./CreateTest";
 
 const status = {
-  base: <Test />,
+  main: <Test />,
   creaDomanda: <CreaDomanda />,
   creaTest: <CreateTest />
 }
 
 export default function Appbar(props) {
-  const [state, setState] = useState(status.base)
+  const [state, setState] = useState(status.main)
+
   const clickHandler = (e) => {
     setState(status[e.target.name])
+  }
+
+  const TeacherTools = () => {
+    if (sessionStorage.getItem("role") === 'INSEGNANTE') {
+      return (<>
+        <Link name="creaTest" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Test</Link>
+        <Link name="creaDomanda" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Domanda</Link>
+      </>)
+    }
+    return ""
   }
 
   return (
@@ -38,12 +49,13 @@ export default function Appbar(props) {
           >
           <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link name="base" className={styles.linkToHome} onClick={clickHandler} to="#">Home</Link>
-            <Link name="creaTest" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Test</Link>
-            <Link name="creaDomanda" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Domanda</Link>
-          </Typography>
-          {/*<Button color="inherit">Login</Button>*/}
+          {
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Link name="main" className={styles.linkToHome} onClick={clickHandler} to="#">Home</Link>
+            <TeacherTools />
+            </Typography>
+          }
+          {/*<Button color="inherit">LoginPage</Button>*/}
           <Button color="inherit" onClick={props.logoutCallback}>Logout</Button>
         </Toolbar>
       </AppBar>

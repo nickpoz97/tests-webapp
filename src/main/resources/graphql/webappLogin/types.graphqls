@@ -1,6 +1,11 @@
 type LoginInfo{
     success: Boolean!,
     id: String,
-    role: String,
+    role: Role,
     message: String!
+}
+
+enum Role{
+    STUDENTE,
+    INSEGNANTE
 }
