@@ -4,6 +4,7 @@ import App from './App'
 import styles from "../style.module.css"
 import logout from "../utils/Logout";
 import login from "../utils/Login";
+import Typography from "@mui/material/Typography";
 
 const emptyCredentials = {
     username: "",
@@ -16,6 +17,7 @@ const LoginPage = () => {
 
     const [credentials, setCredentials] = useState(emptyCredentials)
     const [loginStatus, setLoginStatus] = useState("pending")
+    const [errorMessage, setErrorMessage] = useState(<></>)
 
     const getUsernameText = () => document.getElementById('username').value;
     const getPasswordText = () => document.getElementById('password').value;
@@ -42,6 +44,9 @@ const LoginPage = () => {
             else{
                 setLoginStatus("fail")
             }
+        })
+        .catch(error => {
+            setErrorMessage(<Typography variant="body1" sx={loginMessageStyle}>{error.toString()}</Typography>)
         })
     }
 
@@ -95,8 +100,7 @@ const LoginPage = () => {
                     <Button type='submit' variant='contained' size='large' onClick={submit} fullWidth>
                         Invia
                     </Button>
-                    {loginStatus === "fail" ?
-                        <p style={loginMessageStyle}>Id o password errati</p> : ""}
+                    {errorMessage}
                 </Stack>
             </Paper>
         </Stack>

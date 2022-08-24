@@ -29,8 +29,6 @@ const getRisposte = (nomeTest, dataTest, orarioTest) => {
         orarioTest: orarioTest
     }
 
-    console.log(JSON.stringify(variables))
-
     return graphqlRequest(queryBody, variables).then(data => data.getRisposte);
 }
 

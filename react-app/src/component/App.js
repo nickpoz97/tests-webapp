@@ -7,7 +7,6 @@ import CreaDomanda from "./CreaDomanda";
 import Appbar from "./Appbar";
 import Result from "./Result";
 
-
 function App(props) {
   return (
     <div className="App">
