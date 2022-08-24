@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Login from './component/Login'
+import LoginPage from './component/LoginPage'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode>
-    <Login />
+    <LoginPage />
   //</React.StrictMode>
 );
