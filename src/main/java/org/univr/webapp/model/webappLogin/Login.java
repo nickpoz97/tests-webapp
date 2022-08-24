@@ -17,7 +17,7 @@ public class Login {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "autorizzazione", nullable = false)
-    private Autorizzazione autorizzazione;
+    private Role role;
 
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;

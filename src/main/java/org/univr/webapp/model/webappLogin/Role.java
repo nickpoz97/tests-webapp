@@ -1,6 +1,6 @@
 package org.univr.webapp.model.webappLogin;
 
-public enum Autorizzazione {
+public enum Role {
     STUDENTE,
     INSEGNANTE
 }

@@ -1,10 +1,6 @@
-type Login{
-    username: String!
-    password: String!
-    ruolo: Ruolo!
-}
-
-enum Ruolo{
-    STUDENTE,
-    INSEGGNANTE
+type LoginInfo{
+    success: Boolean!,
+    id: String,
+    role: String,
+    message: String!
 }

@@ -3,7 +3,7 @@ package org.univr.webapp.presentationLayer.webappStatus;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
-import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResult;
+import org.univr.webapp.presentationLayer.returnMessages.MutationResult;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

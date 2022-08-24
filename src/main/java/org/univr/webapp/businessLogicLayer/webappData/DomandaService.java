@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.univr.webapp.model.webappData.Domanda;
 import org.univr.webapp.model.webappData.Risposta;
+import org.univr.webapp.presentationLayer.returnMessages.MutationResult;
 import org.univr.webapp.presentationLayer.webappData.inputTypes.DomandaInput;
 import org.univr.webapp.presentationLayer.webappData.inputTypes.RispostaInput;
-import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResult;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;

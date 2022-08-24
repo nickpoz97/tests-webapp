@@ -3,15 +3,14 @@ package org.univr.webapp.presentationLayer.webappLogin;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
-import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResult;
-
-import java.security.NoSuchAlgorithmException;
+import org.univr.webapp.presentationLayer.returnMessages.LoginInfo;
+import org.univr.webapp.presentationLayer.returnMessages.MutationResult;
 
 @Controller("LoginMutationController")
 public class MutationController extends AbstractLoginController{
 
     @MutationMapping
-    public MutationResult login(@Argument String username, @Argument String password) throws NoSuchAlgorithmException {
+    public LoginInfo login(@Argument String username, @Argument String password) {
         return getLoginService().login(username, password);
     }
 

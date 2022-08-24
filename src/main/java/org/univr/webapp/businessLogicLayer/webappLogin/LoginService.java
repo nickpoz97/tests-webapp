@@ -11,13 +11,13 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Service;
 import org.univr.webapp.dataAccessLayer.webappLogin.LoginRepository;
 import org.univr.webapp.model.webappLogin.Login;
-import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResult;
+import org.univr.webapp.model.webappLogin.Role;
+import org.univr.webapp.presentationLayer.returnMessages.LoginInfo;
+import org.univr.webapp.presentationLayer.returnMessages.MutationResult;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,40 +35,42 @@ public class LoginService {
     }
 
 
-    public MutationResult login(String username, String password) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+    public LoginInfo login(String username, String password) {
         String hash = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
 
         try{
             Optional<Login> loginQuery = loginRepository.findById(username);
-            validateLogin(username, hash, loginQuery);
+            Role ruolo = validateLogin(username, hash, loginQuery);
+            return new LoginInfo(
+                    true,
+                    ruolo.name(),
+                    "Login avvenuto con successo",
+                    httpSession.getId()
+            );
         }
         catch (Exception e){
-            return new MutationResult(false, e.getMessage());
+            return new LoginInfo(false, null, e.getMessage(), null);
         }
-        return new MutationResult(true, httpSession.getId());
     }
 
-    private void validateLogin(String username, String password, Optional<Login> loginQuery) {
+    private Role validateLogin(String username, String password, Optional<Login> loginQuery) {
         if (loginQuery.isPresent()){
             Login login = loginQuery.get();
             if (login.getPassword().equals(password)){
-                setAuthentication(username, login, password);
+                return setAuthentication(username, login, password);
             }
-            else{
-                throw new BadCredentialsException("Password non valida");
-            }
+            throw new BadCredentialsException("Password non valida");
         }
-        else{
-            throw new BadCredentialsException("Utente non esistente");
-        }
+        throw new BadCredentialsException("Utente non esistente");
     }
 
-    private void setAuthentication(String username, Login login, String hash) {
-        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(login.getAutorizzazione().name()));
+    private Role setAuthentication(String username, Login login, String hash) {
+        Role role = Role.valueOf(login.getRole().name());
+        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role.name()));
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, hash, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         httpSession.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+        return role;
     }
 
     public MutationResult logout(){
