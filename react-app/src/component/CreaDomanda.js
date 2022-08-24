@@ -1,126 +1,64 @@
 import React, {useState} from "react";
 import styles from "../style.module.css";
-import InsertQuestion from "./InsertQuestion";
+import addDomanda from "../utils/AddDomanda";
 
 
 const CreaDomanda = () =>{
-    const[submitted, setSubmitted] = useState(false);
-    const[numRisposte, setNumRisposte] = useState(2);
-    const[query, setQuery] = useState("");
-    const[domanda, setDomanda] = useState({
-        nome: "",
-        testo: "",
-        punti: 0,
-        ordineCasuale: false,
-        risposteConNumero: false,
-    });
-    const [arrayRisposte, setArrayRisposte] = useState([
-    {
-        numero: 1,
-        testo: "",
-        punti: 0,
-        domanda: ""
-    },
-    {
-        numero: 2,
-        testo: "",
-        punti: 0,
-        domanda: ""
-    }
-    ]);
-
-    const risposta = {
-        numero: 1,
-        testo: "",
-        punti: 0,
-        domanda: ""
-    };
-
-
-
-    function RenderInsertQuestion(){
-        var flag = 0;
+    const [arrayRisposte, setArrayRisposte] = useState([])
+    const [result, setResult] = useState(<></>)
+    
+    const handleSubmit = (event) => {
+        event.preventDefault();
         for(var i=0; i<arrayRisposte.length; i++){
-            if(arrayRisposte[i].punti === 1){
-                flag=1;
-            }
+            arrayRisposte[i].testo = document.getElementById("risposta"+(i+1)).value
+            arrayRisposte[i].punteggio = document.getElementById("punti"+(i+1)).value
         }
-        if(submitted && flag === 0){
-            return(
+
+        const domandaInput = {
+            nome: document.getElementById("nome_domanda").value,
+            testo: document.getElementById("testo_domanda").value,
+            punti: document.getElementById("punti_domanda").value,
+            ordineCasuale: document.getElementById("ordineCasuale").checked,
+            risposteConNumero: document.getElementById("risposteConNumero").checked,
+            risposte: arrayRisposte.map(r => ({testo: r.testo, punteggio: r.punteggio}))
+        }
+
+        RenderInsertQuestion(domandaInput);
+    }
+
+    function RenderInsertQuestion(domandaInput){
+        if(arrayRisposte.length < 2){
+            setResult(
+                <div>
+                    <h1 className={styles.insertRispostaError}>Devono esserci almeno 2 risposte</h1>
+                </div>
+            )
+            return
+        }
+
+        console.log(arrayRisposte.map(r => parseInt(r.punteggio)))
+        if (arrayRisposte.find(r => parseInt(r.punteggio) === 1) === undefined){
+            setResult(
                 <div>
                     <h1 className={styles.insertRispostaError}>Deve esserci almeno una risposta con punteggio 1</h1>
                 </div>
             )
+            return
         }
-        else if(submitted){
-            return <InsertQuestion post={query}/>;
-        }
-        else{
-            return <div></div>
-        }
-    }
-
-    function costruisciStringaRisposte(arrayRisposte){
-        var stringaRisposte = '[';
-        for(var i = 0; i<arrayRisposte.length; i++){
-            stringaRisposte+='{ testo: "'+arrayRisposte[i].testo+'" punteggio: ' + arrayRisposte[i].punti + '}';
-            if(i<arrayRisposte.length-1){
-                stringaRisposte+=',';
+        addDomanda(domandaInput).then(result => {
+            if(result){
+                setResult(
+                    <div>
+                        <h1 className={styles.insertTestSuccess}>Inserimento avvenuto con successo</h1>
+                    </div>
+                )
             }
-        }
-        stringaRisposte+=']'
-        return stringaRisposte;
-    }
-    
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setSubmitted(true);
-        var nome_domanda = document.getElementById("nome_domanda").value;
-        var testo_domanda = document.getElementById("testo_domanda").value;
-        var punti_domanda = document.getElementById("punti_domanda").value;
-        var ordineCasuale = document.getElementById("ordineCasuale").checked;
-        var risposteConNumero = document.getElementById("risposteConNumero").checked;
-
-        var domanda = {
-            nome: nome_domanda,
-            testo: testo_domanda,
-            punti: parseInt(punti_domanda),
-            ordineCasuale: ordineCasuale,
-            risposteConNumero: risposteConNumero,
-        };
-
-
-        setDomanda(domanda);
-
-        for(var i=0; i<arrayRisposte.length; i++){
-            arrayRisposte[i].testo = document.getElementById("risposta"+(i+1)).value
-            arrayRisposte[i].punti = document.getElementById("punti"+(i+1)).value
-        }
-
-        setArrayRisposte(arrayRisposte);
-        var stringaRisposte = costruisciStringaRisposte(arrayRisposte);
-
-        var insertDomandaQuery = `
-            mutation{
-                addDomanda(
-                    domandaInput:{
-                        nome: "`+domanda.nome+`"
-                        testo: "`+domanda.testo+`"
-                        punti: `+domanda.punti+`
-                        ordineCasuale: `+domanda.ordineCasuale+`
-                        risposteConNumero: `+domanda.risposteConNumero+`
-                        risposte: `+stringaRisposte+`
-                    }
-                ){
-                    success
-                    message
-                }
+            else{
+                setResult(
+                    <div><h1 className={styles.insertTestError}>Errore Inserimento</h1></div>
+                )
             }
-        `
-
-        setQuery(insertDomandaQuery);
-
-        RenderInsertQuestion();
+        });
     }
 
     function aggiungiRisposta(){
@@ -150,9 +88,9 @@ const CreaDomanda = () =>{
                     <h3> Punti domanda: <input required id="punti_domanda" type="text"/> </h3>
                     <h1 className={styles.h1Risposte}>Aggiungi risposte:</h1>
                     <input id="ordineCasuale" name="ordineCasuale" type="checkbox"></input>
-                    <label for="ordineCasuale">Risposte in ordine casuale</label>
+                    <label htmlFor="ordineCasuale">Risposte in ordine casuale</label>
                     <input id="risposteConNumero" name="risposteConNumero" type="checkbox"></input>
-                    <label for="risposteConNumero">Risposte con numero</label><br></br><br></br>
+                    <label htmlFor="risposteConNumero">Risposte con numero</label><br></br><br></br>
                     {arrayRisposte.map((risposta) => (
                     //inzio componente domanda 
                         <div>
@@ -165,7 +103,7 @@ const CreaDomanda = () =>{
                     <button type="button" onClick={aggiungiRisposta}>Aggiungi Risposta</button><br></br>
                     <button className={styles.creaButton} type="submit">Crea Domanda</button>
                 </form>
-                <RenderInsertQuestion/>
+                {result}
             </div>
         </div>
     )

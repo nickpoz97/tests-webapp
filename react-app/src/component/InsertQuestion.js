@@ -1,16 +1,14 @@
 import React, {useEffect} from "react";
 import styles from "../style.module.css";
+import addDomanda from "../utils/AddDomanda";
 
 
 const InsertQuestion = (props) => {
     const [result, setResult] = React.useState([]);
     
-    useEffect(()=>{fetch('http://localhost:8080/graphql', {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({query: props.post})
-    }).then(response => response.json())
-    .then(data => setResult(data.data.addDomanda))},[])
+    useEffect(()=>{
+        addDomanda(props.domandaInput).then(result => setResult(result)).catch(error => console.log(error))
+    },[])
 
     if(result){
         return(

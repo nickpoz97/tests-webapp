@@ -9,7 +9,6 @@ mutation($testInput:TestInput!){
 `;
 
 const addTest = (testInput) => {
-    console.log(testInput)
     return graphqlRequest(queryBody, {testInput: testInput}).then(data => data.addTest);
 }
 
