@@ -11,7 +11,7 @@ import org.univr.webapp.dataAccessLayer.webappStatus.StatusRepository;
 import org.univr.webapp.model.webappData.Risposta;
 import org.univr.webapp.model.webappData.Test;
 import org.univr.webapp.model.webappStatus.Status;
-import org.univr.webapp.presentationLayer.webappData.returnMessages.MutationResult;
+import org.univr.webapp.presentationLayer.returnMessages.MutationResult;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
