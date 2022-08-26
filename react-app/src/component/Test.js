@@ -2,6 +2,9 @@ import React from "react";
 import styles from "../style.module.css";
 import {Link} from 'react-router-dom'
 import getAllTests from "../utils/GetAllTests";
+import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+
+
 
 function formatDate(date){
     var data =  date.split("-");
@@ -46,25 +49,36 @@ const Test = () => {
 
     return(
         <div>
-            <table className={styles.testTable}>
-                <tbody>
-                    <tr className={styles.testTr}>
-                        <th className={styles.testTh}>Nome</th>
-                        <th className={styles.testTh}>Data</th>
-                        <th className={styles.testTh}>Orario</th>
-                    </tr>
-                    
+            <Stack direction="column" alignItems="center">
+            <h1 className={styles.result}>Test</h1>
+            <Table stickyHeader>
+                <TableHead>
+                    <TableRow>
+                        <TableCell sx={{fontSize:"1.8em"}}>
+                            Nome
+                        </TableCell>
+                        <TableCell sx={{fontSize:"1.8em"}}>
+                            Data
+                        </TableCell>
+                        <TableCell sx={{fontSize:"1.8em"}}>
+                            Orario
+                        </TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {tests.map((test) => (
                     //inzio componente domanda 
-                    <tr key={test.data + test.nome + test.orario} className={styles.testTr}>
-                        <td className={styles.testTd}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></td>
-                        <td className={styles.testTd}> {formatDate(test.data)}</td>
-                        <td className={styles.testTd}> {test.orario} </td>
-                    </tr>
+                        <TableRow key={test.data + test.nome + test.orario}>
+                            <TableCell sx={{fontSize:"1.2em"}}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></TableCell>
+                            <TableCell sx={{fontSize:"1.2em"}}> {formatDate(test.data)}</TableCell>
+                            <TableCell sx={{fontSize:"1.2em"}}> {test.orario} </TableCell>
+                        </TableRow>
                     //fine componente domanda 
                     ))}
-                </tbody>
-            </table>
+                </TableBody>
+            </Table>
+           
+        </Stack>
         </div>
     )
 }
