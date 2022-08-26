@@ -26,6 +26,7 @@ const Domanda = () =>{
   const [index, setIndex] = useState(0);
 
   let actualAnswer;
+
   useEffect(() => {
       actualAnswer = undefined;
   }, [index])
@@ -33,15 +34,18 @@ const Domanda = () =>{
   var numRisp = 0;
   var numDomande = 0;
 
-  if(test.ordineCasuale){
-      shuffleArray(domande)
-  }
+  // shuffle only once
+  useEffect( () => {
+      if(test.ordineCasuale){
+          shuffleArray(domande)
+      }
 
-  for(var i = 0; i<domande.length; i++){
-    if(domande[i].ordineCasuale) {
-        shuffleArray(domande[i].risposte)
-    }
-  }
+      for(var i = 0; i<domande.length; i++){
+          if(domande[i].ordineCasuale) {
+              shuffleArray(domande[i].risposte)
+          }
+      }
+  }, [])
 
   function RenderNumRisp(props){
     if(props.risposteConNumero){
