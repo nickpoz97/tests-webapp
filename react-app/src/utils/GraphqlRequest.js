@@ -17,7 +17,6 @@ const graphqlRequest = (queryBody, variables={}) => fetch(
 )
     .then(reply => reply.json())
     .then(data => {
-        console.log(data);
         return data.data
     })
 
