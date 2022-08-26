@@ -1,9 +1,10 @@
 import {Link, useParams} from "react-router-dom";
 import getRisposte from "../utils/GetRisposte";
 import React, {useEffect, useState} from "react";
-import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import {Stack, Table, TableBody, TableCell, TableHead, TableRow,} from "@mui/material";
 import styles from "../style.module.css"
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const Result = (props) => {
     const {nomeTest, dataTest, orarioTest} = useParams()
@@ -44,53 +45,55 @@ const Result = (props) => {
     }
 
     if(result.listRisposte.length === 0){
-        return <></>
+        return null
     }
 
+    const ResultHeader = (props) => {
+       return(
+           <TableHead className="prova">
+           <TableRow>
+               {props.headerColumns.map(colName => <TableCell key={colName}><Typography variant="body1">{colName}</Typography></TableCell>)}
+           </TableRow>
+           </TableHead>
+       )
+    }
+
+    const headerColumns = [
+        'Domanda',
+        'Risposta Data',
+        'Risposta Corretta',
+        'Punti Ottenuti',
+        'Punti Max'
+    ]
+
+    const ResultBody = (props) => {
+        return(
+            <TableBody>
+                {
+                    props.listRisposte.map(
+                        risposta =>
+                            <TableRow key={risposta.id}>
+                                <TableCell>{risposta.domanda.nome} </TableCell>
+                                <TableCell>{risposta.testo}</TableCell>
+                                <TableCell>{getRispostaEsatta(risposta.domanda)}</TableCell>
+                                <TableCell>{risposta.domanda.punti * risposta.punteggio}</TableCell>
+                                <TableCell>{risposta.domanda.punti}</TableCell>
+                            </TableRow>
+                    )
+                }
+            </TableBody>
+        )
+    }
     return(
-        <Stack direction="column" alignItems="center">
-            <h1 className={styles.result}>Risultati del test</h1>
+        <Stack direction="column" alignItems="center" justifyContent="center">
+            <Typography variant="h4" component="h1" className={styles.result}>Risultati del test</Typography>
             <Table stickyHeader>
-            <TableHead class="prova">
-                <TableRow>
-                    <TableCell>
-                        Domanda
-                    </TableCell>
-                    <TableCell>
-                        Risposta Data
-                    </TableCell>
-                    <TableCell>
-                        Risposta Corretta
-                    </TableCell>
-                    <TableCell>
-                        Punti Risposta Data
-                    </TableCell>
-                    <TableCell>
-                        Punti Ottenuti
-                    </TableCell>
-                    <TableCell>
-                        Punti Max
-                    </TableCell>
-                </TableRow>
-            </TableHead>
-                <TableBody>
-                        {
-                            result.listRisposte.map(
-                                risposta =>
-                                    <TableRow key={risposta.id}>
-                                        <TableCell>{risposta.domanda.nome} </TableCell>
-                                        <TableCell>{risposta.testo}</TableCell>
-                                        <TableCell>{getRispostaEsatta(risposta.domanda)}</TableCell>
-                                        <TableCell>{risposta.punteggio}</TableCell>
-                                        <TableCell>{risposta.domanda.punti * risposta.punteggio}</TableCell>
-                                        <TableCell>{risposta.domanda.punti}</TableCell>
-                                    </TableRow>)
-                        }
-                </TableBody>
+                <ResultHeader headerColumns={headerColumns} />
+                <ResultBody listRisposte={result.listRisposte}/>
             </Table>
-            <h2 className={styles.result}>
+            <Typography variant="h4" component="h2" className={styles.result}>
                 Punteggio: {result.yourScore}/{result.maxScore}
-            </h2>
+            </Typography>
             <Link to="/" className={styles.LinkButton}>
                 <Button variant="contained" id={styles['resultHomeButton']}>Home</Button>
             </Link>

@@ -3,7 +3,7 @@ import styles from "../style.module.css";
 import {Link} from 'react-router-dom'
 import getAllTests from "../utils/GetAllTests";
 import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
-
+import Typography from "@mui/material/Typography";
 
 
 function formatDate(date){
@@ -50,7 +50,7 @@ const Test = () => {
     return(
         <div>
             <Stack direction="column" alignItems="center">
-            <h1 className={styles.result}>Test</h1>
+            <Typography variant="h2" component="h1" className={styles.result}>Test</Typography>
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>

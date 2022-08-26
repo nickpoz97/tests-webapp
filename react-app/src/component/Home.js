@@ -12,6 +12,7 @@ import styles from "../style.module.css";
 import Test from "./Test";
 import CreaDomanda from "./CreaDomanda";
 import CreateTest from "./CreateTest";
+import {createTheme, responsiveFontSizes, ThemeProvider} from "@mui/material";
 
 const status = {
   home: <Test />,
@@ -52,7 +53,10 @@ export default function Home(props) {
     return <Box sx={{flexGrow: 1}} />
   }
 
+  const theme = responsiveFontSizes(createTheme());
+
   return (
+    <ThemeProvider theme={theme}>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
@@ -62,5 +66,6 @@ export default function Home(props) {
       </AppBar>
       {state}
     </Box>
+    </ThemeProvider>
   );
 }
