@@ -1,10 +1,10 @@
 import {Button, Paper, Stack, TextField} from "@mui/material"
 import React, {useEffect, useState} from "react"
-import App from './App'
 import styles from "../style.module.css"
 import logout from "../utils/Logout";
 import login from "../utils/Login";
 import Typography from "@mui/material/Typography";
+import Appbar from "./Appbar";
 
 const emptyCredentials = {
     username: "",
@@ -72,7 +72,7 @@ const LoginPage = () => {
     }
 
     if (loginStatus === "success"){
-        return <App logoutCallback={logoutCallback}/>
+        return <Appbar logoutCallback={logoutCallback}/>
     }
     return(
         //<Stack direction='row' justifyContent='center'>

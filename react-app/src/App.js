@@ -1,18 +1,18 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Domanda from "./Domanda";
+import Domanda from "./component/Domanda";
 import React from 'react';
-import CreateTest from "./CreateTest";
-import InsertTest from "./InsertTest";
-import CreaDomanda from "./CreaDomanda";
-import Appbar from "./Appbar";
-import Result from "./Result";
+import CreateTest from "./component/CreateTest";
+import InsertTest from "./component/InsertTest";
+import CreaDomanda from "./component/CreaDomanda";
+import Result from "./component/Result";
+import LoginPage from "./component/LoginPage";
 
 function App(props) {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Appbar logoutCallback={props.logoutCallback}/>}></Route>
+          <Route exact path="/" element={<LoginPage />}></Route>
           <Route path="/test/:id" element={<Domanda/>}></Route>
           <Route path="/createtest" element={<CreateTest/>}></Route>
           <Route path="/createtest/inserttest" element={<InsertTest/>}></Route>
