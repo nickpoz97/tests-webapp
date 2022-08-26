@@ -42,7 +42,7 @@ const Test = () => {
         .then(data => {
             setTests(data)
         })
-    },[]);  
+    },[]);
 
     return(
         <div>

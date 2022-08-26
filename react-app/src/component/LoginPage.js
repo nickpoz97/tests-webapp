@@ -1,10 +1,10 @@
-import {Button, Paper, Stack, TextField} from "@mui/material"
+import {Alert, Button, Container, Paper, Stack, TextField} from "@mui/material"
 import React, {useEffect, useState} from "react"
-import styles from "../style.module.css"
 import logout from "../utils/Logout";
 import login from "../utils/Login";
 import Typography from "@mui/material/Typography";
-import Appbar from "./Appbar";
+import Home from "./Home";
+import Box from "@mui/material/Box";
 
 const emptyCredentials = {
     username: "",
@@ -12,12 +12,9 @@ const emptyCredentials = {
 }
 
 const LoginPage = () => {
-    const paperStyle = {padding:'20px', width:'80%'}
-    const loginMessageStyle = {color: 'red', padding: '20px, 0, 20px, 0'}
-
     const [credentials, setCredentials] = useState(emptyCredentials)
     const [loginStatus, setLoginStatus] = useState("pending")
-    const [errorMessage, setErrorMessage] = useState(<></>)
+    const [errorMessage, setErrorMessage] = useState(null)
 
     const getUsernameText = () => document.getElementById('username').value;
     const getPasswordText = () => document.getElementById('password').value;
@@ -31,7 +28,7 @@ const LoginPage = () => {
 
     const submit = () => {
         if(credentials.username === '' || credentials.password === ''){
-            alert("Username e/o password non inseriti")
+            setErrorMessage(<Alert severity="warning">username e/o password non inseriti</Alert>)
             return
         }
 
@@ -42,11 +39,11 @@ const LoginPage = () => {
                 setLoginStatus("success")
             }
             else{
-                setLoginStatus("fail")
+                setErrorMessage(<Alert severity="warning">Username o password errati</Alert>)
             }
         })
         .catch(error => {
-            setErrorMessage(<Typography variant="body1" sx={loginMessageStyle}>{error.toString()}</Typography>)
+            setErrorMessage(<Alert severity="error">{error}.toString()</Alert>)
         })
     }
 
@@ -68,42 +65,46 @@ const LoginPage = () => {
             sessionStorage.clear();
             setCredentials(emptyCredentials);
             setLoginStatus("pending");
+            setErrorMessage(null)
         })
     }
 
     if (loginStatus === "success"){
-        return <Appbar logoutCallback={logoutCallback}/>
+        return <Home logoutCallback={logoutCallback}/>
     }
+
     return(
         //<Stack direction='row' justifyContent='center'>
-        <Stack direction='row' justifyContent='center'>
-            <Paper elevation={10} sx = {paperStyle} onKeyDown={handleKeypress}>
-                <Stack direction='column' alignItems='center' spacing='20px'>
-                    <h1 className={styles.loginForm}>Login</h1>
-                    <TextField 
-                        label='id utente'
-                        placeholder=""
-                        fullWidth
-                        onChange={textHandler}
-                        size='large'
-                        id='username'
-                    />
-                    <TextField
-                        label='password' 
-                        placeholder=""
-                        fullWidth
-                        type='password'
-                        onChange={textHandler}
-                        size='large'
-                        id='password'
-                    />
-                    <Button type='submit' variant='contained' size='large' onClick={submit} fullWidth>
-                        Invia
-                    </Button>
-                    {errorMessage}
-                </Stack>
+        <Container>
+            <Paper elevation={10} onKeyDown={handleKeypress}>
+                <Box padding="20px">
+                    <Stack direction='column' alignItems='center' spacing="20px">
+                        <Typography variant="h3" component="h1">Login</Typography>
+                        <TextField
+                            label='id utente'
+                            placeholder=""
+                            fullWidth
+                            onChange={textHandler}
+                            size='large'
+                            id='username'
+                        />
+                        <TextField
+                            label='password'
+                            placeholder=""
+                            fullWidth
+                            type='password'
+                            onChange={textHandler}
+                            size='large'
+                            id='password'
+                        />
+                        <Button type='submit' variant='contained' size='large' onClick={submit} fullWidth>
+                            Invia
+                        </Button>
+                        {errorMessage}
+                    </Stack>
+                </Box>
             </Paper>
-        </Stack>
+        </Container>
     )
 }
 

@@ -14,13 +14,13 @@ import CreaDomanda from "./CreaDomanda";
 import CreateTest from "./CreateTest";
 
 const status = {
-  main: <Test />,
+  home: <Test />,
   creaDomanda: <CreaDomanda />,
   creaTest: <CreateTest />
 }
 
-export default function Appbar(props) {
-  const [state, setState] = useState(status.main)
+export default function Home(props) {
+  const [state, setState] = useState(status.home)
 
   const clickHandler = (e) => {
     setState(status[e.target.name])
@@ -28,34 +28,35 @@ export default function Appbar(props) {
 
   const TeacherTools = () => {
     if (sessionStorage.getItem("role") === 'INSEGNANTE') {
-      return (<>
-        <Link name="creaTest" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Test</Link>
-        <Link name="creaDomanda" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Domanda</Link>
-      </>)
+      return (
+      <>
+      <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2, display: {xs: "block", md: 'none'} }}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Typography variant="h6" sx={{ flexGrow: 1 }} >
+        <Box sx = {{display: {xs: "none", md: 'block'}}}>
+          <Link name="home" className={styles.linkToHome} onClick={clickHandler} to="#">Home</Link>
+          <Link name="creaTest" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Test</Link>
+          <Link name="creaDomanda" className={styles.linkToHome} onClick={clickHandler} to="#">Crea Domanda</Link>
+        </Box>
+      </Typography>
+      </>
+      )
     }
-    return ""
+    return <Box sx={{flexGrow: 1}} />
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2, display: {xs: "block", md: 'none'} }}
-          >
-          <MenuIcon />
-          </IconButton>
-          {
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link name="main" className={styles.linkToHome} onClick={clickHandler} to="#">Home</Link>
-            <TeacherTools />
-            </Typography>
-          }
-          {/*<Button color="inherit">LoginPage</Button>*/}
+          <TeacherTools />
           <Button color="inherit" onClick={props.logoutCallback}>Logout</Button>
         </Toolbar>
       </AppBar>
