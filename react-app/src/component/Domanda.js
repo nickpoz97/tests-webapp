@@ -63,6 +63,10 @@ const Domanda = () =>{
             }
         });
     }
+    else{
+        setIndex(newIndex)
+        setReady(false)
+    }
   }
 
   const increment = () => {
