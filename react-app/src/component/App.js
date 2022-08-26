@@ -17,7 +17,7 @@ function App(props) {
           <Route path="/createtest" element={<CreateTest/>}></Route>
           <Route path="/createtest/inserttest" element={<InsertTest/>}></Route>
           <Route path="/createquestion" element={<CreaDomanda/>}></Route>
-          <Route path="/result/:nomeTest/:timeStamp" element={<Result />}></Route>
+          <Route path="/result/:nomeTest/:dataTest/:orarioTest" element={<Result />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

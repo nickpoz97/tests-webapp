@@ -1,16 +1,14 @@
-import {Link, useLocation} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import getRisposte from "../utils/GetRisposte";
 import React, {useEffect, useState} from "react";
 import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import styles from "../style.module.css"
 import Button from "@mui/material/Button";
 
-const Result = () => {
-    const location = useLocation();
-    const {test} = location.state;
-    const [listaRisposte, setListRisposte] = useState([])
-    const [yourScore, setYourScore] = useState(0)
-    const [maxScore, setMaxScore] = useState(0)
+const Result = (props) => {
+    const {nomeTest, dataTest, orarioTest} = useParams()
+
+    const [result, setResult] = useState({listRisposte: [], yourScore: 0, maxScore: 0})
 
     const getYourScore = (risposte) => {
         let yourScore = 0;
@@ -25,10 +23,12 @@ const Result = () => {
     }
 
     useEffect( () => {
-        getRisposte(test.nome, test.data, test.orario).then(result => {
-            setListRisposte(result)
-            setYourScore(getYourScore(result))
-            setMaxScore(getMaxScore(result))
+        getRisposte(nomeTest, dataTest, orarioTest).then(answerList => {
+            setResult({
+                listRisposte: answerList,
+                yourScore: getYourScore(answerList),
+                maxScore: getMaxScore(answerList)
+            })
         }
     )}, []
     )
@@ -41,6 +41,10 @@ const Result = () => {
     const getScoreRispostaEsatta = (domanda) => {
         const scores = domanda.risposte.map(risposta => risposta.punteggio)
         return Math.max(...scores)
+    }
+
+    if(result.listRisposte.length === 0){
+        return <></>
     }
 
     return(
@@ -71,7 +75,7 @@ const Result = () => {
             </TableHead>
                 <TableBody>
                         {
-                            listaRisposte.map(
+                            result.listRisposte.map(
                                 risposta =>
                                     <TableRow key={risposta.id}>
                                         <TableCell>{risposta.domanda.nome} </TableCell>
@@ -85,7 +89,7 @@ const Result = () => {
                 </TableBody>
             </Table>
             <h2 className={styles.result}>
-                Punteggio: {yourScore}/{maxScore}
+                Punteggio: {result.yourScore}/{result.maxScore}
             </h2>
             <Link to="/" className={styles.LinkButton}>
                 <Button variant="contained" id={styles['resultHomeButton']}>Home</Button>
