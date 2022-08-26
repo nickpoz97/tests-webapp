@@ -1,4 +1,4 @@
-import {Link, useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import styles from "../style.module.css";
 import React, {useEffect, useState} from 'react';
 import saveAnswer from "../utils/SaveAnswer";
@@ -45,21 +45,29 @@ const Domanda = () =>{
         return <h1>Domanda n° {++numDomande} </h1>;
   }
   
-  const increment = (e) => {
-    storeAnswer();
-    setIndex(index+1);
+  const changeIndex = async (newIndex) => {
+    if (actualAnswer !== undefined){
+        storeAnswer().then((success) => {
+            if (success) {
+                setIndex(newIndex)
+            }
+        });
+    }
   }
 
-  const decrement = (e) => {
-    storeAnswer();
-    setIndex(index-1);
+  const increment = () => {
+    changeIndex(index+1)
+  }
+
+  const decrement = () => {
+    changeIndex(index-1);
+  }
+
+  const showResults = (e) =>{
+      storeAnswer().then(() => window.open(e.target.name, "_self"))
   }
 
   const storeAnswer = () => {
-      if (actualAnswer === undefined){
-          return
-      }
-
       const variables = {
           nomeTest: test.nome,
           orarioTest: test.orario,
@@ -67,19 +75,19 @@ const Domanda = () =>{
           idRisposta: actualAnswer,
           nomeDomanda: domande[ordineDomande[index]-1].nome
       }
-      saveAnswer(variables)
+      return saveAnswer(variables)
   }
 
   const EndButton = () => {
       return (
-          <Link className={styles.LinkButton} to={`/result/${test.nome}/${test.data}+${test.orario}`} state={{test: test}} onClick={increment}>
               <Button
                   variant="contained"
                   color="success"
+                  name={`/result/${test.nome}/${test.data}/${test.orario}`}
+                  onClick={showResults}
               >
                       Concludi
               </Button>
-          </Link>
       )
   }
 
