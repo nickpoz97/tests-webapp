@@ -5,18 +5,27 @@ import saveAnswer from "../utils/SaveAnswer";
 import Button from "@mui/material/Button";
 import {Stack} from "@mui/material";
 import shuffleArray from "../utils/ShuffleArray";
+import getRisposte from "../utils/GetRisposte";
 
 const Domanda = () =>{
   
-  const location = useLocation()
+  const location = useLocation();
   const {ordineDomande, test, numeraDomande} = location.state;
-  const domande = test.domande
+  const domande = test.domande;
+  const [ready, setReady] = useState(false)
+  const [status, setStatus] = useState([]);
 
-  console.log(test)
+    useEffect( () => {
+            getRisposte(test.nome, test.data, test.orario).then(response => {
+                setStatus(response);
+                setReady(true)
+            })
+        }, [ready]
+    )
 
   const [index, setIndex] = useState(0);
 
-  var actualAnswer;
+  let actualAnswer;
   useEffect(() => {
       actualAnswer = undefined;
   }, [index])
@@ -44,12 +53,13 @@ const Domanda = () =>{
       if(props.domandeConNumero)
         return <h1>Domanda n° {++numDomande} </h1>;
   }
-  
+
   const changeIndex = async (newIndex) => {
     if (actualAnswer !== undefined){
         storeAnswer().then((success) => {
             if (success) {
                 setIndex(newIndex)
+                setReady(false)
             }
         });
     }
@@ -64,7 +74,14 @@ const Domanda = () =>{
   }
 
   const showResults = (e) =>{
-      storeAnswer().then(() => window.open(e.target.name, "_self"))
+      const openResultPage = () => window.open(e.target.name, "_self")
+
+      if (actualAnswer) {
+          storeAnswer().then(() => openResultPage());
+          return
+      }
+
+      openResultPage();
   }
 
   const storeAnswer = () => {
@@ -107,6 +124,10 @@ const Domanda = () =>{
       return (index === domande.length -1 ? <EndButton /> : <NextButton />);
   }
 
+  if (!ready){
+      return <div></div>
+  }
+
   return(
     <div>
        <div className={styles.divDomanda}>
@@ -119,7 +140,15 @@ const Domanda = () =>{
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <div className="styles.divRisposte" key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
-              <input className={styles.rispostaRadio} onClick={() => {actualAnswer = (risposta.id)}} name={domande[ordineDomande[index]-1]} type="radio" value={risposta.testo}></input>
+                <input
+                  className={styles.rispostaRadio}
+                  onClick={() => {actualAnswer = (risposta.id)}}
+                  name={domande[ordineDomande[index]-1]}
+                  type="radio"
+                  value={risposta.testo}
+                  defaultChecked={status.map(r => r.id).includes(parseInt(risposta.id))}
+                  >
+                </input>
               <label className={styles.rispostaLabel}>{risposta.testo}</label>
             </div>
           ))}
