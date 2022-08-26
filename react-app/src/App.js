@@ -7,7 +7,7 @@ import CreaDomanda from "./component/CreaDomanda";
 import Result from "./component/Result";
 import LoginPage from "./component/LoginPage";
 
-function App(props) {
+function App() {
   return (
     <div className="App">
       <BrowserRouter>
