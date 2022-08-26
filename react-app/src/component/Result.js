@@ -51,7 +51,7 @@ const Result = (props) => {
         <Stack direction="column" alignItems="center">
             <h1 className={styles.result}>Risultati del test</h1>
             <Table stickyHeader>
-            <TableHead>
+            <TableHead class="prova">
                 <TableRow>
                     <TableCell>
                         Domanda
