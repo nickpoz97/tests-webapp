@@ -1,9 +1,8 @@
 import React from "react";
- import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import getAllTests from "../utils/GetAllTests";
 import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from '@material-ui/core';
 import GlobalStyle from '../Style/GlobalStyle'
 
 
