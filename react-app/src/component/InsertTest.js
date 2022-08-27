@@ -5,6 +5,8 @@ import addTest from "../utils/AddTest";
 const InsertTest = (props) => {
     const [result, setResult] = React.useState();
 
+    console.log(props)
+
     useEffect( () => {
             addTest(props.input).then(result => setResult(result)).catch(error => console.log(error))
         }, []

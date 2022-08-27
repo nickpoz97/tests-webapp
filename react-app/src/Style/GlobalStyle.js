@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
     font-size:3em;
     margin: 2%;
   }
+  .headerCreateTest{
+    margin-bottom: 2%;
+  }
+  
 `;
  
 export default GlobalStyle;

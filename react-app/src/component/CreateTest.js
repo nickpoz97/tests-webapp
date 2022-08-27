@@ -3,12 +3,30 @@ import React, {useState} from 'react';
 import InsertTest from "./InsertTest";
 import getAllDomande from "../utils/GetAllDomande";
 import getAllTests from "../utils/GetAllTests";
+import { Typography } from "@mui/material";
+import { TextField } from '@material-ui/core';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import GlobalStyle from '../Style/GlobalStyle'
+import dayjs from 'dayjs'
+
 
 const CreateTest = () =>{
 
   const [arrayDomande, setArrayDomande] = useState([]);
   const [domande, setDomande] = useState([]);
   const [tests, setTests] = useState([]);
+
+  const [data, setData] = React.useState(
+    dayjs(new Date()),
+  );
+
+  const handleDataChange = (newValue: Dayjs | null) => {
+    setData(newValue);
+  };
 
   React.useEffect(() => {
     getAllDomande()
@@ -45,15 +63,26 @@ const CreateTest = () =>{
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    var giorno = data.$d.getUTCDate();
+    var mese = data.$d.getMonth() + 1;
+    var anno = data.$d.getFullYear();
+    var dataNew = giorno + "/"+ mese + "/" + anno;
+    var ora =  data.$d.getHours();
+    var minuti = data.$d.getMinutes();
+    var secondi = data.$d.getSeconds();
+    var orario = ora +":"+minuti+":"+secondi;
+    
     const testInput = {
       nome: document.getElementById("nomeTest").value,
-      data: document.getElementById("data").value,
-      orario: document.getElementById("ora").value,
+      data: dataNew,
+      orario: orario,
       ordineCasuale: document.getElementById("ordineCasuale").checked,
       domandeConNumero: document.getElementById("domandeConNumero").checked,
       nomeDomande: arrayDomande.map(d => d.id)
     }
+
+    console.log(testInput)
+    
     setInfo(RenderInsertTest(testInput));
   }
 
@@ -81,12 +110,27 @@ const CreateTest = () =>{
 
   return(
     <div>
+      <GlobalStyle />
        <form onSubmit={handleSubmit}>
         <div className={styles.divDomanda}>
-            <h1>Creazione Test</h1>
-            Nome Test: <input required id="nomeTest" type="text"/> <br></br><br></br>
-            Data: <input required id="data" type="date"/>  <br></br><br></br>
-            Ora: <input required id="ora" type="time"/>
+            <Typography className="headerCreateTest" variant="h3">Creazione Test</Typography>
+            <TextField className="nomeCreateTest" required id="nomeTest" label="nome" variant="outlined" />  <br></br> <br></br> 
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DesktopDatePicker
+              label="Data"
+              inputFormat="DD/MM/YYYY"
+              value={data}
+              onChange={handleDataChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <br></br> <br></br> 
+            <TimePicker
+              label="Ora"
+              value={data}
+              onChange={handleDataChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            </LocalizationProvider>
           </div>
           <div className={styles.divDomanda}>
             <h2>Lista Domande</h2>
