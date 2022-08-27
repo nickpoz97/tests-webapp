@@ -24,9 +24,10 @@ query {
 }
 `
 
-const getAllTests = async () => {
-    const data = await graphqlRequest(queryBody)
-    return data.getAllTests
-}
+const getAllTests = () => graphqlRequest(queryBody)
+        .then(data => data.getAllTests)
+        .catch(errors => {
+            throw errors
+        })
 
 export default getAllTests;

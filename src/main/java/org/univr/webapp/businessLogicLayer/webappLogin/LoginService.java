@@ -2,6 +2,7 @@ package org.univr.webapp.businessLogicLayer.webappLogin;
 
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -39,6 +40,10 @@ public class LoginService {
         String hash = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
 
         try{
+            if (! (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+                throw new UserAlreadyLoggedException("Questa sessione è gia stata occupata");
+            }
+
             Optional<Login> loginQuery = loginRepository.findById(username);
             Role ruolo = validateLogin(username, hash, loginQuery);
             return new LoginInfo(

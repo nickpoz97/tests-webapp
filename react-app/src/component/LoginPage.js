@@ -27,23 +27,27 @@ const LoginPage = () => {
     }
 
     const submit = () => {
+        setErrorMessage(<Alert severity="info">attendere</Alert>)
+
         if(credentials.username === '' || credentials.password === ''){
             setErrorMessage(<Alert severity="warning">username e/o password non inseriti</Alert>)
             return
         }
 
-        login(credentials).then(data => {
-            if (data.login.success){
-                sessionStorage.setItem("logId", data.login.id)
-                sessionStorage.setItem("role", data.login.role)
+        login(credentials).then(response => {
+            if (response.success){
+                sessionStorage.setItem("logId", response.id)
+                sessionStorage.setItem("role", response.role)
                 setLoginStatus("success")
             }
             else{
-                setErrorMessage(<Alert severity="warning">Username o password errati</Alert>)
+                setErrorMessage(<Alert severity="error">{response.message}</Alert>)
             }
         })
-        .catch(error => {
-            setErrorMessage(<Alert severity="error">{error}.toString()</Alert>)
+        .catch(errors => {
+            //const errorMessages = errors.map(e => <Alert severity="error">{e.message}</Alert>)
+            const errorMessages = <Alert severity="error">{errors.message}</Alert>
+            setErrorMessage(errorMessages)
         })
     }
 
@@ -97,7 +101,7 @@ const LoginPage = () => {
                             size='large'
                             id='password'
                         />
-                        <Button type='submit' variant='contained' size='large' onClick={submit} fullWidth>
+                        <Button variant='contained' size='large' onClick={submit} fullWidth>
                             Invia
                         </Button>
                         {errorMessage}

@@ -1,9 +1,8 @@
 import React from "react";
- import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import getAllTests from "../utils/GetAllTests";
 import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from '@material-ui/core';
 import GlobalStyle from '../Style/GlobalStyle'
 
 
@@ -41,6 +40,7 @@ function ordineDomande(test){
 
 const Test = () => {
     const [tests, setTests] = React.useState([]);
+
     React.useEffect(() => {
         getAllTests()
         .then(data => {
