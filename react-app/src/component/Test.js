@@ -1,9 +1,10 @@
 import React from "react";
-import styles from "../style.module.css";
-import {Link} from 'react-router-dom'
+ import {Link} from 'react-router-dom'
 import getAllTests from "../utils/GetAllTests";
 import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from '@material-ui/core';
+import GlobalStyle from './GlobalStyle'
 
 
 function formatDate(date){
@@ -50,36 +51,36 @@ const Test = () => {
 
     return(
         <div>
-            <Stack direction="column" alignItems="center">
-            <Typography variant="h2" component="h1" className={styles.result}>Test</Typography>
-            <Table stickyHeader>
-                <TableHead>
-                    <TableRow>
-                        <TableCell sx={{fontSize:"1.8em"}}>
-                            Nome
-                        </TableCell>
-                        <TableCell sx={{fontSize:"1.8em"}}>
-                            Data
-                        </TableCell>
-                        <TableCell sx={{fontSize:"1.8em"}}>
-                            Orario
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {tests.map((test) => (
-                    //inzio componente domanda 
-                        <TableRow key={test.data + test.nome + test.orario}>
-                            <TableCell sx={{fontSize:"1.2em"}}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></TableCell>
-                            <TableCell sx={{fontSize:"1.2em"}}> {formatDate(test.data)}</TableCell>
-                            <TableCell sx={{fontSize:"1.2em"}}> {test.orario} </TableCell>
+            <GlobalStyle />
+                <Stack direction="column" alignItems="center">
+                <Typography className="h1Test">Test</Typography>
+                <Table stickyHeader>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell className="testTableHead">
+                                Nome
+                            </TableCell>
+                            <TableCell className="testTableHead"> 
+                                Data
+                            </TableCell>
+                            <TableCell className="testTableHead">
+                                Orario
+                            </TableCell>
                         </TableRow>
-                    //fine componente domanda 
-                    ))}
-                </TableBody>
-            </Table>
-           
-        </Stack>
+                    </TableHead>
+                    <TableBody>
+                        {tests.map((test) => (
+                        //inzio componente domanda 
+                            <TableRow key={test.data + test.nome + test.orario}>
+                                <TableCell className="testTableContent"><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></TableCell>
+                                <TableCell className="testTableContent"> {formatDate(test.data)}</TableCell>
+                                <TableCell className="testTableContent"> {test.orario} </TableCell>
+                            </TableRow>
+                        //fine componente domanda 
+                        ))}
+                    </TableBody>
+                </Table>
+                </Stack>
         </div>
     )
 }
