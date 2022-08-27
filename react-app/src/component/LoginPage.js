@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react"
 import logout from "../utils/Logout";
 import login from "../utils/Login";
 import Typography from "@mui/material/Typography";
-import Home from "./Home";
+import Home from "./home/Home";
 import Box from "@mui/material/Box";
 
 const emptyCredentials = {
