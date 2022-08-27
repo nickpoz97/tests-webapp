@@ -4,7 +4,7 @@ import getAllTests from "../utils/GetAllTests";
 import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from '@material-ui/core';
-import GlobalStyle from './GlobalStyle'
+import GlobalStyle from '../Style/GlobalStyle'
 
 
 function formatDate(date){
