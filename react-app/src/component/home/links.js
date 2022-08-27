@@ -39,11 +39,11 @@ const DrawerLinkList = (props) => {
     return(
         <List>
             {StandardLinkList({setState: props.setState}).map((link, index) =>
+                <ListItem key={index}>
                 <Typography variant="h6">
-                    <ListItem key={index}>
                         {link}
-                    </ListItem>
                 </Typography>
+                </ListItem>
             )}
         </List>
     )
