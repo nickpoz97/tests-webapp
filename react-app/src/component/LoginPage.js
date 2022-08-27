@@ -41,7 +41,7 @@ const LoginPage = () => {
                 setLoginStatus("success")
             }
             else{
-                setErrorMessage(<Alert severity="warning">Username o password errati</Alert>)
+                setErrorMessage(<Alert severity="error">{response.message}</Alert>)
             }
         })
         .catch(errors => {
