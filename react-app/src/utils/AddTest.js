@@ -9,7 +9,11 @@ mutation($testInput:TestInput!){
 `;
 
 const addTest = (testInput) => {
-    return graphqlRequest(queryBody, {testInput: testInput}).then(data => data.addTest);
-}
+    return graphqlRequest(queryBody, {testInput: testInput})
+        .then(data => data.addTest)
+        .catch(errors => {
+            throw errors
+        })
+};
 
 export default addTest;

@@ -16,9 +16,10 @@ const queryBody = `
     }
 `;
 
-const getAllDomande = async () => {
-    const data = await graphqlRequest(queryBody)
-    return data.getAllDomande
-}
+const getAllDomande = () => graphqlRequest(queryBody)
+        .then(data => data.getAllDomande)
+        .catch(errors => {
+            throw errors
+        })
 
 export default getAllDomande;

@@ -16,8 +16,16 @@ const graphqlRequest = (queryBody, variables={}) => fetch(
         }
 )
     .then(reply => reply.json())
-    .then(data => {
-        return data.data
+    .then(dataObject => {
+        if (dataObject["errors"] === undefined){
+            return dataObject.data
+        }
+        throw dataObject.errors[0]
     })
+    .catch(
+        error => {
+            throw error
+        }
+    )
 
 export default graphqlRequest

@@ -15,5 +15,9 @@ mutation($username:String!, $password:String!){
 } 
 `
 
-const login = (credentials) => graphqlRequest(loginQuery, credentials);
+const login = (credentials) => graphqlRequest(loginQuery, credentials)
+    .then(data => data.login)
+    .catch(errors => {
+        throw errors
+    });
 export default login;

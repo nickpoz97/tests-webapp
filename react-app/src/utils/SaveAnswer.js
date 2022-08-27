@@ -14,9 +14,10 @@ mutation($nomeTest:String!, $dataTest:Date!, $orarioTest:LocalTime!, $idRisposta
 }
 `
 
-const saveAnswer = async (variables) => {
-    const data = await graphqlRequest(queryBody, variables)
-    return data.addRisposta.success
-}
+const saveAnswer = (variables) => graphqlRequest(queryBody, variables)
+    .then(data => data.addRisposta)
+    .catch(error => {
+        throw error
+    })
 
 export default saveAnswer;

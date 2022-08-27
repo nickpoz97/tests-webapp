@@ -29,7 +29,11 @@ const getRisposte = (nomeTest, dataTest, orarioTest) => {
         orarioTest: orarioTest
     }
 
-    return graphqlRequest(queryBody, variables).then(data => data.getRisposte);
+    return graphqlRequest(queryBody, variables)
+        .then(data => data.getRisposte)
+        .catch(errors => {
+            throw errors
+        });
 }
 
 export default getRisposte;

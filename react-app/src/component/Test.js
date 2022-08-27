@@ -40,6 +40,7 @@ function ordineDomande(test){
 
 const Test = () => {
     const [tests, setTests] = React.useState([]);
+
     React.useEffect(() => {
         getAllTests()
         .then(data => {
