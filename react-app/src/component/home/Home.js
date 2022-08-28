@@ -47,8 +47,8 @@ export default function Home(props) {
   const theme = responsiveFontSizes(createTheme());
 
   return (
-    <ThemeProvider theme={theme}>
     <Box sx={{ flexGrow: 1 }}>
+    <ThemeProvider theme={theme}>
       <AppBar position="sticky">
         <Toolbar>
           <TeacherTools />
@@ -58,7 +58,7 @@ export default function Home(props) {
         </Toolbar>
       </AppBar>
       {state}
-    </Box>
     </ThemeProvider>
+    </Box>
   );
 }

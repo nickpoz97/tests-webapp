@@ -57,6 +57,9 @@ const SmallScreenListRendering = (props) => {
             open={props.open}
             onOpen={() => props.setOpen(true)}
             onClose={() => props.setOpen(false)}
+            PaperProps = {{
+                sx: {width: "50vw"}
+            }}
         >
         <DrawerLinkList setState={props.setState}/>
         </SwipeableDrawer>
