@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,6 +13,10 @@ import {BigScreenLinksRendering , SmallScreenListRendering} from "./links";
 export default function Home(props) {
   const [state, setState] = useState(<Test />)
   const [toggleDrawer, setToggleDrawer] = useState(false)
+
+  useEffect(() => {
+    setToggleDrawer(false)
+  }, [state])
 
   const TeacherTools = () => {
     if (sessionStorage.getItem("role") === 'INSEGNANTE') {

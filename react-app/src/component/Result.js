@@ -88,7 +88,7 @@ const Result = (props) => {
         <Stack direction="column" alignItems="center" justifyContent="center">
             <Typography variant="h4" component="h1" className={styles.result}>Risultati del test</Typography>
             <TableContainer>
-            <Table stickyHeader>
+            <Table stickyHeader >
                 <ResultHeader headerColumns={headerColumns} />
                 <ResultBody listRisposte={result.listRisposte}/>
             </Table>
