@@ -3,7 +3,7 @@ import styles from "../style.module.css";
 import addDomanda from "../utils/AddDomanda";
 import Typography from "@mui/material/Typography";
 import {TextField} from "@mui/material";
-import GlobalStyle from '../Style/GlobalStyle'
+import {GlobalStyle} from '../Style/GlobalStyle'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import DeleteIcon from '@mui/icons-material/Delete';

@@ -1,10 +1,17 @@
 import React from "react";
 import {Link} from 'react-router-dom'
 import getAllTests from "../utils/GetAllTests";
-import {Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {
+    Stack,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import GlobalStyle from '../Style/GlobalStyle'
-
+import {GlobalStyle} from '../Style/GlobalStyle'
 
 function formatDate(date){
     var data =  date.split("-");
@@ -52,8 +59,9 @@ const Test = () => {
         <div>
             <GlobalStyle />
                 <Stack direction="column" alignItems="center">
-                <Typography className="h1Test">Test</Typography>
-                    <TableContainer>
+                <Typography variant="h1" component="h1" >Test</Typography>
+                <Typography variant="body1" sx={{width: "100%"}}>
+                <TableContainer>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
@@ -80,7 +88,8 @@ const Test = () => {
                         ))}
                     </TableBody>
                 </Table>
-                    </TableContainer>
+                </TableContainer>
+                </Typography>
                 </Stack>
         </div>
     )

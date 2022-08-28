@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Test from "../Test";
 import {createTheme, Hidden, responsiveFontSizes, Stack, ThemeProvider} from "@mui/material";
 import {BigScreenLinksRendering , SmallScreenListRendering} from "./links";
+import {ResponsiveTheme} from "../../Style/GlobalStyle";
 
 export default function Home(props) {
   const [state, setState] = useState(<Test />)
@@ -48,11 +49,8 @@ export default function Home(props) {
     return <Box sx={{flexGrow: 1}} />
   }
 
-  const theme = responsiveFontSizes(createTheme());
-
   return (
     <Box sx={{ flexGrow: 1 }}>
-    <ThemeProvider theme={theme}>
       <AppBar position="sticky">
         <Toolbar>
           <TeacherTools />
@@ -62,7 +60,6 @@ export default function Home(props) {
         </Toolbar>
       </AppBar>
       {state}
-    </ThemeProvider>
     </Box>
   );
 }

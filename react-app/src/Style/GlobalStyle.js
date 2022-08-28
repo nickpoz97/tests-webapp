@@ -1,5 +1,6 @@
 // globalStyles.js
 import { createGlobalStyle } from 'styled-components';
+import {createTheme, responsiveFontSizes} from "@mui/material";
  
 const GlobalStyle = createGlobalStyle`
   .testTableHead{
@@ -49,5 +50,14 @@ const GlobalStyle = createGlobalStyle`
     margin-top: 4%;
   }
 `;
- 
-export default GlobalStyle;
+
+const ResponsiveTheme = responsiveFontSizes(createTheme());
+
+// ResponsiveTheme.typography.h1 = {
+//     fontSize: '5em',
+//     [ResponsiveTheme.breakpoints.down('sm')]:{
+//         fontSize: '2.5em'
+//     }
+// }
+
+export {GlobalStyle, ResponsiveTheme};

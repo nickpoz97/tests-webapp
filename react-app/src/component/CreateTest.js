@@ -9,7 +9,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import GlobalStyle from '../Style/GlobalStyle'
+import {GlobalStyle} from '../Style/GlobalStyle'
 import dayjs from 'dayjs'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -93,7 +93,7 @@ const CreateTest = () =>{
   }
 
   function EmptyList(){
-    if(arrayDomande.length == 0){
+    if(arrayDomande.length === 0){
       return(<Typography className="headerCreateTest" variant="h4" color="red">nessuna domanda inserita...</Typography>)
     }
   }
