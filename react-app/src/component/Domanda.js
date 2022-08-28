@@ -161,6 +161,7 @@ const Domanda = () =>{
             </div>
           ))}
        </div>
+       <br/>
        <Stack direction="row" justifyContent="space-evenly">
           <Button variant="outlined" className={styles.bottoneDomanda} disabled={index === 0} onClick={decrement}>Indietro</Button>
            <RightButton />

@@ -5,13 +5,17 @@ import getAllDomande from "../utils/GetAllDomande";
 import getAllTests from "../utils/GetAllTests";
 import { Typography } from "@mui/material";
 import {TextField} from "@mui/material";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import GlobalStyle from '../Style/GlobalStyle'
 import dayjs from 'dayjs'
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
 
 
 const CreateTest = () =>{
@@ -88,6 +92,13 @@ const CreateTest = () =>{
     setInfo(RenderInsertTest(testInput));
   }
 
+  function EmptyQuestionList(){
+    if(arrayDomande.length == 0){
+      return(<Typography className="headerCreateTest" variant="h4" color="red">nessuna domanda inserita...</Typography>)
+    }
+    
+  }
+
   function RenderInsertTest(testInput){
     if (tests.find(t => (t.nome === testInput.nomeTest && t.data.localeCompare(testInput.data) === 0)) !== undefined){
       return(
@@ -116,7 +127,8 @@ const CreateTest = () =>{
        <form onSubmit={handleSubmit}>
         <div className={styles.divDomanda}>
             <Typography className="headerCreateTest" variant="h3">Creazione Test</Typography>
-            <TextField className="nomeCreateTest" required id="nomeTest" label="nome" variant="outlined" />  <br></br> <br></br> 
+            <TextField className="nomeCreateTest" required id="nomeTest" label="nome" variant="outlined" /> 
+            <br/> <br/>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="Data"
@@ -125,6 +137,7 @@ const CreateTest = () =>{
                 onChange={handleDataChange}
                 renderInput={(params) => <TextField {...params} />}
               />
+              <br/> <br/>
               <TimePicker
                 label="Ora"
                 value={data}
@@ -134,34 +147,44 @@ const CreateTest = () =>{
             </LocalizationProvider>
           </div>
           <div className={styles.divDomanda}>
-            <h2>Lista Domande</h2>
+            <Typography className="headerCreateTest" variant="h3">Lista Domande</Typography>
             <div>
               <select id="selectDomande" className={styles.listaDomande} >
                 {domande.map((domanda) => (
                   <option key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}</option>
                 ))}
               </select>
-              <tab className={styles.tab}></tab>
-              <button type="button" className={styles.createTestButton} onClick={addDomanda}>Aggiungi</button>
+              <Box textAlign='center'>
+                <Button className="addDomandaButton" variant="contained" onClick={addDomanda} color="success">Aggiungi</Button>
+              </Box>
             </div>
           </div>
 
           <div className={styles.divDomanda}>
-            <h2>Domande aggiunte</h2>
+            <Typography className="headerCreateTest" variant="h3">Domande aggiunte</Typography>
             <div>
+              <EmptyQuestionList/>
               <ol>
                 {arrayDomande.map((domanda) => (
-                  <li className={styles.liCreateTest} key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo} <button className={styles.rimuoviCreateTest} onClick={() => { deleteDomanda(domanda) }}>Rimuovi</button></li>
+                  <li className={styles.liCreateTest} key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}
+                  <Box sx={{ justifyContent: 'flex-end' }}>
+                    <Button className="rimuoviDomanda" onClick={() => { deleteDomanda(domanda) }} variant="outlined" startIcon={<DeleteIcon />}>
+                      Rimuovi
+                    </Button>
+                  </Box>
+                  </li>
                 ))}
               </ol>
-              <div>
+              <div className="divCheckBox">
                 <input id="ordineCasuale" name="ordineCasuale" type="checkbox"></input>
-                <label htmlFor="ordineCasuale">Ordine casuale</label>
+                <label className="checkBox" htmlFor="ordineCasuale">Ordine casuale</label>
                 <br></br>
                 <input id="domandeConNumero" name="domandeConNumero" type="checkbox"></input>
-                <label htmlFor="domandeConNumero">Domande con numero</label>
-                <br></br><br></br>
-                <button id="creaTest" className={styles.creaButton}>Crea Test</button>
+                <label className="checkBox" htmlFor="domandeConNumero">Domande con numero</label>
+                <br/><br/>
+                <Box textAlign='center'>
+                  <Button className="submitButton" type="submit" variant="contained" color="success">Crea Test</Button>
+                </Box>
               </div>
             </div>
         </div>
