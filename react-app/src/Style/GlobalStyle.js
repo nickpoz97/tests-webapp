@@ -15,7 +15,29 @@ const GlobalStyle = createGlobalStyle`
   .headerCreateTest{
     margin-bottom: 2%;
   }
-  
+  .submitButton{
+    font-size:1.5em;
+    margin-top: 5%;
+    background-color: #46b74b;
+  }
+  .addDomandaButton{
+    font-size:1.5em;
+    margin-top: 5%;
+    background-color: #446bc2;
+  }
+  .rimuoviDomanda{
+    color: red;
+    border-color: red;
+  }
+
+  .checkBox{
+    margin-left: 1%;
+    font-size: 1.5em;
+  }
+
+  .divCheckBox{
+    margin-top: 4%;
+  }
 `;
  
 export default GlobalStyle;
