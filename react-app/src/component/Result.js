@@ -50,7 +50,7 @@ const Result = (props) => {
 
     const ResultHeader = (props) => {
        return(
-           <TableHead className="prova">
+           <TableHead>
            <TableRow>
                {props.headerColumns.map(colName => <TableCell key={colName}><Typography variant="body1">{colName}</Typography></TableCell>)}
            </TableRow>

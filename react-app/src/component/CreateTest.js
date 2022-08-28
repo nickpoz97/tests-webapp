@@ -15,9 +15,6 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
-
-
 const CreateTest = () =>{
 
   const [arrayDomande, setArrayDomande] = useState([]);
@@ -122,7 +119,6 @@ const CreateTest = () =>{
 
   return(
     <div>
-      <GlobalStyle />
        <form onSubmit={handleSubmit}>
         <div className={styles.divDomanda}>
             <Typography className="headerCreate" variant="h3">Creazione Test</Typography>
@@ -150,7 +146,7 @@ const CreateTest = () =>{
           <div className={styles.divDomanda}>
             <Typography className="headerCreate" variant="h3">Lista Domande</Typography>
             <div>
-              <select id="selectDomande" className="listaDomande">
+              <select id="selectDomande" style={GlobalStyle.listaDomande}>
                 {domande.map((domanda) => (
                   <option key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}</option>
                 ))}
