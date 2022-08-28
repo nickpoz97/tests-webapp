@@ -49,7 +49,7 @@ export default function Home(props) {
   return (
     <ThemeProvider theme={theme}>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <TeacherTools />
           <Stack alignItems="flex-end" flexGrow={1}>
