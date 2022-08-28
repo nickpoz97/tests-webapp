@@ -1,6 +1,12 @@
 import React, {useState} from "react";
 import styles from "../style.module.css";
 import addDomanda from "../utils/AddDomanda";
+import Typography from "@mui/material/Typography";
+import {TextField} from "@mui/material";
+import GlobalStyle from '../Style/GlobalStyle'
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const CreaDomanda = () =>{
@@ -78,30 +84,46 @@ const CreaDomanda = () =>{
         setArrayRisposte(array);
     }
 
+    function EmptyList(){
+        if(arrayRisposte.length == 0){
+          return(<Typography className="headerCreateTest" variant="h4" color="red">nessuna risposta inserita...</Typography>)
+        }
+    }
+
     return(
         <div>
+            <GlobalStyle />
             <div className={styles.divDomanda}>
-                <h1>Crea una domanda:</h1>
+            <Typography className="headerCreate" variant="h3">Crea una domanda:</Typography>
                 <form onSubmit={handleSubmit}>
-                    <h3> Nome domanda: <input required id="nome_domanda" type="text"/> </h3>
-                    <h3> Testo domanda: <input required id="testo_domanda" type="text"/> </h3>
-                    <h3> Punti domanda: <input required id="punti_domanda" type="text"/> </h3>
-                    <h1 className={styles.h1Risposte}>Aggiungi risposte:</h1>
+                    <TextField className="formCreate" required id="nome_domanda" label="Nome domanda" variant="outlined" /> 
+                    <br/>
+                    <TextField className="formCreate" required id="testo_domanda" label="Testo domanda" variant="outlined" /> 
+                    <br/>
+                    <TextField type="number" className="formCreate" required id="punti_domanda" label="Punti domanda" variant="outlined" /> 
+                    <Typography className="headerCreate" variant="h3">Aggiungi risposte:</Typography>
                     <input id="ordineCasuale" name="ordineCasuale" type="checkbox"></input>
                     <label htmlFor="ordineCasuale">Risposte in ordine casuale</label>
                     <input id="risposteConNumero" name="risposteConNumero" type="checkbox"></input>
                     <label htmlFor="risposteConNumero">Risposte con numero</label><br></br><br></br>
+                    <EmptyList/>
                     {arrayRisposte.map((risposta) => (
                     //inzio componente domanda 
                         <div>
-                            Testo: <input required id={"risposta" + risposta.numero} name={"risposta" + risposta.numero} ></input> <tab></tab>
-                            Punti: <input required id={"punti" + risposta.numero} name={"punti" + risposta.numero} placeholder={risposta.punti}></input> <tab></tab>
-                            <button type="button" onClick={() => { rimuoviRisposta(risposta) }}>Rimuovi Risposta</button><br></br><br></br><br></br>
+                            <TextField className="formCreate" required id={"risposta" + risposta.numero} label="Testo risposta" variant="outlined" /> 
+                            <TextField type="number" className="formCreate" required id={"punti" + risposta.numero} label="Punti risposta" variant="outlined" />
+                            <Button className="rimuovi" onClick={() => { rimuoviRisposta(risposta) }} variant="outlined" startIcon={<DeleteIcon />}>
+                                Rimuovi
+                            </Button>
                         </div>
                     //fine componente domanda 
                     ))}
-                    <button type="button" onClick={aggiungiRisposta}>Aggiungi Risposta</button><br></br>
-                    <button className={styles.creaButton} type="submit">Crea Domanda</button>
+                    <Box textAlign='center'>
+                        <Button className="addButton" variant="contained" onClick={aggiungiRisposta} color="success">Aggiungi Risposta</Button>
+                    </Box>
+                    <Box textAlign='center'>
+                        <Button className="submitButton" type="submit" variant="contained" color="success">Crea Domanda</Button>
+                    </Box>
                 </form>
                 {result}
             </div>

@@ -9,23 +9,33 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.8em
   }
   .h1Test{
-    font-size:3em;
+    font-size:5em;
     margin: 2%;
   }
-  .headerCreateTest{
+  .headerCreate{
     margin-bottom: 2%;
   }
+  .formCreate{
+    margin:2%;
+  }
+  .listaDomande{
+    width: 50%;
+    font-size: 1.5em;
+  }
+
   .submitButton{
     font-size:1.5em;
     margin-top: 5%;
     background-color: #46b74b;
   }
-  .addDomandaButton{
+  .addButton{
     font-size:1.5em;
     margin-top: 5%;
     background-color: #446bc2;
   }
-  .rimuoviDomanda{
+  .rimuovi{
+    height: 55px;
+    margin:2%;
     color: red;
     border-color: red;
   }

@@ -76,7 +76,7 @@ const CreateTest = () =>{
     var dataNew = formatDate(data.$d.toLocaleDateString('en-US', {year: 'numeric',month: '2-digit',day: '2-digit',}));
     
     var ora =  data.$d.getHours();
-    var minuti = data.$d.getMinutes();
+    var minuti = String(data.$d.getMinutes()).padStart(2, '0')
     var secondi = data.$d.getSeconds();
     var orario = ora +":"+minuti;
     
@@ -92,11 +92,10 @@ const CreateTest = () =>{
     setInfo(RenderInsertTest(testInput));
   }
 
-  function EmptyQuestionList(){
+  function EmptyList(){
     if(arrayDomande.length == 0){
       return(<Typography className="headerCreateTest" variant="h4" color="red">nessuna domanda inserita...</Typography>)
     }
-    
   }
 
   function RenderInsertTest(testInput){
@@ -126,19 +125,21 @@ const CreateTest = () =>{
       <GlobalStyle />
        <form onSubmit={handleSubmit}>
         <div className={styles.divDomanda}>
-            <Typography className="headerCreateTest" variant="h3">Creazione Test</Typography>
-            <TextField className="nomeCreateTest" required id="nomeTest" label="nome" variant="outlined" /> 
-            <br/> <br/>
+            <Typography className="headerCreate" variant="h3">Creazione Test</Typography>
+            <TextField className="formCreate" required id="nomeTest" label="nome" variant="outlined" /> 
+            <br/>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
+                className="formCreate"
                 label="Data"
                 inputFormat="DD/MM/YYYY"
                 value={data}
                 onChange={handleDataChange}
                 renderInput={(params) => <TextField {...params} />}
               />
-              <br/> <br/>
+              <br/>
               <TimePicker
+                className="formCreate"
                 label="Ora"
                 value={data}
                 onChange={handleDataChange}
@@ -147,28 +148,28 @@ const CreateTest = () =>{
             </LocalizationProvider>
           </div>
           <div className={styles.divDomanda}>
-            <Typography className="headerCreateTest" variant="h3">Lista Domande</Typography>
+            <Typography className="headerCreate" variant="h3">Lista Domande</Typography>
             <div>
-              <select id="selectDomande" className={styles.listaDomande} >
+              <select id="selectDomande" className="listaDomande">
                 {domande.map((domanda) => (
                   <option key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}</option>
                 ))}
               </select>
               <Box textAlign='center'>
-                <Button className="addDomandaButton" variant="contained" onClick={addDomanda} color="success">Aggiungi</Button>
+                <Button className="addButton" variant="contained" onClick={addDomanda} color="success">Aggiungi</Button>
               </Box>
             </div>
           </div>
 
           <div className={styles.divDomanda}>
-            <Typography className="headerCreateTest" variant="h3">Domande aggiunte</Typography>
+            <Typography className="headerCreate" variant="h3">Domande aggiunte</Typography>
             <div>
-              <EmptyQuestionList/>
+              <EmptyList/>
               <ol>
                 {arrayDomande.map((domanda) => (
                   <li className={styles.liCreateTest} key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}
                   <Box sx={{ justifyContent: 'flex-end' }}>
-                    <Button className="rimuoviDomanda" onClick={() => { deleteDomanda(domanda) }} variant="outlined" startIcon={<DeleteIcon />}>
+                    <Button className="rimuovi" onClick={() => { deleteDomanda(domanda) }} variant="outlined" startIcon={<DeleteIcon />}>
                       Rimuovi
                     </Button>
                   </Box>
