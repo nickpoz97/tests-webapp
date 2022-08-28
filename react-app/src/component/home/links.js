@@ -1,5 +1,6 @@
 import CreateTest from "../CreateTest";
 import CreaDomanda from "../CreaDomanda";
+import Test from "../Test";
 import * as React from "react";
 import {Link} from "react-router-dom";
 import styles from "../../style.module.css";
@@ -8,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import {List, ListItem, SwipeableDrawer} from "@mui/material";
 
 const links = [
+    {text: "Home", ref: <Test />},
     {text: "Crea Test", ref: <CreateTest />},
     {text: "Crea Domanda", ref: <CreaDomanda />}
 ]
