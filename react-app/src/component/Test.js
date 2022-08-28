@@ -3,7 +3,9 @@ import {Link} from 'react-router-dom'
 import getAllTests from "../utils/GetAllTests";
 import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import GlobalStyle from '../Style/GlobalStyle'
+import GlobalStyle from '../Style/GlobalStyle';
+import styles from "../style.module.css";
+
 
 
 function formatDate(date){
@@ -52,8 +54,8 @@ const Test = () => {
         <div>
             <GlobalStyle />
                 <Stack direction="column" alignItems="center">
-                <Typography className="h1Test">Test</Typography>
-                <Table stickyHeader>
+                <Typography className="h1Test" variant="h1">Test</Typography>
+                <Table stickyHeader className="tabellaTest">
                     <TableHead>
                         <TableRow>
                             <TableCell className="testTableHead">
