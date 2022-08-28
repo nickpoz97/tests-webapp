@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom'
 import getAllTests from "../utils/GetAllTests";
-import {Stack, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import {Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import GlobalStyle from '../Style/GlobalStyle'
 
@@ -53,6 +53,7 @@ const Test = () => {
             <GlobalStyle />
                 <Stack direction="column" alignItems="center">
                 <Typography className="h1Test">Test</Typography>
+                    <TableContainer>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
@@ -79,6 +80,7 @@ const Test = () => {
                         ))}
                     </TableBody>
                 </Table>
+                    </TableContainer>
                 </Stack>
         </div>
     )
