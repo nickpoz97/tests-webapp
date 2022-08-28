@@ -92,7 +92,6 @@ const CreaDomanda = () =>{
 
     return(
         <div>
-            <GlobalStyle />
             <div className={styles.divDomanda}>
             <Typography className="headerCreate" variant="h3">Crea una domanda:</Typography>
                 <form onSubmit={handleSubmit}>
