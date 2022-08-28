@@ -7,6 +7,7 @@ import styles from "../../style.module.css";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {List, ListItem, SwipeableDrawer} from "@mui/material";
+import Button from "@mui/material/Button";
 
 const links = [
     {text: "Home", ref: <Test />},
@@ -38,13 +39,25 @@ const BigScreenLinksRendering = (props) => {
 }
 
 const DrawerLinkList = (props) => {
+    const clickHandler = (e) => {
+        const index = parseInt(e.target.name)
+        props.setState(links[index].ref)
+    }
+
     return(
         <List>
-            {StandardLinkList({setState: props.setState}).map((link, index) =>
+            {links.map((link, index) =>
                 <ListItem key={index}>
-                <Typography variant="h6" sx={{width: "100%", marginBottom: 2}}>
-                        {link}
-                </Typography>
+                <Button
+                    fullWidth
+                    sx={{margin:2}}
+                    name={index.toString()}
+                    variant="outlined"
+                    size="medium"
+                    onClick={clickHandler}
+                >
+                    {link.text}
+                </Button>
                 </ListItem>
             )}
         </List>
