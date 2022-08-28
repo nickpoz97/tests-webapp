@@ -6,8 +6,10 @@ import styles from "../../style.module.css";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {List, ListItem, SwipeableDrawer} from "@mui/material";
+import Test from "../Test";
 
 const links = [
+    {text: "Home", ref: <Test />},
     {text: "Crea Test", ref: <CreateTest />},
     {text: "Crea Domanda", ref: <CreaDomanda />}
 ]
