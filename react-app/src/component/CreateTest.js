@@ -59,18 +59,22 @@ const CreateTest = () =>{
     setArrayDomande(array);
   }
 
+  function formatDate(date){
+    var data =  date.split("/");
+    return data[2] + "-" + data[0] + "-" + data[1];
+  }
+
   const[info, setInfo] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    var giorno = data.$d.getUTCDate();
-    var mese = data.$d.getMonth() + 1;
-    var anno = data.$d.getFullYear();
-    var dataNew = giorno + "/"+ mese + "/" + anno;
+    
+    var dataNew = formatDate(data.$d.toLocaleDateString('en-US', {year: 'numeric',month: '2-digit',day: '2-digit',}));
+    
     var ora =  data.$d.getHours();
     var minuti = data.$d.getMinutes();
     var secondi = data.$d.getSeconds();
-    var orario = ora +":"+minuti+":"+secondi;
+    var orario = ora +":"+minuti;
     
     const testInput = {
       nome: document.getElementById("nomeTest").value,
@@ -81,8 +85,6 @@ const CreateTest = () =>{
       nomeDomande: arrayDomande.map(d => d.id)
     }
 
-    console.log(testInput)
-    
     setInfo(RenderInsertTest(testInput));
   }
 
@@ -116,20 +118,19 @@ const CreateTest = () =>{
             <Typography className="headerCreateTest" variant="h3">Creazione Test</Typography>
             <TextField className="nomeCreateTest" required id="nomeTest" label="nome" variant="outlined" />  <br></br> <br></br> 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DesktopDatePicker
-              label="Data"
-              inputFormat="DD/MM/YYYY"
-              value={data}
-              onChange={handleDataChange}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <br></br> <br></br> 
-            <TimePicker
-              label="Ora"
-              value={data}
-              onChange={handleDataChange}
-              renderInput={(params) => <TextField {...params} />}
-            />
+              <DesktopDatePicker
+                label="Data"
+                inputFormat="DD/MM/YYYY"
+                value={data}
+                onChange={handleDataChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+              <TimePicker
+                label="Ora"
+                value={data}
+                onChange={handleDataChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
             </LocalizationProvider>
           </div>
           <div className={styles.divDomanda}>
