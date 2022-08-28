@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,6 +13,10 @@ import {BigScreenLinksRendering , SmallScreenListRendering} from "./links";
 export default function Home(props) {
   const [state, setState] = useState(<Test />)
   const [toggleDrawer, setToggleDrawer] = useState(false)
+
+  useEffect(() => {
+    setToggleDrawer(false)
+  }, [state])
 
   const TeacherTools = () => {
     if (sessionStorage.getItem("role") === 'INSEGNANTE') {
@@ -47,8 +51,8 @@ export default function Home(props) {
   const theme = responsiveFontSizes(createTheme());
 
   return (
-    <ThemeProvider theme={theme}>
     <Box sx={{ flexGrow: 1 }}>
+    <ThemeProvider theme={theme}>
       <AppBar position="sticky">
         <Toolbar>
           <TeacherTools />
@@ -58,7 +62,7 @@ export default function Home(props) {
         </Toolbar>
       </AppBar>
       {state}
-    </Box>
     </ThemeProvider>
+    </Box>
   );
 }

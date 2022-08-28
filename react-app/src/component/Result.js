@@ -1,7 +1,7 @@
 import {Link, useParams} from "react-router-dom";
 import getRisposte from "../utils/GetRisposte";
 import React, {useEffect, useState} from "react";
-import {Stack, Table, TableBody, TableCell, TableHead, TableRow,} from "@mui/material";
+import {Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,} from "@mui/material";
 import styles from "../style.module.css"
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -87,10 +87,12 @@ const Result = (props) => {
     return(
         <Stack direction="column" alignItems="center" justifyContent="center">
             <Typography variant="h4" component="h1" className={styles.result}>Risultati del test</Typography>
-            <Table stickyHeader>
+            <TableContainer>
+            <Table stickyHeader >
                 <ResultHeader headerColumns={headerColumns} />
                 <ResultBody listRisposte={result.listRisposte}/>
             </Table>
+            </TableContainer>
             <Typography variant="h4" component="h2" className={styles.result}>
                 Punteggio: {result.yourScore.toFixed(2)} su {result.maxScore.toFixed(2)}
             </Typography>

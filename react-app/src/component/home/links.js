@@ -42,7 +42,7 @@ const DrawerLinkList = (props) => {
         <List>
             {StandardLinkList({setState: props.setState}).map((link, index) =>
                 <ListItem key={index}>
-                <Typography variant="h6">
+                <Typography variant="h6" sx={{width: "100%", marginBottom: 2}}>
                         {link}
                 </Typography>
                 </ListItem>
@@ -57,6 +57,9 @@ const SmallScreenListRendering = (props) => {
             open={props.open}
             onOpen={() => props.setOpen(true)}
             onClose={() => props.setOpen(false)}
+            PaperProps = {{
+                sx: {width: "70%"}
+            }}
         >
         <DrawerLinkList setState={props.setState}/>
         </SwipeableDrawer>
