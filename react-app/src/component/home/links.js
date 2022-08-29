@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import styles from "../../style.module.css";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {List, ListItem, SwipeableDrawer} from "@mui/material";
+import {List, ListItem, Stack, SwipeableDrawer} from "@mui/material";
 import Button from "@mui/material/Button";
 
 const links = [
@@ -31,9 +31,9 @@ const StandardLinkList = (props) => {
 const BigScreenLinksRendering = (props) => {
     return(
         <Typography variant="h6" sx={{ flexGrow: 1 }} >
-        <Box>
+        <Stack direction="row" spacing={5}>
             <StandardLinkList setState={props.setState}/>
-        </Box>
+        </Stack>
         </Typography>
     )
 }

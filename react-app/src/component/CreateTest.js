@@ -3,7 +3,18 @@ import React, {useState} from 'react';
 import InsertTest from "./InsertTest";
 import getAllDomande from "../utils/GetAllDomande";
 import getAllTests from "../utils/GetAllTests";
-import {FormControl, Input, MenuItem, Select, Stack, Typography} from "@mui/material";
+import {
+  Alert,
+  FormControl,
+  FormControlLabel,
+  List,
+  ListItem,
+  MenuItem,
+  NativeSelect,
+  Select,
+  Stack,
+  Typography
+} from "@mui/material";
 import {TextField} from "@mui/material";
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -14,6 +25,7 @@ import dayjs from 'dayjs'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CheckBox from "@mui/material/Checkbox";
 
 const CreateTest = () =>{
 
@@ -65,10 +77,11 @@ const CreateTest = () =>{
     return data[2] + "-" + data[0] + "-" + data[1];
   }
 
-  const[info, setInfo] = useState("");
+  const[info, setInfo] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("test submitted")
     
     var dataNew = formatDate(data.$d.toLocaleDateString('en-US', {year: 'numeric',month: '2-digit',day: '2-digit',}));
     
@@ -86,28 +99,30 @@ const CreateTest = () =>{
       nomeDomande: arrayDomande.map(d => d.id)
     }
 
-    setInfo(RenderInsertTest(testInput));
+    setInfo(
+        <Box sx={GlobalStyle.divDomanda}>
+          {RenderInsertTest(testInput)}
+        </Box>
+    );
   }
 
   function EmptyList(){
     if(arrayDomande.length === 0){
-      return(<Typography className="headerCreateTest" variant="h4" color="red">nessuna domanda inserita...</Typography>)
+      return(<Alert severity="info">Inserire almeno 1 domanda</Alert>)
     }
   }
 
   function RenderInsertTest(testInput){
     if (tests.find(t => (t.nome === testInput.nomeTest && t.data.localeCompare(testInput.data) === 0)) !== undefined){
       return(
-          <Box>
-            <h1 className={styles.insertTestError}>Test con lo stesso nome già esistente alla data specificata</h1>
-          </Box>
+          <Alert severity="warning">Test con lo stesso nome già esistente alla data specificata</Alert>
       )
     }
 
     if(arrayDomande.length === 0){
       return(
           <Box>
-            <h1 className={styles.insertTestError}>Errore inserimento: nessuna domanda inserita</h1>
+            <Alert severity="warning">Nessuna domanda inserita</Alert>
           </Box>
       )
     }
@@ -119,7 +134,7 @@ const CreateTest = () =>{
 
   return(
     <Box>
-       <FormControl onSubmit={handleSubmit} fullWidth>
+       <form onSubmit={handleSubmit}>
         <Box className={styles.divDomanda}>
             <Typography sx={GlobalStyle.headerCreate} variant="h3">Creazione Test</Typography>
           <Box sx={GlobalStyle.formCreate}>
@@ -150,11 +165,11 @@ const CreateTest = () =>{
           <Box sx={GlobalStyle.divDomanda}>
             <Typography sx={GlobalStyle.headerCreate} variant="h3">Lista Domande</Typography>
             <Box>
-              <Select id="selectDomande" sx={GlobalStyle.listaDomande}>
+              <NativeSelect id="selectDomande" sx={GlobalStyle.listaDomande}>
                 {domande.map((domanda) => (
-                  <MenuItem key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}</MenuItem>
+                  <option key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}</option>
                 ))}
-              </Select>
+              </NativeSelect>
               <Box textAlign='center'>
                 <Button sx={GlobalStyle.addButton} variant="contained" onClick={addDomanda} color="success">Aggiungi</Button>
               </Box>
@@ -165,26 +180,30 @@ const CreateTest = () =>{
             <Typography sx={GlobalStyle.headerCreate} variant="h3">Domande aggiunte</Typography>
             <Box>
               <EmptyList/>
-              <ol>
+              <List>
                 {arrayDomande.map((domanda) => (
-                  <li className={styles.liCreateTest} key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}
+                  <ListItem className={styles.liCreateTest} key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}
                   <Box sx={{ justifyContent: 'flex-end' }}>
                     <Button className="rimuovi" onClick={() => { deleteDomanda(domanda) }} variant="outlined" startIcon={<DeleteIcon />}>
                       Rimuovi
                     </Button>
                   </Box>
-                  </li>
+                  </ListItem>
                 ))}
-              </ol>
+              </List>
               <Stack sx={GlobalStyle.divCheckBox} spacing={2} >
                 <Box>
-                <Input id="ordineCasuale" name="ordineCasuale" type="checkbox"></Input>
-                <label className="checkBox" htmlFor="ordineCasuale">Ordine casuale</label>
+                <FormControlLabel
+                    control={<CheckBox id="ordineCasuale" name="ordineCasuale"/>}
+                    label="Ordine casuale"
+                />
                 </Box>
 
                 <Box>
-                <input id="domandeConNumero" name="domandeConNumero" type="checkbox"></input>
-                <label className="checkBox" htmlFor="domandeConNumero">Domande con numero</label>
+                  <FormControlLabel
+                      control={<CheckBox id="domandeConNumero" name="domandeConNumero"/>}
+                      label="Domande con numero"
+                  />
                 </Box>
 
                 <Box textAlign='center'>
@@ -193,8 +212,8 @@ const CreateTest = () =>{
               </Stack>
             </Box>
         </Box>
-       </FormControl>
-        {info}
+           {info}
+       </form>
     </Box>
   )
 }

@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import styles from "../style.module.css";
 import addTest from "../utils/AddTest";
+import {Alert} from "@mui/material";
 
 const InsertTest = (props) => {
     const [result, setResult] = React.useState();
@@ -14,16 +15,12 @@ const InsertTest = (props) => {
 
     if(result){
         return(
-            <div>
-                <h1 className={styles.insertTestSuccess}>Inserimento avvenuto con successo</h1>
-            </div>
+            <Alert severity="success">Inserimento avvenuto con successo</Alert>
         )
     }
     else{
         return(
-            <div>
-                <h1 className={styles.insertTestError}>Errore Inserimento</h1>
-            </div>
+            <Alert severity="error">Errore Inserimento</Alert>
         )
     }
 }

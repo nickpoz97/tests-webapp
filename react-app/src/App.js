@@ -6,9 +6,13 @@ import InsertTest from "./component/InsertTest";
 import CreaDomanda from "./component/CreaDomanda";
 import Result from "./component/Result";
 import LoginPage from "./component/LoginPage";
+import {createTheme, responsiveFontSizes, ThemeProvider} from "@mui/material";
 
 function App() {
+  const theme = responsiveFontSizes(createTheme());
+
   return (
+    <ThemeProvider  theme={theme}>
     <div className="App">
       <BrowserRouter>
         <Routes>
@@ -21,6 +25,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+  </ThemeProvider>
   );
 }
 
