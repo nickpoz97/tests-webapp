@@ -64,9 +64,21 @@ const GlobalStyle = {
     fontFamily: ["Arial", "Helvetica", "sans-serif"],
     borderCollapse: "collapse",
     width: "90%",
-    backgroundColor: "#e7eeee",
+    backgroundColor: "#baecf5",
     padding: "2%"
-}
+  },
+
+  divRisposte: {
+    margin: "auto",
+    marginTop: "2%",
+    fontFamily: ["Arial", "Helvetica", "sans-serif"],
+    width: "90%",
+    backgroundColor: "#acf59f",
+    padding: "2%"
+  },
+  nomeDomanda:{
+    marginTop: "2%",
+  }
 };
 
 const ResponsiveTheme = responsiveFontSizes(createTheme());

@@ -3,9 +3,13 @@ import styles from "../style.module.css";
 import React, {useEffect, useState} from 'react';
 import saveAnswer from "../utils/SaveAnswer";
 import Button from "@mui/material/Button";
-import {Stack} from "@mui/material";
+import {Stack, Typography} from "@mui/material";
 import shuffleArray from "../utils/ShuffleArray";
 import getRisposte from "../utils/GetRisposte";
+import Box from '@mui/material/Box';
+import {GlobalStyle} from '../Style/GlobalStyle'
+
+
 
 const Domanda = () =>{
   
@@ -55,7 +59,7 @@ const Domanda = () =>{
 
   function RenderNumDom(props){
       if(props.domandeConNumero)
-        return <h1>Domanda n° {++numDomande} </h1>;
+        return (<u><Typography variant='h3'>Domanda n° {++numDomande} </Typography></u>);
   }
 
   const changeIndex = async (newIndex) => {
@@ -119,9 +123,10 @@ const Domanda = () =>{
   const NextButton = () => {
       return (
           <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               onClick={increment}
+              
           >
               Avanti
           </Button>
@@ -138,15 +143,17 @@ const Domanda = () =>{
 
   return(
     <div>
-       <div className={styles.divDomanda}>
-          <h1>{test.nome}</h1>
-          <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}/><h2>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</h2>
-          <h3>{domande[ordineDomande[index]-1].testo}</h3>
+       <Box sx={GlobalStyle.divDomanda}>
+          <Typography variant='h2' fontWeight="bold">{test.nome}</Typography>
+          <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}/><i>
+            <Typography sx={GlobalStyle.nomeDomanda} variant='h4'>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</Typography></i> 
+          <Typography variant='h5' sx={GlobalStyle.nomeDomanda}>{domande[ordineDomande[index]-1].testo}</Typography>
           <h4></h4>
-       </div>
-       <div className={styles.divRisposte}>
+       </Box>
+       <Box sx={GlobalStyle.divRisposte}>
+          <Typography variant='h3'>Seleziona una risposta:</Typography>
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
-            <div className="styles.divRisposte" key={risposta.id}>
+            <Box sx={GlobalStyle.divRisposte} key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
                 <input
                   className={styles.rispostaRadio}
@@ -155,15 +162,16 @@ const Domanda = () =>{
                   type="radio"
                   value={risposta.testo}
                   defaultChecked={status.map(r => r.id).includes(parseInt(risposta.id))}
+                  alt="seleziona risposta"
                   >
                 </input>
               <label className={styles.rispostaLabel}>{risposta.testo}</label>
-            </div>
+            </Box>
           ))}
-       </div>
+       </Box>
        <br/>
        <Stack direction="row" justifyContent="space-evenly">
-          <Button variant="outlined" className={styles.bottoneDomanda} disabled={index === 0} onClick={decrement}>Indietro</Button>
+          <Button variant="contained" disabled={index === 0} onClick={decrement}>Indietro</Button>
            <RightButton />
        </Stack>
     </div>
