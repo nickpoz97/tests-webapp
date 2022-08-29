@@ -25,6 +25,7 @@ const GlobalStyle = {
   },
 
   listaDomande: {
+    marginLeft: "2%",
     width: "50%",
     fontSize: "1.5em"
   },
@@ -55,7 +56,17 @@ const GlobalStyle = {
 
   divCheckBox: {
     marginTop: "4%"
-  }
+  },
+
+  divDomanda: {
+    margin: "auto",
+    marginTop: "2%",
+    fontFamily: ["Arial", "Helvetica", "sans-serif"],
+    borderCollapse: "collapse",
+    width: "90%",
+    backgroundColor: "#e7eeee",
+    padding: "2%"
+}
 };
 
 const ResponsiveTheme = responsiveFontSizes(createTheme());
