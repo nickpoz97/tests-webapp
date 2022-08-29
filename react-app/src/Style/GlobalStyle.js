@@ -12,7 +12,6 @@ const GlobalStyle = {
   },
 
   h1Test: {
-    fontSize: "5em",
     margin: "2%"
   },
 
@@ -31,14 +30,12 @@ const GlobalStyle = {
   },
 
   submitButton: {
-    fontSize: "1.5em",
-    marginTop: "5%",
+    marginBottom: "20px",
     backgroundColor: "#46b74b"
   },
 
   addButton: {
-    fontSize: "1.5em",
-    marginTop: "5%",
+    marginBottom: "20px",
     backgroundColor: "#446bc2"
   },
 
@@ -61,7 +58,6 @@ const GlobalStyle = {
   divDomanda: {
     margin: "auto",
     marginTop: "2%",
-    fontFamily: ["Arial", "Helvetica", "sans-serif"],
     borderCollapse: "collapse",
     width: "90%",
     backgroundColor: "#e7eeee",
@@ -69,13 +65,13 @@ const GlobalStyle = {
 }
 };
 
-const ResponsiveTheme = responsiveFontSizes(createTheme());
-
-// ResponsiveTheme.typography.h1 = {
-//     fontSize: '5em',
-//     [ResponsiveTheme.breakpoints.down('sm')]:{
-//         fontSize: '2.5em'
-//     }
-// }
+const ResponsiveTheme = responsiveFontSizes(
+    createTheme(
+{
+      typography: {
+        fontFamily: ["Arial", "Helvetica", "sans-serif"]
+      }
+    })
+);
 
 export {GlobalStyle, ResponsiveTheme};

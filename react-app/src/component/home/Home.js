@@ -7,9 +7,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Test from "../Test";
-import {createTheme, Hidden, responsiveFontSizes, Stack, ThemeProvider} from "@mui/material";
+import {Hidden, Stack} from "@mui/material";
 import {BigScreenLinksRendering , SmallScreenListRendering} from "./links";
-import {ResponsiveTheme} from "../../Style/GlobalStyle";
 
 export default function Home(props) {
   const [state, setState] = useState(<Test />)

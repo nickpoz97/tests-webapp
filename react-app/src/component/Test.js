@@ -56,41 +56,39 @@ const Test = () => {
     },[]);
 
     return(
-        <div>
-                <Stack direction="column" alignItems="center">
-                <Typography variant="h1" component="h1" >Test</Typography>
-                <Typography variant="body1" sx={{width: "100%"}}>
-                <TableContainer>
-                <Table stickyHeader>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell sx={GlobalStyle.testTableHead}>
-                                Nome
-                            </TableCell>
-                            <TableCell sx={GlobalStyle.testTableHead}>
-                                Data
-                            </TableCell>
-                            <TableCell sx={GlobalStyle.testTableHead}>
-                                Orario
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {tests.map((test) => (
-                        //inzio componente domanda 
-                            <TableRow key={test.data + test.nome + test.orario}>
-                                <TableCell sx={GlobalStyle.testTableContent}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></TableCell>
-                                <TableCell sx={GlobalStyle.testTableContent}> {formatDate(test.data)}</TableCell>
-                                <TableCell sx={GlobalStyle.testTableContent}> {test.orario} </TableCell>
-                            </TableRow>
-                        //fine componente domanda 
-                        ))}
-                    </TableBody>
-                </Table>
-                </TableContainer>
-                </Typography>
-                </Stack>
-        </div>
+        <Stack direction="column" alignItems="center">
+        <Typography variant="h1" component="h1" sx={GlobalStyle.h1Test}>Test</Typography>
+        <Typography variant="body1" sx={{width: "100%"}}>
+        <TableContainer>
+        <Table stickyHeader>
+            <TableHead>
+                <TableRow>
+                    <TableCell sx={GlobalStyle.testTableHead}>
+                        Nome
+                    </TableCell>
+                    <TableCell sx={GlobalStyle.testTableHead}>
+                        Data
+                    </TableCell>
+                    <TableCell sx={GlobalStyle.testTableHead}>
+                        Orario
+                    </TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {tests.map((test) => (
+                //inzio componente domanda
+                    <TableRow key={test.data + test.nome + test.orario}>
+                        <TableCell sx={GlobalStyle.testTableContent}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></TableCell>
+                        <TableCell sx={GlobalStyle.testTableContent}> {formatDate(test.data)}</TableCell>
+                        <TableCell sx={GlobalStyle.testTableContent}> {test.orario} </TableCell>
+                    </TableRow>
+                //fine componente domanda
+                ))}
+            </TableBody>
+        </Table>
+        </TableContainer>
+        </Typography>
+        </Stack>
     )
 }
 export default Test;
