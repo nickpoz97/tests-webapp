@@ -12,19 +12,20 @@ import {GlobalStyle} from '../Style/GlobalStyle'
 
 
 const Domanda = () =>{
-  
   const location = useLocation();
   const {ordineDomande, test, numeraDomande} = location.state;
   const domande = test.domande;
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState([]);
+  const [disabledButtons, setDisabledButtons] = useState(false)
 
     useEffect( () => {
             getRisposte(test.nome, test.data, test.orario).then(response => {
                 setStatus(response);
                 setReady(true)
             })
-        }, [ready]
+            .catch(error => alert(error.message))
+        }, []
     )
 
   const [index, setIndex] = useState(0);
@@ -62,41 +63,33 @@ const Domanda = () =>{
         return (<u><Typography variant='h3'>Domanda n° {++numDomande} </Typography></u>);
   }
 
-  const changeIndex = async (newIndex) => {
-    if (actualAnswer !== undefined){
-        storeAnswer().then((success) => {
-            if (success) {
-                setIndex(newIndex)
-                setReady(false)
-            }
-        });
+    const waitForSave = async (fun) => {
+    setDisabledButtons(true)
+    const success = await storeAnswer()
+
+    if (success){
+        fun()
     }
     else{
-        setIndex(newIndex)
-        setReady(false)
+        alert("impossibile salvare, autenticarsi di nuovo tra qualche minuto")
     }
-  }
+
+    setDisabledButtons(false)
+    }
 
   const increment = () => {
-    changeIndex(index+1)
+    waitForSave(() => setIndex(index+1))
   }
 
   const decrement = () => {
-    changeIndex(index-1);
+    waitForSave(() => setIndex(index-1));
   }
 
   const showResults = (e) =>{
-      const openResultPage = () => window.open(e.target.name, "_self")
-
-      if (actualAnswer) {
-          storeAnswer().then(() => openResultPage());
-          return
-      }
-
-      openResultPage();
+    waitForSave(() => window.open(e.target.name, "_self"))
   }
 
-  const storeAnswer = () => {
+  const storeAnswer = async () => {
       const variables = {
           nomeTest: test.nome,
           orarioTest: test.orario,
@@ -104,7 +97,13 @@ const Domanda = () =>{
           idRisposta: actualAnswer,
           nomeDomanda: domande[ordineDomande[index]-1].nome
       }
-      return saveAnswer(variables)
+
+      let success = true
+      if(actualAnswer){
+          success = await saveAnswer(variables).then((result) => result.success).catch(() => false)
+      }
+
+      return success
   }
 
   const EndButton = () => {
@@ -114,6 +113,7 @@ const Domanda = () =>{
                   color="success"
                   name={`/result/${test.nome}/${test.data}/${test.orario}`}
                   onClick={showResults}
+                  disabled={disabledButtons}
               >
                       Concludi
               </Button>
@@ -126,7 +126,7 @@ const Domanda = () =>{
               variant="contained"
               color="primary"
               onClick={increment}
-              
+              disabled={disabledButtons}
           >
               Avanti
           </Button>
@@ -171,7 +171,7 @@ const Domanda = () =>{
        </Box>
        <br/>
        <Stack direction="row" justifyContent="space-evenly">
-          <Button variant="contained" disabled={index === 0} onClick={decrement}>Indietro</Button>
+          <Button variant="contained" disabled={index === 0 || disabledButtons} onClick={decrement}>Indietro</Button>
            <RightButton />
        </Stack>
     </div>
