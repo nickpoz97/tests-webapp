@@ -7,12 +7,11 @@ import CreaDomanda from "./component/CreaDomanda";
 import Result from "./component/Result";
 import LoginPage from "./component/LoginPage";
 import {createTheme, responsiveFontSizes, ThemeProvider} from "@mui/material";
+import {ResponsiveTheme} from "./Style/GlobalStyle";
 
 function App() {
-  const theme = responsiveFontSizes(createTheme());
-
   return (
-    <ThemeProvider  theme={theme}>
+    <ThemeProvider theme={ResponsiveTheme}>
     <div className="App">
       <BrowserRouter>
         <Routes>

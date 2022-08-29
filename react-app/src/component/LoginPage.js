@@ -15,6 +15,7 @@ const LoginPage = () => {
     const [credentials, setCredentials] = useState(emptyCredentials)
     const [loginStatus, setLoginStatus] = useState("pending")
     const [errorMessage, setErrorMessage] = useState(null)
+    const [buttonDisabled, setButtonDisabled] = useState(false)
 
     const getUsernameText = () => document.getElementById('username').value;
     const getPasswordText = () => document.getElementById('password').value;
@@ -26,13 +27,11 @@ const LoginPage = () => {
         })
     }
 
-    const submit = () => {
-        setErrorMessage(<Alert severity="info">attendere</Alert>)
+    const submitHandler = (e) => {
+        e.preventDefault()
+        setButtonDisabled(true)
 
-        if(credentials.username === '' || credentials.password === ''){
-            setErrorMessage(<Alert severity="warning">username e/o password non inseriti</Alert>)
-            return
-        }
+        setErrorMessage(<Alert severity="info">attendere</Alert>)
 
         login(credentials).then(response => {
             if (response.success){
@@ -45,10 +44,9 @@ const LoginPage = () => {
             }
         })
         .catch(errors => {
-            //const errorMessages = errors.map(e => <Alert severity="error">{e.message}</Alert>)
-            const errorMessages = <Alert severity="error">{errors.message}</Alert>
-            setErrorMessage(errorMessages)
+            setErrorMessage(<Alert severity="error">{errors.message}</Alert>)
         })
+        .finally(() => setButtonDisabled(false))
     }
 
     useEffect(() =>{
@@ -60,7 +58,7 @@ const LoginPage = () => {
     const handleKeypress = e => {
         //it triggers by pressing the enter key
         if (e.keyCode === 13) {
-            submit();
+            submitHandler();
         }
     };
 
@@ -81,6 +79,7 @@ const LoginPage = () => {
         //<Stack direction='row' justifyContent='center'>
         <Container>
             <Paper elevation={10} onKeyDown={handleKeypress}>
+                <form onSubmit={submitHandler}>
                 <Box padding="20px">
                     <Stack direction='column' alignItems='center' spacing="20px">
                         <Typography variant="h3" component="h1">Login</Typography>
@@ -91,6 +90,7 @@ const LoginPage = () => {
                             onChange={textHandler}
                             size='large'
                             id='username'
+                            required
                         />
                         <TextField
                             label='password'
@@ -100,13 +100,15 @@ const LoginPage = () => {
                             onChange={textHandler}
                             size='large'
                             id='password'
+                            required
                         />
-                        <Button variant='contained' size='large' onClick={submit} fullWidth>
+                        <Button id="loginButton" variant='contained' size='large' fullWidth type="submit" disabled={buttonDisabled}>
                             Invia
                         </Button>
                         {errorMessage}
                     </Stack>
                 </Box>
+                </form>
             </Paper>
         </Container>
     )
