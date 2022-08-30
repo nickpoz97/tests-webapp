@@ -85,8 +85,8 @@ const CreateTest = () =>{
     
     var dataNew = formatDate(data.$d.toLocaleDateString('en-US', {year: 'numeric',month: '2-digit',day: '2-digit',}));
     
-    var ora =  data.$d.getHours();
-    var minuti = String(data.$d.getMinutes()).padStart(2, '0')
+    var ora =  String(data.$d.getHours()).padStart(2, '0');
+    var minuti = String(data.$d.getMinutes()).padStart(2, '0');
     var secondi = data.$d.getSeconds();
     var orario = ora +":"+minuti;
     

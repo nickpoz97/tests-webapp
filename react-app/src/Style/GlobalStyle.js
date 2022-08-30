@@ -64,6 +64,10 @@ const GlobalStyle = {
     padding: "2%"
   },
 
+  divDomanda2: {
+    margin: "2%"
+  },
+
   divRisposte: {
     margin: "auto",
     marginTop: "2%",
