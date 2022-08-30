@@ -175,7 +175,7 @@ const Domanda = () =>{
             <Box name={"risposta_"+risposta.id} sx={GlobalStyle.divRisposte} key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}></RenderNumRisp>
                 <FormControlLabel
-                    control={<Radio></Radio>}
+                    control={<Radio sx={GlobalStyle.AnswersRadioButton} />}
                     label={risposta.testo}
                     name={domande[ordineDomande[index]-1]}
                     value={risposta.testo}

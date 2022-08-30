@@ -79,18 +79,18 @@ const Test = () => {
                     <TableRow key={test.data + test.nome + test.orario}>
                         <TableCell sx={GlobalStyle.testTableContent}>
                             <Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}>
-                                <Typography variant="h6">
+                                <Typography variant="h5">
                                 {test.nome}
                                 </Typography>
                             </Link>
                         </TableCell>
                         <TableCell sx={GlobalStyle.testTableContent}>
-                            <Typography variant="h6">
+                            <Typography variant="h5">
                             {formatDate(test.data)}
                             </Typography>
                         </TableCell>
                         <TableCell sx={GlobalStyle.testTableContent}>
-                            <Typography variant="h6">
+                            <Typography variant="h5">
                             {test.orario}
                             </Typography>
                         </TableCell>
