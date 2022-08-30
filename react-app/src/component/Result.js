@@ -102,7 +102,7 @@ const Result = (props) => {
             </Typography>
             <Button
                 variant="contained"
-                onClick={() => window.open("/", "_self")}
+                href="/"
             >
                 Home
             </Button>

@@ -162,7 +162,7 @@ const Domanda = () =>{
   }
 
   return(
-      <div>
+      <Box>
         <Helmet>
           <title>{ TITLE + test.nome }</title>
           <html lang="it"></html>
@@ -200,7 +200,16 @@ const Domanda = () =>{
            <Button name="bottone_indietro" variant="contained" disabled={index === 0 || disabledButtons} onClick={decrement}><ArrowBackIcon></ArrowBackIcon>Indietro</Button>
            <RightButton></RightButton>
        </Stack>
-    </div>
+      <Stack sx={{margin: "20px"}} direction="row" justifyContent="center">
+          <Button
+              variant="contained"
+              href="/"
+              color="secondary"
+          >
+              home
+          </Button>
+      </Stack>
+    </Box>
   )
 }
 
