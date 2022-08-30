@@ -22,7 +22,7 @@ export default function Home(props) {
     if (sessionStorage.getItem("role") === 'INSEGNANTE') {
       return (
       <>
-      <Hidden mdUp>
+      <Hidden smUp>
       <IconButton
           size="large"
           edge="start"
@@ -39,7 +39,7 @@ export default function Home(props) {
           setOpen={setToggleDrawer}
       />
       </Hidden>
-      <Hidden mdDown>
+      <Hidden smDown>
       <BigScreenLinksRendering setState={setState} />
       </Hidden>
       </>
