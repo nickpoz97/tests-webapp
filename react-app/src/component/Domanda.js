@@ -70,7 +70,7 @@ const Domanda = () =>{
 
   function RenderNumDom(props){
       if(props.domandeConNumero)
-        return (<Box><br></br><Typography variant='h3' sx={{marginBottom:"2%"}}><u>Domanda n° {++numDomande}</u></Typography></Box>);
+        return (<Box tabindex="2"><br></br><Typography variant='h3' sx={{marginBottom:"2%"}}><u>Domanda n° {++numDomande}</u></Typography></Box>);
     }
 
     const waitForSave = async (fun) => {
@@ -161,15 +161,15 @@ const Domanda = () =>{
           <html lang="it"></html>
         </Helmet>
        <Box sx={GlobalStyle.divDomanda}>
-            <Typography name="nome_test" variant='h2' fontWeight="bold"><u>Nome test</u>: {test.nome}</Typography>
+            <Typography name="nome_test" variant='h2' fontWeight="bold" tabindex="1"><u>Nome test</u>: {test.nome}</Typography>
               <Box sx={GlobalStyle.divDomanda2} name="box_domonda">
                 <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}></RenderNumDom><i>
-                  <Typography display="inline" sx={GlobalStyle.nomeDomanda} variant='h4' name="nome_domanda"><u>Nome domanda</u>: {domande[ordineDomande[index]-1].nome}</Typography><Typography display="inline" variant='h4' name="punti_domanda">({domande[ordineDomande[index]-1].punti} punti)</Typography></i> 
-                <Typography name="testo_domanda" variant='h5' sx={GlobalStyle.nomeDomanda}><u>Testo domanda</u>: {domande[ordineDomande[index]-1].testo}</Typography>
+                  <Box  display="inline"  tabindex="3" ><Typography display="inline" sx={GlobalStyle.nomeDomanda} variant='h4' name="nome_domanda" ><u>Nome domanda</u>: {domande[ordineDomande[index]-1].nome}</Typography></Box><Typography  tabindex="4" display="inline" variant='h4' name="punti_domanda">({domande[ordineDomande[index]-1].punti} punti)</Typography></i> 
+                <Typography  tabindex="6" name="testo_domanda" variant='h5' sx={GlobalStyle.nomeDomanda}><u>Testo domanda</u>: {domande[ordineDomande[index]-1].testo}</Typography>
               </Box>
        </Box>
        <Box name="box_risposte"sx={GlobalStyle.divRisposte}>
-          <Typography name="seleziona_risposte" variant='h3'>Seleziona una risposta:</Typography>
+          <Typography tabindex="7" name="seleziona_risposte" variant='h3'>Seleziona una risposta:</Typography>
            <RadioGroup >
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <Box name={"risposta_"+risposta.id} sx={GlobalStyle.divRisposte} key={risposta.id}>
@@ -188,7 +188,7 @@ const Domanda = () =>{
           ))}
            </RadioGroup>
        </Box>
-       <br></br>
+       <br></br>  
        <Stack direction="row" justifyContent="space-evenly">
            <Button name="bottone_indietro" variant="contained" disabled={index === 0 || disabledButtons} onClick={decrement}><ArrowBackIcon></ArrowBackIcon>Indietro</Button>
            <RightButton></RightButton>
