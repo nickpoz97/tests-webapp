@@ -20,11 +20,17 @@ const Domanda = () =>{
   const [disabledButtons, setDisabledButtons] = useState(false)
   const [actualAnswer, setActualAnswer] = useState(undefined)
 
+    const downloadStatus = () => {
+        getRisposte(test.nome, test.data, test.orario).then(response => {
+            setStatus(response);
+        })
+    }
+
     useEffect( () => {
             getRisposte(test.nome, test.data, test.orario).then(response => {
                 setStatus(response);
-                setReady(true)
             })
+            .then(() => setReady(true))
             .catch(error => alert(error.message))
         }, []
     )
@@ -100,6 +106,7 @@ const Domanda = () =>{
       let success = true
       if(actualAnswer){
           success = await saveAnswer(variables).then((result) => result.success).catch(() => false)
+          await downloadStatus()
       }
 
       return success
