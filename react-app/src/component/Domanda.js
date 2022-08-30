@@ -9,7 +9,9 @@ import getRisposte from "../utils/GetRisposte";
 import Box from '@mui/material/Box';
 import {GlobalStyle} from '../Style/GlobalStyle'
 
+import { Helmet } from 'react-helmet'
 
+const TITLE = 'COMPILA IL TEST '
 
 const Domanda = () =>{
   const location = useLocation();
@@ -53,7 +55,7 @@ const Domanda = () =>{
 
   function RenderNumRisp(props){
     if(props.risposteConNumero){
-      return ++numRisp + ")";
+      return ++numRisp + ") ";
     }
   }
 
@@ -141,7 +143,10 @@ const Domanda = () =>{
   }
 
   return(
-    <div>
+      <div>
+        <Helmet>
+          <title>{ TITLE + test.nome }</title>
+        </Helmet>
        <Box sx={GlobalStyle.divDomanda}>
           <Typography variant='h2' fontWeight="bold">{test.nome}</Typography>
           <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}/><i>
