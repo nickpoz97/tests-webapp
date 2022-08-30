@@ -168,7 +168,7 @@ const Domanda = () =>{
             <Box sx={GlobalStyle.divRisposte} key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
                 <FormControlLabel
-                    control={<Radio/>}
+                    control={<Radio sx={GlobalStyle.AnswersRadioButton} disableRipple/>}
                     label={risposta.testo}
                     name={domande[ordineDomande[index]-1]}
                     value={risposta.testo}

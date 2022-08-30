@@ -74,6 +74,17 @@ const GlobalStyle = {
   },
   nomeDomanda:{
     marginTop: "2%",
+  },
+  AnswersRadioButton:{
+    "&.MuiRadio-colorPrimary":{
+      backgroundColor: "white"
+    },
+    "&.Mui-checked": {
+      color: "black",
+    },
+    width:0,
+    height: 0,
+    marginRight: 5
   }
 };
 
