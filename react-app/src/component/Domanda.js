@@ -8,9 +8,6 @@ import shuffleArray from "../utils/ShuffleArray";
 import getRisposte from "../utils/GetRisposte";
 import Box from '@mui/material/Box';
 import {GlobalStyle} from '../Style/GlobalStyle'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
 
 import { Helmet } from 'react-helmet'
 
@@ -70,7 +67,7 @@ const Domanda = () =>{
 
   function RenderNumDom(props){
       if(props.domandeConNumero)
-        return (<Box><br></br><Typography variant='h3' sx={{marginBottom:"2%"}}><u>Domanda n° {++numDomande}</u></Typography></Box>);
+        return (<u><Typography variant='h3'>Domanda n° {++numDomande} </Typography></u>);
   }
 
     const waitForSave = async (fun) => {
@@ -138,16 +135,14 @@ const Domanda = () =>{
               color="primary"
               onClick={increment}
               disabled={disabledButtons}
-              name="bottone_avanti"
           >
               Avanti
-              <ArrowForwardIcon></ArrowForwardIcon>
           </Button>
       )
   }
 
   const RightButton = () => {
-      return (index === domande.length -1 ? <EndButton></EndButton> : <NextButton></NextButton>);
+      return (index === domande.length -1 ? <EndButton /> : <NextButton />);
   }
 
   if (!ready){
@@ -158,24 +153,22 @@ const Domanda = () =>{
       <div>
         <Helmet>
           <title>{ TITLE + test.nome }</title>
-          <html lang="it"></html>
         </Helmet>
        <Box sx={GlobalStyle.divDomanda}>
-          <Typography name="nome_test" variant='h2' fontWeight="bold"><u>Nome test</u>: {test.nome}</Typography>
-          <Box sx={GlobalStyle.divDomanda2} name="box_domonda">
-            <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}></RenderNumDom><i>
-              <Typography display="inline" sx={GlobalStyle.nomeDomanda} variant='h4' name="nome_domanda"><u>Nome domanda</u>: {domande[ordineDomande[index]-1].nome}</Typography><Typography display="inline" variant='h4' name="punti_domanda">({domande[ordineDomande[index]-1].punti} punti)</Typography></i> 
-            <Typography name="testo_domanda" variant='h5' sx={GlobalStyle.nomeDomanda}><u>Testo domanda</u>: {domande[ordineDomande[index]-1].testo}</Typography>
-          </Box>
+          <Typography variant='h2' fontWeight="bold">{test.nome}</Typography>
+          <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}/><i>
+            <Typography sx={GlobalStyle.nomeDomanda} variant='h4'>{domande[ordineDomande[index]-1].nome}({domande[ordineDomande[index]-1].punti} punti)</Typography></i> 
+          <Typography variant='h5' sx={GlobalStyle.nomeDomanda}>{domande[ordineDomande[index]-1].testo}</Typography>
+          <h4></h4>
        </Box>
-       <Box name="box_risposte"sx={GlobalStyle.divRisposte}>
-          <Typography name="seleziona_risposte" variant='h3'>Seleziona una risposta:</Typography>
+       <Box sx={GlobalStyle.divRisposte}>
+          <Typography variant='h3'>Seleziona una risposta:</Typography>
            <RadioGroup >
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
-            <Box name={"risposta_"+risposta.id} sx={GlobalStyle.divRisposte} key={risposta.id}>
-              <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}></RenderNumRisp>
+            <Box sx={GlobalStyle.divRisposte} key={risposta.id}>
+              <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
                 <FormControlLabel
-                    control={<Radio></Radio>}
+                    control={<Radio/>}
                     label={risposta.testo}
                     name={domande[ordineDomande[index]-1]}
                     value={risposta.testo}
@@ -183,15 +176,15 @@ const Domanda = () =>{
                     checked={
                         actualAnswer ? (actualAnswer === risposta.id) : status.map(r => r.id).includes(parseInt(risposta.id))
                     }
-                ></FormControlLabel>
+                />
             </Box>
           ))}
            </RadioGroup>
        </Box>
-       <br></br>
+       <br/>
        <Stack direction="row" justifyContent="space-evenly">
-          <Button name="bottone_indietro" variant="contained" disabled={index === 0 || disabledButtons} onClick={decrement}><ArrowBackIcon></ArrowBackIcon>Indietro</Button>
-           <RightButton></RightButton>
+          <Button variant="contained" disabled={index === 0 || disabledButtons} onClick={decrement}>Indietro</Button>
+           <RightButton />
        </Stack>
     </div>
   )

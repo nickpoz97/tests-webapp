@@ -62,8 +62,7 @@ const Result = (props) => {
         'Domanda',
         'Risposta Data',
         'Risposta Corretta',
-        'Punti Ottenuti',
-        'Punti Max'
+        'Punti'
     ]
 
     const ResultBody = (props) => {
@@ -76,8 +75,13 @@ const Result = (props) => {
                                 <TableCell>{risposta.domanda.nome} </TableCell>
                                 <TableCell>{risposta.testo}</TableCell>
                                 <TableCell>{getRispostaEsatta(risposta.domanda)}</TableCell>
-                                <TableCell>{+(risposta.domanda.punti * risposta.punteggio).toFixed(2)}</TableCell>
-                                <TableCell>{+risposta.domanda.punti.toFixed(2)}</TableCell>
+                                <TableCell>
+                                    {
+                                        `${+(risposta.domanda.punti * risposta.punteggio).toFixed(2)}
+                                         su
+                                         ${+risposta.domanda.punti.toFixed(2)}`
+                                    }
+                                </TableCell>
                             </TableRow>
                     )
                 }
@@ -93,12 +97,15 @@ const Result = (props) => {
                 <ResultBody listRisposte={result.listRisposte}/>
             </Table>
             </TableContainer>
-            <Typography variant="h4" component="h2" className={styles.result}>
+            <Typography variant="h4" component="h2" sx={{margin: 5}}>
                 Punteggio: {result.yourScore.toFixed(2)} su {result.maxScore.toFixed(2)}
             </Typography>
-            <Link to="/" className={styles.LinkButton}>
-                <Button variant="contained" id={styles['resultHomeButton']}>Home</Button>
-            </Link>
+            <Button
+                variant="contained"
+                onClick={() => window.open("/", "_self")}
+            >
+                Home
+            </Button>
         </Stack>
     )
 }
