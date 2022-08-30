@@ -66,7 +66,7 @@ const Test = () => {
                 <TableRow>
                     {columns.map((name, index) =>
                         <TableCell sx={GlobalStyle.testTableHead} key={index}>
-                            <Typography variant="body1" sx={{width: "100%"}}>
+                            <Typography variant="body1">
                                 {name}
                             </Typography>
                         </TableCell>
@@ -79,18 +79,18 @@ const Test = () => {
                     <TableRow key={test.data + test.nome + test.orario}>
                         <TableCell sx={GlobalStyle.testTableContent}>
                             <Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}>
-                                <Typography variant="body1" sx={{width: "100%"}}>
+                                <Typography variant="body1">
                                 {test.nome}
                                 </Typography>
                             </Link>
                         </TableCell>
                         <TableCell sx={GlobalStyle.testTableContent}>
-                            <Typography variant="body1" sx={{width: "100%"}}>
+                            <Typography variant="body1">
                             {formatDate(test.data)}
                             </Typography>
                         </TableCell>
                         <TableCell sx={GlobalStyle.testTableContent}>
-                            <Typography variant="body1" sx={{width: "100%"}}>
+                            <Typography variant="body1">
                             {test.orario}
                             </Typography>
                         </TableCell>
