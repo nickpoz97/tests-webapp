@@ -55,39 +55,51 @@ const Test = () => {
         })
     },[]);
 
+    const columns = ["nome", "data", "orario"]
+
     return(
         <Stack direction="column" alignItems="center">
         <Typography variant="h1" component="h1" sx={GlobalStyle.h1Test}>Test</Typography>
-        <Typography variant="body1" sx={{width: "100%"}}>
         <TableContainer>
         <Table stickyHeader>
             <TableHead>
                 <TableRow>
-                    <TableCell sx={GlobalStyle.testTableHead}>
-                        Nome
-                    </TableCell>
-                    <TableCell sx={GlobalStyle.testTableHead}>
-                        Data
-                    </TableCell>
-                    <TableCell sx={GlobalStyle.testTableHead}>
-                        Orario
-                    </TableCell>
+                    {columns.map((name, index) =>
+                        <TableCell sx={GlobalStyle.testTableHead} key={index}>
+                            <Typography variant="body1" sx={{width: "100%"}}>
+                                {name}
+                            </Typography>
+                        </TableCell>
+                    )}
                 </TableRow>
             </TableHead>
             <TableBody>
                 {tests.map((test) => (
                 //inzio componente domanda
                     <TableRow key={test.data + test.nome + test.orario}>
-                        <TableCell sx={GlobalStyle.testTableContent}><Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}> {test.nome}</Link></TableCell>
-                        <TableCell sx={GlobalStyle.testTableContent}> {formatDate(test.data)}</TableCell>
-                        <TableCell sx={GlobalStyle.testTableContent}> {test.orario} </TableCell>
+                        <TableCell sx={GlobalStyle.testTableContent}>
+                            <Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}>
+                                <Typography variant="body1" sx={{width: "100%"}}>
+                                {test.nome}
+                                </Typography>
+                            </Link>
+                        </TableCell>
+                        <TableCell sx={GlobalStyle.testTableContent}>
+                            <Typography variant="body1" sx={{width: "100%"}}>
+                            {formatDate(test.data)}
+                            </Typography>
+                        </TableCell>
+                        <TableCell sx={GlobalStyle.testTableContent}>
+                            <Typography variant="body1" sx={{width: "100%"}}>
+                            {test.orario}
+                            </Typography>
+                        </TableCell>
                     </TableRow>
                 //fine componente domanda
                 ))}
             </TableBody>
         </Table>
         </TableContainer>
-        </Typography>
         </Stack>
     )
 }
