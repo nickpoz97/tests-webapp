@@ -93,12 +93,15 @@ const Result = (props) => {
                 <ResultBody listRisposte={result.listRisposte}/>
             </Table>
             </TableContainer>
-            <Typography variant="h4" component="h2" className={styles.result}>
+            <Typography variant="h4" component="h2" sx={{margin: 5}}>
                 Punteggio: {result.yourScore.toFixed(2)} su {result.maxScore.toFixed(2)}
             </Typography>
-            <Link to="/" className={styles.LinkButton}>
-                <Button variant="contained" id={styles['resultHomeButton']}>Home</Button>
-            </Link>
+            <Button
+                variant="contained"
+                onClick={() => window.open("/", "_self")}
+            >
+                Home
+            </Button>
         </Stack>
     )
 }

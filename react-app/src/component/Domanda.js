@@ -22,16 +22,13 @@ const Domanda = () =>{
   const [disabledButtons, setDisabledButtons] = useState(false)
   const [actualAnswer, setActualAnswer] = useState(undefined)
 
-    const downloadStatus = () => {
-        getRisposte(test.nome, test.data, test.orario).then(response => {
-            setStatus(response);
-        })
+    const downloadStatus = async () => {
+        const response = await getRisposte(test.nome, test.data, test.orario)
+        setStatus(response)
     }
 
     useEffect( () => {
-            getRisposte(test.nome, test.data, test.orario).then(response => {
-                setStatus(response);
-            })
+            downloadStatus()
             .then(() => setReady(true))
             .catch(error => alert(error.message))
         }, []
@@ -71,17 +68,17 @@ const Domanda = () =>{
   }
 
     const waitForSave = async (fun) => {
-    setDisabledButtons(true)
-    const success = await storeAnswer()
+        setDisabledButtons(true)
+        const success = await storeAnswer()
 
-    if (success){
-        fun()
-    }
-    else{
-        alert("impossibile salvare, autenticarsi di nuovo tra qualche minuto")
-    }
+        if (success){
+            fun()
+        }
+        else{
+            alert("impossibile salvare, autenticarsi di nuovo tra qualche minuto")
+        }
 
-    setDisabledButtons(false)
+        setDisabledButtons(false)
     }
 
   const increment = () => {
@@ -93,7 +90,14 @@ const Domanda = () =>{
   }
 
   const showResults = (e) =>{
-    waitForSave(() => window.open(e.target.name, "_self"))
+    waitForSave(() => {
+        // do not await set
+        if(status.length + (actualAnswer !== undefined) >= domande.length)
+            window.open(e.target.name, "_self")
+        else{
+            alert("Rispondere a tutte le domande prima di proseguire")
+        }
+    })
   }
 
   const storeAnswer = async () => {
