@@ -3,7 +3,7 @@ import styles from "../style.module.css";
 import React, {useEffect, useState} from 'react';
 import saveAnswer from "../utils/SaveAnswer";
 import Button from "@mui/material/Button";
-import {Stack, Typography} from "@mui/material";
+import {FormControlLabel, Radio, RadioGroup, Stack, Typography} from "@mui/material";
 import shuffleArray from "../utils/ShuffleArray";
 import getRisposte from "../utils/GetRisposte";
 import Box from '@mui/material/Box';
@@ -18,6 +18,7 @@ const Domanda = () =>{
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState([]);
   const [disabledButtons, setDisabledButtons] = useState(false)
+  const [actualAnswer, setActualAnswer] = useState(undefined)
 
     useEffect( () => {
             getRisposte(test.nome, test.data, test.orario).then(response => {
@@ -30,10 +31,8 @@ const Domanda = () =>{
 
   const [index, setIndex] = useState(0);
 
-  let actualAnswer;
-
   useEffect(() => {
-      actualAnswer = undefined;
+      setActualAnswer(undefined);
   }, [index])
 
   var numRisp = 0;
@@ -152,22 +151,23 @@ const Domanda = () =>{
        </Box>
        <Box sx={GlobalStyle.divRisposte}>
           <Typography variant='h3'>Seleziona una risposta:</Typography>
+           <RadioGroup >
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <Box sx={GlobalStyle.divRisposte} key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}/>
-                <input
-                  className={styles.rispostaRadio}
-                  onClick={() => {actualAnswer = (risposta.id)}}
-                  name={domande[ordineDomande[index]-1]}
-                  type="radio"
-                  value={risposta.testo}
-                  defaultChecked={status.map(r => r.id).includes(parseInt(risposta.id))}
-                  alt="seleziona risposta"
-                  >
-                </input>
-              <label className={styles.rispostaLabel}>{risposta.testo}</label>
+                <FormControlLabel
+                    control={<Radio/>}
+                    label={risposta.testo}
+                    name={domande[ordineDomande[index]-1]}
+                    value={risposta.testo}
+                    onClick={() => setActualAnswer(risposta.id)}
+                    checked={
+                        actualAnswer ? (actualAnswer === risposta.id) : status.map(r => r.id).includes(parseInt(risposta.id))
+                    }
+                />
             </Box>
           ))}
+           </RadioGroup>
        </Box>
        <br/>
        <Stack direction="row" justifyContent="space-evenly">
