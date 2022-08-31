@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "loginEntityManagerFactory",
         transactionManagerRef = "loginTransactionManager",
-        basePackages = {"org.univr.webapp.dataAccessLayer.webappLogin", "org.univr.webapp.model.webappLogin"}
+        basePackages = {"org.univr.webapp.mvc.dataAccessLayer.webappLogin", "org.univr.webapp.model.webappLogin"}
 )
 public class WebappLoginConfig {
     @Bean(name= "loginDataSource")

@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "statusEntityManagerFactory",
         transactionManagerRef = "statusTransactionManager",
-        basePackages = {"org.univr.webapp.dataAccessLayer.webappStatus", "org.univr.webapp.model.webappStatus"}
+        basePackages = {"org.univr.webapp.mvc.dataAccessLayer.webappStatus", "org.univr.webapp.model.webappStatus"}
 )
 public class WebappStatusConfig {
 

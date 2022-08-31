@@ -4,6 +4,7 @@ var queryBody = `
 mutation($testInput:TestInput!){
   addTest(testInput:$testInput){
     success
+    message
   }
 }
 `;

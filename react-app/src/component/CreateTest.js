@@ -113,20 +113,6 @@ const CreateTest = () =>{
   }
 
   function RenderInsertTest(testInput){
-    if (tests.find(t => (t.nome === testInput.nomeTest && t.data.localeCompare(testInput.data) === 0)) !== undefined){
-      return(
-          <Alert severity="warning">Test con lo stesso nome già esistente alla data specificata</Alert>
-      )
-    }
-
-    if(arrayDomande.length === 0){
-      return(
-          <Box>
-            <Alert severity="warning">Nessuna domanda inserita</Alert>
-          </Box>
-      )
-    }
-
     return <InsertTest
         input={testInput}
     />;

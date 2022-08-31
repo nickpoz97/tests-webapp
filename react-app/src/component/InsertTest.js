@@ -1,28 +1,24 @@
 import React, {useEffect} from "react";
-import styles from "../style.module.css";
 import addTest from "../utils/AddTest";
 import {Alert} from "@mui/material";
 
 const InsertTest = (props) => {
-    const [result, setResult] = React.useState();
+    const [result, setResult] = React.useState(undefined);
 
     console.log(props)
 
     useEffect( () => {
-            addTest(props.input).then(result => setResult(result)).catch(error => console.log(error))
+            addTest(props.input)
+                .then(result => setResult(result))
+                .catch(error => setResult({success: false, message: error.message}))
         }, []
     )
 
-    if(result){
-        return(
-            <Alert severity="success">Inserimento avvenuto con successo</Alert>
-        )
+    if(result === undefined){
+        return null
     }
-    else{
-        return(
-            <Alert severity="error">Errore Inserimento</Alert>
-        )
-    }
+
+    return <Alert severity={result.success ? "success" : "error"}>{result.message}</Alert>
 }
 
 export default InsertTest;

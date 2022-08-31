@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
     entityManagerFactoryRef = "dataEntityManagerFactory",
     transactionManagerRef = "dataTransactionManager",
-    basePackages = {"org.univr.webapp.dataAccessLayer.webappData", "org.univr.webapp.model.webappData"}
+    basePackages = {"org.univr.webapp.mvc.dataAccessLayer.webappData", "org.univr.webapp.model.webappData"}
 )
 public class WebappDataConfig {
     @Bean(name= "dataDataSource")
