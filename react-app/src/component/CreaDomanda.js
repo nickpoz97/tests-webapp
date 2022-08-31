@@ -30,40 +30,21 @@ const CreaDomanda = () =>{
     }
 
     function RenderInsertQuestion(domandaInput){
-        if(arrayRisposte.length < 2){
-            setResult(
-                <Box>
-                    <Alert severity="warning">Devono esserci almeno 2 risposte</Alert>
-                </Box>
-            )
-            return
-        }
-
-        console.log(arrayRisposte.map(r => r.punteggio))
-        if (arrayRisposte.find(r => parseInt(r.punteggio) === 1) === undefined){
-            setResult(
-                <Box>
-                    <Alert severity="warning">Deve esserci almeno una risposta con punteggio 1</Alert>
-                </Box>
-            )
-            return
-        }
         addDomanda(domandaInput).then(result => {
-            if(result && result.success){
-                setResult(
-                    <Box>
-                        <Alert severity="success">Inserimento avvenuto con successo</Alert>
-                    </Box>
-                )
-            }
-            else{
-                setResult(
-                    <Box>
-                        <Alert severity="error">Errore Inserimento</Alert>
-                    </Box>
-                )
-            }
-        });
+            const severityLevel = result.success ? "success" : "warning"
+            setResult(
+                <Box>
+                    <Alert severity={severityLevel}>{result.message}</Alert>
+                </Box>
+            )
+        })
+        .catch(error =>
+            setResult(
+                <Box>
+                    <Alert severity="error">{error.message}</Alert>
+                </Box>
+            )
+        );
     }
 
     function aggiungiRisposta(){

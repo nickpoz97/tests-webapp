@@ -41,7 +41,7 @@ public class DomandaService extends AbstractDataService {
             return new MutationResult(false, "Domanda gia presente");
         }
 
-        if (domandaInput.punti().compareTo(new BigDecimal("0.0")) >= 0){
+        if (domandaInput.punti().compareTo(new BigDecimal("0.0")) <= 0){
             return new MutationResult(false, "La domanda deve valere più di zero punti");
         }
 

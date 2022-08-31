@@ -4,6 +4,7 @@ const queryBody = `
 mutation($domandaInput:DomandaInput!){
   addDomanda(domandaInput:$domandaInput){
     success
+    message
   }
 }
 `
