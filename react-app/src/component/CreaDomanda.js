@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styles from "../style.module.css";
 import addDomanda from "../utils/AddDomanda";
 import Typography from "@mui/material/Typography";
-import {Alert, FormControlLabel, Stack, TextField} from "@mui/material";
+import {Alert, FormControlLabel, Paper, Slider, Stack, TextField} from "@mui/material";
 import {GlobalStyle} from '../Style/GlobalStyle'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
@@ -12,14 +12,10 @@ import CheckBox from "@mui/material/Checkbox";
 
 const CreaDomanda = () =>{
     const [arrayRisposte, setArrayRisposte] = useState([])
-    const [result, setResult] = useState(<></>)
-    
+    const [result, setResult] = useState(null)
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        for(var i=0; i<arrayRisposte.length; i++){
-            arrayRisposte[i].testo = document.getElementById("risposta"+(i+1)).value
-            arrayRisposte[i].punteggio = document.getElementById("punti"+(i+1)).value
-        }
 
         const domandaInput = {
             nome: document.getElementById("nome_domanda").value,
@@ -43,7 +39,7 @@ const CreaDomanda = () =>{
             return
         }
 
-        console.log(arrayRisposte.map(r => parseInt(r.punteggio)))
+        console.log(arrayRisposte.map(r => r.punteggio))
         if (arrayRisposte.find(r => parseInt(r.punteggio) === 1) === undefined){
             setResult(
                 <Box>
@@ -53,7 +49,7 @@ const CreaDomanda = () =>{
             return
         }
         addDomanda(domandaInput).then(result => {
-            if(result){
+            if(result && result.success){
                 setResult(
                     <Box>
                         <Alert severity="success">Inserimento avvenuto con successo</Alert>
@@ -74,7 +70,7 @@ const CreaDomanda = () =>{
         const risposta = {
             numero: arrayRisposte.length+1,
             testo: "",
-            punti: 0,
+            punteggio: 0,
             domanda: ""
         };
         setArrayRisposte([...arrayRisposte, risposta]);
@@ -93,6 +89,8 @@ const CreaDomanda = () =>{
         }
     }
 
+
+
     return(
         <Box>
             <Box className={styles.divDomanda}>
@@ -105,7 +103,13 @@ const CreaDomanda = () =>{
                         <TextField className="formCreate" required id="testo_domanda" label="Testo domanda" variant="outlined" />
                     </Box>
                     <Box sx={GlobalStyle.formCreate}>
-                        <TextField type="number" className="formCreate" required id="punti_domanda" label="Punti domanda" variant="outlined" />
+                        <TextField
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]+' }}
+                            className="formCreate"
+                            required id="punti_domanda"
+                            label="Punti domanda"
+                            variant="outlined"
+                        />
                     </Box>
                     <Typography sx={GlobalStyle.headerCreate} variant="h3">Aggiungi risposte:</Typography>
                     <Box>
@@ -123,16 +127,44 @@ const CreaDomanda = () =>{
                     <Box sx={{margin: "20px"}}>
                         <EmptyList/>
                     </Box>
-                    {arrayRisposte.map((risposta) => (
-                    //inzio componente domanda 
-                    <Stack direction="row">
-                        <TextField sx={GlobalStyle.formCreate} required id={"risposta" + risposta.numero} label="Testo risposta" variant="outlined" />
-                        <TextField type="number" sx={GlobalStyle.formCreate} required id={"punti" + risposta.numero} label="Punti risposta" variant="outlined" />
-                        <Stack sx={GlobalStyle.formCreate} direction="column" justifyContent="center">
+                    {arrayRisposte.map((risposta, index) => (
+                    //inzio componente domanda
+                    <Stack
+                        key={index}
+                        sx={{margin: 3, padding: 3, border: 1}}
+                        direction={{ xs: 'column', sm: 'row' }}
+                        alignItems='center'
+                        justifyContent={{xs: 'center', sm: 'space-between'}}
+                        spacing={2}
+                    >
+                        <Box>
+                        <TextField
+                            required id={"risposta" + risposta.numero}
+                            label="Testo risposta"
+                            variant="outlined"
+                            onChange={(e) => {risposta.testo = e.target.value}}
+                        />
+                        </Box>
+                        <Stack direction="column" justifyContent="center" alignItems="center"
+                               width={{sm: "40%", xs: "100%"}}>
+                            <Typography variant="body1">Punteggio </Typography>
+                            <Slider
+                                defaultValue={0.0}
+                                required
+                                id={"punti" + risposta.numero}
+                                step={0.1}
+                                min={0.0}
+                                max={1.0}
+                                marks
+                                valueLabelDisplay="auto"
+                                onChange={(e) => {risposta.punteggio = e.target.value}}
+                            />
+                        </Stack>
+                        <Box>
                         <Button className="rimuovi" onClick={() => { rimuoviRisposta(risposta) }} variant="outlined" startIcon={<DeleteIcon />}>
                             Rimuovi
                         </Button>
-                        </Stack>
+                        </Box>
                     </Stack>
                     //fine componente domanda 
                     ))}

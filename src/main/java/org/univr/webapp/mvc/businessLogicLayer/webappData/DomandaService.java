@@ -41,6 +41,10 @@ public class DomandaService extends AbstractDataService {
             return new MutationResult(false, "Domanda gia presente");
         }
 
+        if (domandaInput.punti().compareTo(new BigDecimal("0.0")) >= 0){
+            return new MutationResult(false, "La domanda deve valere più di zero punti");
+        }
+
         Domanda domanda = new Domanda(
                 domandaInput.nome(),
                 domandaInput.testo(),
@@ -49,17 +53,13 @@ public class DomandaService extends AbstractDataService {
                 domandaInput.risposteConNumero()
         );
 
-        List<Risposta> risposte = new LinkedList<>();
-        if (domandaInput.risposte().stream().noneMatch(risp -> risp.punteggio().compareTo(new BigDecimal("1.0")) == 0)){
-            return new MutationResult(false, "nessuna risposta ha punteggio 1.0");
-        }
+        MutationResult x = checkRisposte(domandaInput);
+        // null implies no errors
+        if (x != null) return x;
 
-        for (RispostaInput rispostaInput : domandaInput.risposte()){
-            if (rispostaInput.punteggio().compareTo(new BigDecimal("0.0")) < 0){
-                return new MutationResult(false, "Non sono ammessi punteggi negativi");
-            }
-            risposte.add(new Risposta(rispostaInput.testo(), rispostaInput.punteggio(), domanda));
-        }
+        List<Risposta> risposte = domandaInput.risposte().stream()
+                .map(rispInput -> new Risposta(rispInput.testo(), rispInput.punteggio(), domanda))
+                .toList();
 
         try {
             getDomandaRepository().save(domanda);
@@ -71,5 +71,20 @@ public class DomandaService extends AbstractDataService {
         }
 
         return new MutationResult(true, "Domanda Aggiunta");
+    }
+
+    private static MutationResult checkRisposte(DomandaInput domandaInput) {
+        if (domandaInput.risposte().stream()
+                .noneMatch(risp -> risp.punteggio().compareTo(new BigDecimal("1.0")) == 0)){
+            return new MutationResult(false, "nessuna risposta ha punteggio 1.0");
+        }
+
+        if (domandaInput.risposte().stream()
+                .anyMatch(risp -> risp.punteggio().compareTo(new BigDecimal("0.0")) < 0 ||
+                        risp.punteggio().compareTo(new BigDecimal("1.0")) > 0)){
+            return new MutationResult(false, "Non sono ammessi punteggi negativi o maggiori di 1");
+        }
+
+        return null;
     }
 }

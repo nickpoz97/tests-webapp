@@ -101,7 +101,7 @@ const CreateTest = () =>{
 
     setInfo(
         <Box sx={GlobalStyle.divDomanda}>
-          {RenderInsertTest(testInput)}
+          {<InsertTest input={testInput}/>}
         </Box>
     );
   }
@@ -110,12 +110,6 @@ const CreateTest = () =>{
     if(arrayDomande.length === 0){
       return(<Alert severity="info">Inserire almeno 1 domanda</Alert>)
     }
-  }
-
-  function RenderInsertTest(testInput){
-    return <InsertTest
-        input={testInput}
-    />;
   }
 
   return(
