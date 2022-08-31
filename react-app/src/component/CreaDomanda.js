@@ -85,11 +85,13 @@ const CreaDomanda = () =>{
                     </Box>
                     <Box sx={GlobalStyle.formCreate}>
                         <TextField
-                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]+' }}
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]+(.[0-9]{0,2})?' }}
                             className="formCreate"
                             required id="punti_domanda"
                             label="Punti domanda"
                             variant="outlined"
+                            placeholder="1.00"
+                            helperText="max 2 decimali"
                         />
                     </Box>
                     <Typography sx={GlobalStyle.headerCreate} variant="h3">Aggiungi risposte:</Typography>
