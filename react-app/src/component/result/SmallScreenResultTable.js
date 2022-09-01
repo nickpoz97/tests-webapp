@@ -94,7 +94,7 @@ const ResultDialog = (props) => {
             {
                 props.headerColumns.map((col, index) =>
                     <ListItem key={index}>
-                        <Box>
+                        <Box width="100%">
                             <Paper sx={{padding: 1}} elevation={10}>
                                 <Typography variant="h6" sx={{fontWeight:'bold'}}>{col}</Typography>
                                 <Typography variant="body1">{rispostaEntries[index][1]}</Typography>
