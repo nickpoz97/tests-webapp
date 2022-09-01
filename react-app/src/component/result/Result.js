@@ -1,10 +1,11 @@
 import {Link, useParams} from "react-router-dom";
-import getRisposte from "../utils/GetRisposte";
+import getRisposte from "../../utils/GetRisposte";
 import React, {useEffect, useState} from "react";
 import {Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,} from "@mui/material";
-import styles from "../style.module.css"
+import styles from "../../style.module.css"
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import BigScreenResultTable from "./BigScreenResultTable";
 
 const Result = (props) => {
     const {nomeTest, dataTest, orarioTest} = useParams()
@@ -61,16 +62,6 @@ const Result = (props) => {
         return null
     }
 
-    const ResultHeader = (props) => {
-       return(
-           <TableHead>
-           <TableRow>
-               {props.headerColumns.map(colName => <TableCell key={colName}><Typography variant="body1">{colName}</Typography></TableCell>)}
-           </TableRow>
-           </TableHead>
-       )
-    }
-
     const headerColumns = [
         'Domanda',
         'Risposta Data',
@@ -78,32 +69,10 @@ const Result = (props) => {
         'Punti'
     ]
 
-    const ResultBody = (props) => {
-        return(
-            <TableBody>
-                {
-                    props.listRisposte.map(
-                        (risposta, index) =>
-                            <TableRow key={index}>
-                                <TableCell>{risposta.testoDomanda} </TableCell>
-                                <TableCell>{risposta.rispostaData}</TableCell>
-                                <TableCell>{risposta.rispostaCorretta}</TableCell>
-                                <TableCell>{risposta.punteggio}</TableCell>
-                            </TableRow>
-                    )
-                }
-            </TableBody>
-        )
-    }
     return(
         <Stack direction="column" alignItems="center" justifyContent="center">
             <Typography variant="h4" component="h1" className={styles.result}>Risultati del test</Typography>
-            <TableContainer>
-            <Table stickyHeader >
-                <ResultHeader headerColumns={headerColumns} />
-                <ResultBody listRisposte={result.listRisposte}/>
-            </Table>
-            </TableContainer>
+            <BigScreenResultTable listRisposte={result.listRisposte} headerColumns={headerColumns}/>
             <Typography variant="h4" component="h2" sx={{margin: 5}}>
                 Punteggio: {result.yourScore.toFixed(2)} su {result.maxScore.toFixed(2)}
             </Typography>
