@@ -1,11 +1,12 @@
 import {Link, useParams} from "react-router-dom";
 import getRisposte from "../../utils/GetRisposte";
 import React, {useEffect, useState} from "react";
-import {Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,} from "@mui/material";
+import {Hidden, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,} from "@mui/material";
 import styles from "../../style.module.css"
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import BigScreenResultTable from "./BigScreenResultTable";
+import SmallScreenResultTable from "./SmallScreenResultTable";
 
 const Result = (props) => {
     const {nomeTest, dataTest, orarioTest} = useParams()
@@ -72,9 +73,14 @@ const Result = (props) => {
     return(
         <Stack direction="column" alignItems="center" justifyContent="center">
             <Typography variant="h4" component="h1" className={styles.result}>Risultati del test</Typography>
+            <Hidden smDown>
             <BigScreenResultTable listRisposte={result.listRisposte} headerColumns={headerColumns}/>
+            </Hidden>
+            <Hidden smUp>
+            <SmallScreenResultTable listRisposte={result.listRisposte} headerColumns={headerColumns}/>
+            </Hidden>
             <Typography variant="h4" component="h2" sx={{margin: 5}}>
-                Punteggio: {result.yourScore.toFixed(2)} su {result.maxScore.toFixed(2)}
+            Punteggio: {result.yourScore.toFixed(2)} su {result.maxScore.toFixed(2)}
             </Typography>
             <Button
                 variant="contained"

@@ -161,13 +161,20 @@ const CreateTest = () =>{
             <Box>
               <EmptyList/>
               <List>
-                {arrayDomande.map((domanda) => (
-                  <ListItem className={styles.liCreateTest} key={domanda.nome} id={domanda.nome} value={domanda.testo}>{domanda.testo}
-                  <Box sx={{ justifyContent: 'flex-end' }}>
-                    <Button className="rimuovi" onClick={() => { deleteDomanda(domanda) }} variant="outlined" startIcon={<DeleteIcon />}>
-                      Rimuovi
-                    </Button>
-                  </Box>
+                {arrayDomande.map((domanda, index) => (
+                  <ListItem className={styles.liCreateTest} key={index} id={domanda.nome} value={domanda.testo}>
+                    <Stack direction="row" spacing={5}>
+                      <Box>
+                        <Typography variant="body1">
+                        {domanda.testo}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Button className="rimuovi" onClick={() => { deleteDomanda(domanda) }} variant="outlined" startIcon={<DeleteIcon />}>
+                          Rimuovi
+                        </Button>
+                      </Box>
+                    </Stack>
                   </ListItem>
                 ))}
               </List>
