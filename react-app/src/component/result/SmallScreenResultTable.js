@@ -46,7 +46,7 @@ const ResultHeader = (props) => {
     return(
         <TableHead>
             <TableRow>
-                <TableCell align="center"><Typography variant="h6">Seleziona la domanda</Typography></TableCell>
+                <TableCell align="center"><Typography variant="h4">Seleziona la domanda</Typography></TableCell>
             </TableRow>
         </TableHead>
     )
@@ -93,7 +93,7 @@ const ResultDialog = (props) => {
             <List>
             {
                 props.headerColumns.map((col, index) =>
-                    <ListItem kry={index}>
+                    <ListItem key={index}>
                         <Box>
                             <Paper sx={{padding: 1}} elevation={10}>
                                 <Typography variant="h6" sx={{fontWeight:'bold'}}>{col}</Typography>

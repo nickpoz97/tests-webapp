@@ -72,7 +72,7 @@ const Result = (props) => {
 
     return(
         <Stack direction="column" alignItems="center" justifyContent="center">
-            <Typography variant="h4" component="h1" className={styles.result}>Risultati del test</Typography>
+            <Typography variant="h3" component="h1" className={styles.result}>Risultati del test</Typography>
             <Hidden smDown>
             <BigScreenResultTable listRisposte={result.listRisposte} headerColumns={headerColumns}/>
             </Hidden>
