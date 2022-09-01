@@ -12,6 +12,7 @@ query($nomeTest: String!, $orarioTest: LocalTime!, $dataTest: Date!){
     punteggio
     domanda {
       nome
+      testo
       punti
       risposte{
         punteggio

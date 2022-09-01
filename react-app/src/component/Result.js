@@ -24,15 +24,28 @@ const Result = (props) => {
     }
 
     useEffect( () => {
-        getRisposte(nomeTest, dataTest, orarioTest).then(answerList => {
+        getRisposte(nomeTest, dataTest, orarioTest).then(response => {
             setResult({
-                listRisposte: answerList,
-                yourScore: getYourScore(answerList),
-                maxScore: getMaxScore(answerList)
+                listRisposte: getListRisposte(response),
+                yourScore: getYourScore(response),
+                maxScore: getMaxScore(response)
             })
         }
     )}, []
     )
+
+    const getListRisposte = (response) => {
+        return response.map(
+            item =>{return {
+                testoDomanda: item.domanda.testo,
+                rispostaData: item.testo,
+                rispostaCorretta: getRispostaEsatta(item.domanda),
+                punteggio: `${+(item.domanda.punti * item.punteggio).toFixed(2)}
+                    su
+                    ${+item.domanda.punti.toFixed(2)}`
+            }}
+        )
+    }
 
     const getRispostaEsatta = (domanda) => {
         const index = domanda.risposte.map(r => r.punteggio).indexOf(getScoreRispostaEsatta(domanda))
@@ -70,18 +83,12 @@ const Result = (props) => {
             <TableBody>
                 {
                     props.listRisposte.map(
-                        risposta =>
-                            <TableRow key={risposta.id}>
-                                <TableCell>{risposta.domanda.nome} </TableCell>
-                                <TableCell>{risposta.testo}</TableCell>
-                                <TableCell>{getRispostaEsatta(risposta.domanda)}</TableCell>
-                                <TableCell>
-                                    {
-                                        `${+(risposta.domanda.punti * risposta.punteggio).toFixed(2)}
-                                         su
-                                         ${+risposta.domanda.punti.toFixed(2)}`
-                                    }
-                                </TableCell>
+                        (risposta, index) =>
+                            <TableRow key={index}>
+                                <TableCell>{risposta.testoDomanda} </TableCell>
+                                <TableCell>{risposta.rispostaData}</TableCell>
+                                <TableCell>{risposta.rispostaCorretta}</TableCell>
+                                <TableCell>{risposta.punteggio}</TableCell>
                             </TableRow>
                     )
                 }
