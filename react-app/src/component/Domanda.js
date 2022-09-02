@@ -13,6 +13,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
 import { Helmet } from 'react-helmet'
+import { wait } from '@testing-library/user-event/dist/utils';
 
 const TITLE = 'COMPILA IL TEST '
 
@@ -39,7 +40,7 @@ const Domanda = () =>{
     )
 
   const [index, setIndex] = useState(0);
-
+  var flag = false;
   useEffect(() => {
       setActualAnswer(undefined);
   }, [index])
@@ -63,6 +64,14 @@ const Domanda = () =>{
   function RenderNumRisp(props){
     if(props.risposteConNumero){
       return ++numRisp + ") ";
+    }
+  }
+
+  function RenderAccessibilityInstruction(props){
+    if(flag==false){
+      flag = true;
+      console.log(flag);
+      return(<Typography sx={GlobalStyle.accessibilityInstruction}>Naviga le risposte con tasti freccia</Typography>);
     }
   }
 
@@ -161,6 +170,7 @@ const Domanda = () =>{
       return <div></div>
   }
 
+
   return(
       <Box>
         <Helmet>
@@ -178,14 +188,15 @@ const Domanda = () =>{
        <Box name="box_risposte"sx={GlobalStyle.divRisposte}>
           <Typography tabindex="7" name="seleziona_risposte" variant='h3'>Seleziona una risposta:</Typography>
            <RadioGroup >
+           <p tabindex="8" hidden="true"> Premi tab e naviga le risposte con i tasti direzionali</p>
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <Box name={"risposta_"+risposta.id} sx={GlobalStyle.divRisposte} key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}></RenderNumRisp>
                 <FormControlLabel
+                    aria-label={risposta.testo + ",  naviga le risposte utilizzando i tasti direzionali"}
                     control={<Radio sx={GlobalStyle.AnswersRadioButton} />}
                     label={risposta.testo}
                     name={domande[ordineDomande[index]-1]}
-                    value={risposta.testo}
                     onClick={() => setActualAnswer(risposta.id)}
                     checked={
                         actualAnswer ? (actualAnswer === risposta.id) : status.map(r => r.id).includes(parseInt(risposta.id))

@@ -4,7 +4,6 @@ import Test from "../Test";
 import * as React from "react";
 import {Link} from "react-router-dom";
 import styles from "../../style.module.css";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {List, ListItem, Stack, SwipeableDrawer} from "@mui/material";
 import Button from "@mui/material/Button";

@@ -89,6 +89,11 @@ const GlobalStyle = {
     width:0,
     height: 0,
     marginRight: 5
+  },
+
+  accessibilityInstruction:{
+    ariaHidden:"true",
+    position: "absolute !important"
   }
 };
 
