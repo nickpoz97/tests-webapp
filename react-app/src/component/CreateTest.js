@@ -31,7 +31,6 @@ const CreateTest = () =>{
 
   const [arrayDomande, setArrayDomande] = useState([]);
   const [domande, setDomande] = useState([]);
-  const [tests, setTests] = useState([]);
 
   const [data, setData] = React.useState(
     dayjs(new Date()),
@@ -44,9 +43,6 @@ const CreateTest = () =>{
   React.useEffect(() => {
     getAllDomande()
         .then(result => setDomande(result))
-
-    getAllTests()
-        .then(result => setTests(result))
   },[]);
 
   function addDomanda(){
