@@ -16,8 +16,7 @@ public class QueryController extends AbstractStatusController {
     public List<Risposta> getRisposte(
             @Argument String nomeTest,
             @Argument LocalDate dataTest,
-            @Argument LocalTime orarioTest,
-            @Argument String idUtente
+            @Argument LocalTime orarioTest
     ){
         return getStatusService().getRisposte(nomeTest, dataTest, orarioTest);
     }
