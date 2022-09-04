@@ -88,7 +88,8 @@ const GlobalStyle = {
     },
     width:0,
     height: 0,
-    marginRight: 5
+    marginRight: 5,
+    marginLeft: 2
   },
 
   accessibilityInstruction:{
