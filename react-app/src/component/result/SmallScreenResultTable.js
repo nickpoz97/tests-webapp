@@ -1,5 +1,5 @@
 import {
-    Dialog, DialogContent, List, ListItem, Paper,
+    Dialog, List, ListItem, Paper,
     Table,
     TableBody,
     TableCell,

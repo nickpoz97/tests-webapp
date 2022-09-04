@@ -2,16 +2,12 @@ import styles from "../style.module.css";
 import React, {useState} from 'react';
 import InsertTest from "./InsertTest";
 import getAllDomande from "../utils/GetAllDomande";
-import getAllTests from "../utils/GetAllTests";
 import {
   Alert,
-  FormControl,
   FormControlLabel,
   List,
   ListItem,
-  MenuItem,
   NativeSelect,
-  Select,
   Stack,
   Typography
 } from "@mui/material";

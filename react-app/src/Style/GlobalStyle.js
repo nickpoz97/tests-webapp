@@ -1,7 +1,6 @@
 // globalStyles.js
-import { createGlobalStyle } from 'styled-components';
 import {createTheme, responsiveFontSizes} from "@mui/material";
- 
+
 const GlobalStyle = {
   testTableHead: {
     fontSize: "2.0em"
