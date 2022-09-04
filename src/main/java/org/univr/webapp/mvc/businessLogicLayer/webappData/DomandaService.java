@@ -25,7 +25,7 @@ public class DomandaService extends AbstractDataService {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("!isAnonymous()")
+    @PreAuthorize("hasAuthority('INSEGNANTE')")
     public List<Domanda> getAllDomande(){
         return getDomandaRepository().findAll();
     }

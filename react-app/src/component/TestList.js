@@ -45,7 +45,7 @@ function ordineDomande(test){
     return array_domande;
 }
 
-const Test = () => {
+const TestList = () => {
     const [tests, setTests] = React.useState([]);
 
     React.useEffect(() => {
@@ -103,5 +103,5 @@ const Test = () => {
         </Stack>
     )
 }
-export default Test;
+export default TestList;
 
