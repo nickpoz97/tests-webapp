@@ -17,7 +17,7 @@ const TITLE = 'COMPILA IL TEST '
 
 const Domanda = () =>{
   const location = useLocation();
-  const {ordineDomande, test, numeraDomande} = location.state;
+  const {ordineDomande, test} = location.state;
   const domande = test.domande;
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState([]);
@@ -66,7 +66,7 @@ const Domanda = () =>{
   }
 
   function RenderAccessibilityInstruction(props){
-    if(flag==false){
+    if(flag===false){
       flag = true;
       console.log(flag);
       return(<Typography sx={GlobalStyle.accessibilityInstruction}>Naviga le risposte con tasti freccia</Typography>);

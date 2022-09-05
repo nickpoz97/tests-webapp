@@ -76,7 +76,7 @@ const TestList = () => {
             <TableBody>
                 {tests.map((test) => (
                 //inzio componente domanda
-                    <TableRow key={test.data + test.nome + test.orario} >
+                    <TableRow key={test.data + test.nome + test.orario} sx={GlobalStyle.tableRow}>
                         <TableCell sx={GlobalStyle.testTableContent}>
                             <Link state={{ ordineDomande: ordineDomande(test), domande: test.domande, test:test, numeraDomande: test.domandeConNumero}} to={"/test/"+ test.nome +"("+ test.data + "(" + test.orario}>
                                 <Typography variant="h5">

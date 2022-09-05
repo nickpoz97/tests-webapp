@@ -10,6 +10,16 @@ const GlobalStyle = {
     fontSize: "1.8em"
   },
 
+  tableRow: {
+    "&:nth-of-type(even)": {
+      backgroundColor: "#dedfda"
+    },
+    "&:hover": {
+      backgroundColor: "#f5df4f",
+      border: "1px solid #000"
+    }
+  },
+
   h1Test: {
     margin: "2%"
   },
@@ -77,7 +87,6 @@ const GlobalStyle = {
   divCreaDomanda:{
     margin: "auto",
     marginTop: "2%",
-    fontFamily: "Arial, Helvetica, sans-serif",
     borderCollapse: "collapse",
     width: "90%",
     backgroundColor: "#e7eeee",
@@ -87,7 +96,6 @@ const GlobalStyle = {
   divRisposte: {
     margin: "auto",
     marginTop: "2%",
-    fontFamily: ["Arial", "Helvetica", "sans-serif"],
     width: "90%",
     backgroundColor: "#acf59f",
     padding: "2%"
@@ -116,7 +124,7 @@ const GlobalStyle = {
   liCreateTest:{
     marginTop: "2%",
     fontSize: "1.5em",
-  },
+  }
 };
 
 const ResponsiveTheme = responsiveFontSizes(
