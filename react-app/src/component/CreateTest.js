@@ -152,17 +152,23 @@ const CreateTest = () =>{
               <List>
                 {arrayDomande.map((domanda, index) => (
                   <ListItem sx={GlobalStyle.liCreateTest} key={index} id={domanda.nome} value={domanda.testo}>
-                    <Stack direction="row" spacing={5}>
-                      <Box>
+                    <Stack direction="row" width="100%">
+                      <Box width="50%">
                         <Typography variant="body1">
                         {domanda.testo}
                         </Typography>
                       </Box>
-                      <Box>
-                        <Button className="rimuovi" onClick={() => { deleteDomanda(domanda) }} variant="outlined" startIcon={<DeleteIcon />}>
+                      <Stack width="50%" alignItems="flex-end" justifyContent="center">
+                        <Button
+                            className="rimuovi"
+                            onClick={() => { deleteDomanda(domanda) }}
+                            variant="contained"
+                            startIcon={<DeleteIcon />}
+                            color="error"
+                        >
                           Rimuovi
                         </Button>
-                      </Box>
+                      </Stack>
                     </Stack>
                   </ListItem>
                 ))}

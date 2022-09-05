@@ -130,7 +130,11 @@ const CreaDomanda = () =>{
                             />
                         </Stack>
                         <Box>
-                        <Button className="rimuovi" onClick={() => { rimuoviRisposta(risposta) }} variant="outlined" startIcon={<DeleteIcon />}>
+                        <Button className="rimuovi"
+                                onClick={() => { rimuoviRisposta(risposta) }}
+                                variant="contained" color="error"
+                                startIcon={<DeleteIcon />}
+                        >
                             Rimuovi
                         </Button>
                         </Box>
