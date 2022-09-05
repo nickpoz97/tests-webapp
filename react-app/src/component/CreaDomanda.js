@@ -1,8 +1,7 @@
 import React, {useState} from "react";
-import styles from "../style.module.css";
 import addDomanda from "../utils/AddDomanda";
 import Typography from "@mui/material/Typography";
-import {Alert, FormControlLabel, Paper, Slider, Stack, TextField} from "@mui/material";
+import {Alert, FormControlLabel, Slider, Stack, TextField} from "@mui/material";
 import {GlobalStyle} from '../Style/GlobalStyle'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
@@ -61,7 +60,7 @@ const CreaDomanda = () =>{
 
     return(
         <Box>
-            <Box className={styles.divDomanda}>
+            <Box sx={GlobalStyle.divCreaDomanda}>
             <Typography className="headerCreate" variant="h3">Crea una domanda:</Typography>
                 <form onSubmit={handleSubmit}>
                     <Box sx={GlobalStyle.formCreate}>

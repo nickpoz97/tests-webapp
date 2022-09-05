@@ -106,7 +106,7 @@ const CreateTest = () =>{
   return(
     <Box>
        <form onSubmit={handleSubmit}>
-        <Box className={styles.divDomanda}>
+        <Box sx={GlobalStyle.divCreaDomanda}>
             <Typography sx={GlobalStyle.headerCreate} variant="h3">Creazione Test</Typography>
           <Box sx={GlobalStyle.formCreate}>
             <TextField required id="nomeTest" label="nome" variant="outlined" />
@@ -153,7 +153,7 @@ const CreateTest = () =>{
               <EmptyList/>
               <List>
                 {arrayDomande.map((domanda, index) => (
-                  <ListItem className={styles.liCreateTest} key={index} id={domanda.nome} value={domanda.testo}>
+                  <ListItem sx={GlobalStyle.liCreateTest} key={index} id={domanda.nome} value={domanda.testo}>
                     <Stack direction="row" spacing={5}>
                       <Box>
                         <Typography variant="body1">

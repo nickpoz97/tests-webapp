@@ -33,16 +33,6 @@ const GlobalStyle = {
     color: 'white',
   },
 
-  divDomanda:{
-    margin: "auto",
-    marginTop: "2%",
-    fontFamily: "Arial, Helvetica, sans-serif",
-    borderCollapse: "collapse",
-    width: "90%",
-    backgroundColor: "#e7eeee",
-    padding: "2%"
-  },
-
   submitButton: {
     marginBottom: "20px",
     backgroundColor: "#46b74b"
@@ -82,6 +72,16 @@ const GlobalStyle = {
     margin: "2%"
   },
 
+  divCreaDomanda:{
+    margin: "auto",
+    marginTop: "2%",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    borderCollapse: "collapse",
+    width: "90%",
+    backgroundColor: "#e7eeee",
+    padding: "2%"
+  },
+
   divRisposte: {
     margin: "auto",
     marginTop: "2%",
@@ -109,7 +109,12 @@ const GlobalStyle = {
   accessibilityInstruction:{
     ariaHidden:"true",
     position: "absolute !important"
-  }
+  },
+
+  liCreateTest:{
+    marginTop: "2%",
+    fontSize: "1.5em",
+  },
 };
 
 const ResponsiveTheme = responsiveFontSizes(
