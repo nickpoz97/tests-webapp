@@ -61,7 +61,7 @@ const Domanda = () => {
 
     function RenderNumRisp(props) {
         if (props.risposteConNumero) {
-            return ++numRisp + ") ";
+            return <Typography sx={{display: "inline"}} variant="body1">{++numRisp + ") "}</Typography>;
         }
     }
 
