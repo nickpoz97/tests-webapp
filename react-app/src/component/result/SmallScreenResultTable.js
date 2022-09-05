@@ -1,5 +1,5 @@
 import {
-    Dialog, DialogContent, List, ListItem, Paper,
+    Dialog, List, ListItem, Paper,
     Table,
     TableBody,
     TableCell,
@@ -46,7 +46,7 @@ const ResultHeader = (props) => {
     return(
         <TableHead>
             <TableRow>
-                <TableCell align="center"><Typography variant="h4">Seleziona la domanda</Typography></TableCell>
+                <TableCell align="center"><Typography variant="h5">Seleziona una domanda per ulteriori dettagli</Typography></TableCell>
             </TableRow>
         </TableHead>
     )

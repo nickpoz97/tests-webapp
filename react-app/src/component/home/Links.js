@@ -1,6 +1,6 @@
 import CreateTest from "../CreateTest";
 import CreaDomanda from "../CreaDomanda";
-import Test from "../Test";
+import TestList from "../TestList";
 import * as React from "react";
 import {Link} from "react-router-dom";
 import styles from "../../style.module.css";
@@ -9,7 +9,7 @@ import {List, ListItem, Stack, SwipeableDrawer} from "@mui/material";
 import Button from "@mui/material/Button";
 
 const links = [
-    {text: "Home", ref: <Test />},
+    {text: "Home", ref: <TestList />},
     {text: "Crea Test", ref: <CreateTest />},
     {text: "Crea Domanda", ref: <CreaDomanda />}
 ]

@@ -2,16 +2,12 @@ import styles from "../style.module.css";
 import React, {useState} from 'react';
 import InsertTest from "./InsertTest";
 import getAllDomande from "../utils/GetAllDomande";
-import getAllTests from "../utils/GetAllTests";
 import {
   Alert,
-  FormControl,
   FormControlLabel,
   List,
   ListItem,
-  MenuItem,
   NativeSelect,
-  Select,
   Stack,
   Typography
 } from "@mui/material";
@@ -31,7 +27,6 @@ const CreateTest = () =>{
 
   const [arrayDomande, setArrayDomande] = useState([]);
   const [domande, setDomande] = useState([]);
-  const [tests, setTests] = useState([]);
 
   const [data, setData] = React.useState(
     dayjs(new Date()),
@@ -44,9 +39,6 @@ const CreateTest = () =>{
   React.useEffect(() => {
     getAllDomande()
         .then(result => setDomande(result))
-
-    getAllTests()
-        .then(result => setTests(result))
   },[]);
 
   function addDomanda(){

@@ -1,7 +1,7 @@
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import getRisposte from "../../utils/GetRisposte";
 import React, {useEffect, useState} from "react";
-import {Hidden, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,} from "@mui/material";
+import {Hidden, Stack} from "@mui/material";
 import styles from "../../style.module.css"
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";

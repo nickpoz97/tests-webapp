@@ -6,12 +6,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Test from "../Test";
+import TestList from "../TestList";
 import {Hidden, Stack} from "@mui/material";
 import {BigScreenLinksRendering , SmallScreenListRendering} from "./Links";
 
 export default function Home(props) {
-  const [state, setState] = useState(<Test />)
+  const [state, setState] = useState(<TestList />)
   const [toggleDrawer, setToggleDrawer] = useState(false)
 
   // close drawer when changing state

@@ -1,5 +1,4 @@
 import {useLocation} from 'react-router-dom'
-import styles from "../style.module.css";
 import React, {useEffect, useState} from 'react';
 import saveAnswer from "../utils/SaveAnswer";
 import Button from "@mui/material/Button";
