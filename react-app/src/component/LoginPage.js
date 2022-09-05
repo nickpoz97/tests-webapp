@@ -82,7 +82,7 @@ const LoginPage = () => {
                 <form onSubmit={submitHandler}>
                 <Box padding="20px">
                     <Stack direction='column' alignItems='center' spacing="20px">
-                        <Typography variant="h3" component="h1">Login</Typography>
+                        <Typography variant="h3">Login</Typography>
                         <TextField
                             label='id utente'
                             placeholder=""

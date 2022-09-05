@@ -13,7 +13,6 @@ function App() {
   return (
     <ThemeProvider theme={ResponsiveTheme}>
     <div className="App">
-    <title>CIAO</title>
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<LoginPage />}></Route>
