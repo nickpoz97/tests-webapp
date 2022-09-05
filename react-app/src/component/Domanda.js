@@ -17,7 +17,7 @@ const TITLE = 'COMPILA IL TEST '
 
 const Domanda = () =>{
   const location = useLocation();
-  const {ordineDomande, test} = location.state;
+  const {ordineDomande, test, numeraDomande} = location.state;
   const domande = test.domande;
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState([]);
@@ -38,13 +38,13 @@ const Domanda = () =>{
     )
 
   const [index, setIndex] = useState(0);
+
   var flag = false;
   useEffect(() => {
       setActualAnswer(undefined);
   }, [index])
 
   var numRisp = 0;
-  var numDomande = 0;
 
   // shuffle only once
   useEffect( () => {
@@ -75,7 +75,7 @@ const Domanda = () =>{
 
   function RenderNumDom(props){
       if(props.domandeConNumero)
-        return (<Box tabindex="2"><br></br><Typography variant='h3' sx={{marginBottom:"2%"}}><u>Domanda n° {++numDomande}</u></Typography></Box>);
+        return (<Box tabindex="2"><br></br><Typography variant='h3' sx={{marginBottom:"2%"}}><u>Domanda n° {index+1}</u></Typography></Box>);
     }
 
     const waitForSave = async (fun) => {
@@ -178,7 +178,7 @@ const Domanda = () =>{
        <Box sx={GlobalStyle.divDomanda}>
             <Typography name="nome_test" variant='h2' fontWeight="bold" tabIndex="1"><u>Nome test</u>: {test.nome}</Typography>
               <Box sx={GlobalStyle.divDomanda2} name="box_domonda">
-                <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}></RenderNumDom><i>
+                <RenderNumDom domandeConNumero={numeraDomande}></RenderNumDom><i>
                   <Box  display="inline"  tabIndex="3" ><Typography display="inline" sx={GlobalStyle.nomeDomanda} variant='h4' name="nome_domanda" ><u>Nome domanda</u>: {domande[ordineDomande[index]-1].nome}</Typography></Box><Typography  tabIndex="4" display="inline" variant='h4' name="punti_domanda">({domande[ordineDomande[index]-1].punti} punti)</Typography></i>
                 <Typography  tabIndex="6" name="testo_domanda" variant='h5' sx={GlobalStyle.nomeDomanda}><u>Testo domanda</u>: {domande[ordineDomande[index]-1].testo}</Typography>
               </Box>
