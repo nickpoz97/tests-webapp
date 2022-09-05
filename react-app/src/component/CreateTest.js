@@ -79,7 +79,6 @@ const CreateTest = () =>{
     
     var ora =  String(data.$d.getHours()).padStart(2, '0');
     var minuti = String(data.$d.getMinutes()).padStart(2, '0');
-    var secondi = data.$d.getSeconds();
     var orario = ora +":"+minuti;
     
     const testInput = {
