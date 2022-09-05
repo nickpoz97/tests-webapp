@@ -1,6 +1,6 @@
 import styles from "../style.module.css";
 import React, {useState} from 'react';
-import displayInfo from "./displayInfo";
+import displayInfo from "../utils/DisplayInfo";
 import getAllDomande from "../utils/GetAllDomande";
 import {
   Alert,

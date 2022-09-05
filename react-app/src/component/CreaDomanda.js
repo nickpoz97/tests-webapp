@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBox from "@mui/material/Checkbox";
-import displayInfo from "./displayInfo";
+import displayInfo from "../utils/DisplayInfo";
 
 
 const CreaDomanda = () =>{
@@ -31,8 +31,7 @@ const CreaDomanda = () =>{
     }
 
     function RenderInsertQuestion(domandaInput){
-        displayInfo(addDomanda, domandaInput).then(result => setInfo(result)
-        )
+        displayInfo(addDomanda, domandaInput).then(result => setInfo(result))
     }
 
     function aggiungiRisposta(){

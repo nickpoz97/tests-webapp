@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Domanda from "./component/Domanda";
 import React from 'react';
 import CreateTest from "./component/CreateTest";
-import displayInfo from "./component/displayInfo";
+import displayInfo from "./utils/DisplayInfo";
 import CreaDomanda from "./component/CreaDomanda";
 import Result from "./component/result/Result";
 import LoginPage from "./component/LoginPage";
