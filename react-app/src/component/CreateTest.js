@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import displayInfo from "../utils/DisplayInfo";
 import getAllDomande from "../utils/GetAllDomande";
 import {
-  Alert,
+  Alert, Divider,
   FormControlLabel,
   List,
   ListItem,
@@ -151,6 +151,7 @@ const CreateTest = () =>{
               <EmptyList/>
               <List>
                 {arrayDomande.map((domanda, index) => (
+                    <>
                   <ListItem sx={GlobalStyle.liCreateTest} key={index} id={domanda.nome} value={domanda.testo}>
                     <Stack direction="row" width="100%">
                       <Box width="50%">
@@ -171,6 +172,8 @@ const CreateTest = () =>{
                       </Stack>
                     </Stack>
                   </ListItem>
+                    <Divider />
+                    </>
                 ))}
               </List>
               <Stack sx={GlobalStyle.divCheckBox} spacing={2} >
