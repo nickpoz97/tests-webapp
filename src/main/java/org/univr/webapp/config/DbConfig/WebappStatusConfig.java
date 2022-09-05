@@ -26,7 +26,7 @@ public class WebappStatusConfig {
 
     @Bean("statusDataSource")
     @ConfigurationProperties(prefix = "spring.dsstatus")
-    public DataSource statusDatasource(){
+    public DataSource statusDatasource() {
         return DataSourceBuilder.create().build();
     }
 
@@ -34,17 +34,17 @@ public class WebappStatusConfig {
     public LocalContainerEntityManagerFactoryBean statusDbEntityManagerFactory(
             EntityManagerFactoryBuilder builder,
             @Qualifier("statusDataSource") DataSource statusDataSource
-    ){
+    ) {
         return builder
                 .dataSource(statusDataSource)
                 .packages("org.univr.webapp.dataLayer.webappStatus", "org.univr.webapp.model.webappStatus")
                 .build();
     }
 
-    @Bean(name= "statusTransactionManager")
+    @Bean(name = "statusTransactionManager")
     public PlatformTransactionManager statusDbTransactionManager(
             @Qualifier("statusEntityManagerFactory") EntityManagerFactory statusDbEntityManagerFactory
-    ){
+    ) {
         return new JpaTransactionManager(statusDbEntityManagerFactory);
     }
 }

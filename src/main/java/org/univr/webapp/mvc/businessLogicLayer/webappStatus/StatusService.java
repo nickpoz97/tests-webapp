@@ -5,12 +5,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.univr.webapp.mvc.dataAccessLayer.webappData.RispostaRepository;
-import org.univr.webapp.mvc.dataAccessLayer.webappData.TestRepository;
-import org.univr.webapp.mvc.dataAccessLayer.webappStatus.StatusRepository;
 import org.univr.webapp.model.webappData.Risposta;
 import org.univr.webapp.model.webappData.Test;
 import org.univr.webapp.model.webappStatus.Status;
+import org.univr.webapp.mvc.dataAccessLayer.webappData.RispostaRepository;
+import org.univr.webapp.mvc.dataAccessLayer.webappData.TestRepository;
+import org.univr.webapp.mvc.dataAccessLayer.webappStatus.StatusRepository;
 import org.univr.webapp.mvc.presentationLayer.returnMessages.MutationResult;
 
 import java.time.LocalDate;
@@ -33,7 +33,7 @@ public class StatusService {
     }
 
     @PreAuthorize("hasAnyAuthority('STUDENTE', 'INSEGNANTE')")
-    public List<Risposta> getRisposte(String nomeTest, LocalDate data, LocalTime orario){
+    public List<Risposta> getRisposte(String nomeTest, LocalDate data, LocalTime orario) {
         List<Long> idRisposte = statusRepository.findAll().stream()
                 .filter(s -> userAndTestFilter(s, nomeTest, data, orario))
                 .map(Status::getIdRisposta)
@@ -42,7 +42,7 @@ public class StatusService {
         return rispostaRepository.findAllById(idRisposte);
     }
 
-    private boolean userAndTestFilter(Status status, String nomeTest, LocalDate data, LocalTime orario){
+    private boolean userAndTestFilter(Status status, String nomeTest, LocalDate data, LocalTime orario) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Status.StatoPK statusPK = status.getStatoPK();
 
@@ -52,34 +52,34 @@ public class StatusService {
     }
 
     @PreAuthorize("hasAnyAuthority('STUDENTE', 'INSEGNANTE')")
-    public MutationResult addRisposta(String nomeTest, LocalDate data, LocalTime orario, Long idRisposta, String nomeDomanda){
+    public MutationResult addRisposta(String nomeTest, LocalDate data, LocalTime orario, Long idRisposta, String nomeDomanda) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LocalDateTime testTimestamp = LocalDateTime.of(data, orario);
 
         Optional<Risposta> rispostaResult = rispostaRepository.findById(idRisposta);
         Optional<Test> testResult = testRepository.findById(new Test.TestID(testTimestamp, nomeTest));
 
-        if (rispostaResult.isEmpty()){
+        if (rispostaResult.isEmpty()) {
             return new MutationResult(false, "La risposta con l' id specificato non esiste");
         }
 
-        if(testResult.isEmpty()){
+        if (testResult.isEmpty()) {
             return new MutationResult(false, "Il test con nome, data e orario specificati non esiste");
         }
 
-        if (!testResult.get().getDomandeList().contains(rispostaResult.get().getDomanda())){
+        if (!testResult.get().getDomandeList().contains(rispostaResult.get().getDomanda())) {
             return new MutationResult(false, "La risposta con l' id specificato non è contenuta in nessuna domanda del test");
         }
 
         this.statusRepository.save(
                 new Status(
-                    new Status.StatoPK(
-                            testTimestamp,
-                            nomeTest,
-                            authentication.getName(),
-                            nomeDomanda
-                            ),
-                    idRisposta
+                        new Status.StatoPK(
+                                testTimestamp,
+                                nomeTest,
+                                authentication.getName(),
+                                nomeDomanda
+                        ),
+                        idRisposta
                 )
         );
         return new MutationResult(true, "Risposta salvata");

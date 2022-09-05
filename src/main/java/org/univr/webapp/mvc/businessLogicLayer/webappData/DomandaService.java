@@ -5,19 +5,32 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.univr.webapp.model.webappData.Domanda;
 import org.univr.webapp.model.webappData.Risposta;
-import org.univr.webapp.mvc.presentationLayer.webappData.inputTypes.DomandaInput;
-import org.univr.webapp.mvc.presentationLayer.webappData.inputTypes.RispostaInput;
 import org.univr.webapp.mvc.presentationLayer.returnMessages.MutationResult;
+import org.univr.webapp.mvc.presentationLayer.webappData.inputTypes.DomandaInput;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class DomandaService extends AbstractDataService {
+    private static MutationResult checkRisposte(DomandaInput domandaInput) {
+        if (domandaInput.risposte().stream()
+                .noneMatch(risp -> risp.punteggio().compareTo(new BigDecimal("1.0")) == 0)) {
+            return new MutationResult(false, "nessuna risposta ha punteggio 1.0");
+        }
+
+        if (domandaInput.risposte().stream()
+                .anyMatch(risp -> risp.punteggio().compareTo(new BigDecimal("0.0")) < 0 ||
+                        risp.punteggio().compareTo(new BigDecimal("1.0")) > 0)) {
+            return new MutationResult(false, "Non sono ammessi punteggi negativi o maggiori di 1");
+        }
+
+        return null;
+    }
+
     @PreAuthorize("!isAnonymous()")
-    public List<Risposta> getRisposte(Domanda domanda){
+    public List<Risposta> getRisposte(Domanda domanda) {
         return this.getRispostaRepository()
                 .findAll()
                 .stream()
@@ -26,22 +39,21 @@ public class DomandaService extends AbstractDataService {
     }
 
     @PreAuthorize("hasAuthority('INSEGNANTE')")
-    public List<Domanda> getAllDomande(){
+    public List<Domanda> getAllDomande() {
         return getDomandaRepository().findAll();
     }
 
-
     @PreAuthorize("hasAuthority('INSEGNANTE')")
-    public MutationResult addDomanda(DomandaInput domandaInput){
-        if (domandaInput.risposte().size() < 2){
+    public MutationResult addDomanda(DomandaInput domandaInput) {
+        if (domandaInput.risposte().size() < 2) {
             return new MutationResult(false, "Inserire almeno 2 risposte");
         }
 
-        if (getDomandaRepository().findById(domandaInput.nome()).isPresent()){
+        if (getDomandaRepository().findById(domandaInput.nome()).isPresent()) {
             return new MutationResult(false, "Domanda gia presente");
         }
 
-        if (domandaInput.punti().compareTo(new BigDecimal("0.0")) <= 0){
+        if (domandaInput.punti().compareTo(new BigDecimal("0.0")) <= 0) {
             return new MutationResult(false, "La domanda deve valere più di zero punti");
         }
 
@@ -64,27 +76,11 @@ public class DomandaService extends AbstractDataService {
         try {
             getDomandaRepository().save(domanda);
             getRispostaRepository().saveAll(risposte);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new MutationResult(false, e.getMessage());
         }
 
         return new MutationResult(true, "Domanda Aggiunta");
-    }
-
-    private static MutationResult checkRisposte(DomandaInput domandaInput) {
-        if (domandaInput.risposte().stream()
-                .noneMatch(risp -> risp.punteggio().compareTo(new BigDecimal("1.0")) == 0)){
-            return new MutationResult(false, "nessuna risposta ha punteggio 1.0");
-        }
-
-        if (domandaInput.risposte().stream()
-                .anyMatch(risp -> risp.punteggio().compareTo(new BigDecimal("0.0")) < 0 ||
-                        risp.punteggio().compareTo(new BigDecimal("1.0")) > 0)){
-            return new MutationResult(false, "Non sono ammessi punteggi negativi o maggiori di 1");
-        }
-
-        return null;
     }
 }

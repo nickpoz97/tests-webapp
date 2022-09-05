@@ -9,14 +9,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Controller("StatusMutationController")
-public class MutationController extends  AbstractStatusController{
+public class MutationController extends AbstractStatusController {
     @MutationMapping
     public MutationResult addRisposta(@Argument String nomeTest,
                                       @Argument LocalDate dataTest,
                                       @Argument LocalTime orarioTest,
                                       @Argument Long idRisposta,
                                       @Argument String nomeDomanda
-    ){
+    ) {
         return getStatusService().addRisposta(nomeTest, dataTest, orarioTest, idRisposta, nomeDomanda);
     }
 }

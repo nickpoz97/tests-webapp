@@ -13,16 +13,16 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Domanda{
+public class Domanda {
     @Id
-    @Column(name  = "nome")
+    @Column(name = "nome")
     private String nome;
 
     @Column(name = "testo", nullable = false)
-    private  String testo;
+    private String testo;
 
     @Column(name = "punti")
-    private  BigDecimal punti;
+    private BigDecimal punti;
 
     @Column(name = "ordinecasuale", nullable = false)
     private boolean ordineCasuale = false;

@@ -8,11 +8,11 @@ import org.springframework.graphql.execution.RuntimeWiringConfigurer;
 @Configuration
 public class GraphQLConfig {
     @Bean
-    RuntimeWiringConfigurer runtimeWiringConfigurer(){
+    RuntimeWiringConfigurer runtimeWiringConfigurer() {
         return builder -> builder
-            .scalar(ExtendedScalars.GraphQLBigDecimal)
-            .scalar(ExtendedScalars.GraphQLLong)
-            .scalar(ExtendedScalars.LocalTime)
-            .scalar(ExtendedScalars.Date);
+                .scalar(ExtendedScalars.GraphQLBigDecimal)
+                .scalar(ExtendedScalars.GraphQLLong)
+                .scalar(ExtendedScalars.LocalTime)
+                .scalar(ExtendedScalars.Date);
     }
 }

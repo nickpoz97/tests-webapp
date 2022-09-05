@@ -10,4 +10,5 @@ public record DomandaInput(
         boolean ordineCasuale,
         boolean risposteConNumero,
         List<RispostaInput> risposte
-) {}
+) {
+}

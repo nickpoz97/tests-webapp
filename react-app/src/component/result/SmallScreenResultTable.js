@@ -1,5 +1,8 @@
 import {
-    Dialog, List, ListItem, Paper,
+    Dialog,
+    List,
+    ListItem,
+    Paper,
     Table,
     TableBody,
     TableCell,
@@ -18,51 +21,55 @@ const SmallScreenResultTable = (props) => {
     const [openDialog, setOpenDialog] = useState(false)
     const [answerToDisplayIndex, setAnswerToDisplayIndex] = useState(0)
 
-    return(
+    return (
         <>
-        <TableContainer>
-            <Table stickyHeader align="center">
-                <ResultHeader headerColumns={props.headerColumns} />
-                <ResultBody
-                    listRisposte={props.listRisposte}
-                    headerColumns={props.headerColumns}
-                    setOpen={setOpenDialog}
-                    setAnswerToDisplayIndex={setAnswerToDisplayIndex}
-                />
-            </Table>
-        </TableContainer>
-        <ResultDialog
-            open={openDialog}
-            setOpen={setOpenDialog}
-            listRisposte={props.listRisposte}
-            headerColumns={props.headerColumns}
-            answerToDisplayIndex={answerToDisplayIndex}
-        />
+            <TableContainer>
+                <Table stickyHeader align="center">
+                    <ResultHeader headerColumns={props.headerColumns}/>
+                    <ResultBody
+                        listRisposte={props.listRisposte}
+                        headerColumns={props.headerColumns}
+                        setOpen={setOpenDialog}
+                        setAnswerToDisplayIndex={setAnswerToDisplayIndex}
+                    />
+                </Table>
+            </TableContainer>
+            <ResultDialog
+                open={openDialog}
+                setOpen={setOpenDialog}
+                listRisposte={props.listRisposte}
+                headerColumns={props.headerColumns}
+                answerToDisplayIndex={answerToDisplayIndex}
+            />
         </>
     )
 }
 
 const ResultHeader = (props) => {
-    return(
+    return (
         <TableHead>
             <TableRow>
-                <TableCell align="center"><Typography variant="h5">Seleziona una domanda per ulteriori dettagli</Typography></TableCell>
+                <TableCell align="center"><Typography variant="h5">Seleziona una domanda per ulteriori
+                    dettagli</Typography></TableCell>
             </TableRow>
         </TableHead>
     )
 }
 
 const ResultBody = (props) => {
-    return(
+    return (
         <TableBody>
             {
                 props.listRisposte.map(
                     (risposta, index) =>
                         <TableRow value={index} key={index}
-                                  onClick={() => {props.setAnswerToDisplayIndex(index); props.setOpen(true)}}>
+                                  onClick={() => {
+                                      props.setAnswerToDisplayIndex(index);
+                                      props.setOpen(true)
+                                  }}>
                             <TableCell align="center">
                                 <Typography variant="h6">
-                                {risposta.testoDomanda}
+                                    {risposta.testoDomanda}
                                 </Typography>
                             </TableCell>
                         </TableRow>
@@ -87,22 +94,22 @@ const ResultDialog = (props) => {
                     onClick={() => props.setOpen(false)}
                     aria-label="close"
                 >
-                    <CloseIcon />
+                    <CloseIcon/>
                 </IconButton>
             </Toolbar>
             <List>
-            {
-                props.headerColumns.map((col, index) =>
-                    <ListItem key={index}>
-                        <Box width="100%">
-                            <Paper sx={{padding: 1}} elevation={10}>
-                                <Typography variant="h6" sx={{fontWeight:'bold'}}>{col}</Typography>
-                                <Typography variant="body1">{rispostaEntries[index][1]}</Typography>
-                            </Paper>
-                        </Box>
-                    </ListItem>
-                )
-            }
+                {
+                    props.headerColumns.map((col, index) =>
+                        <ListItem key={index}>
+                            <Box width="100%">
+                                <Paper sx={{padding: 1}} elevation={10}>
+                                    <Typography variant="h6" sx={{fontWeight: 'bold'}}>{col}</Typography>
+                                    <Typography variant="body1">{rispostaEntries[index][1]}</Typography>
+                                </Paper>
+                            </Box>
+                        </ListItem>
+                    )
+                }
             </List>
         </Dialog>
     )

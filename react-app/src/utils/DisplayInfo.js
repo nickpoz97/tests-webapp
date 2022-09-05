@@ -11,7 +11,7 @@ const displayInfo = async (mutation, input, sx) => {
                 </Alert>
             </Box>
         )
-        .catch (error => <Box sx={sx}><Alert severity="error">{error.message}</Alert></Box>)
+        .catch(error => <Box sx={sx}><Alert severity="error">{error.message}</Alert></Box>)
 }
 
 export default displayInfo;

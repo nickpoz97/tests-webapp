@@ -11,4 +11,5 @@ public record TestInput(
         boolean ordineCasuale,
         boolean domandeConNumero,
         List<String> nomeDomande
-) {}
+) {
+}

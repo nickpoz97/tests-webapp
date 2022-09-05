@@ -10,9 +10,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
-import org.univr.webapp.mvc.dataAccessLayer.webappLogin.LoginRepository;
 import org.univr.webapp.model.webappLogin.Login;
 import org.univr.webapp.model.webappLogin.Role;
+import org.univr.webapp.mvc.dataAccessLayer.webappLogin.LoginRepository;
 import org.univr.webapp.mvc.presentationLayer.returnMessages.LoginInfo;
 import org.univr.webapp.mvc.presentationLayer.returnMessages.MutationResult;
 
@@ -39,8 +39,8 @@ public class LoginService {
     public LoginInfo login(String username, String password) {
         String hash = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
 
-        try{
-            if (! (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+        try {
+            if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
                 throw new UserAlreadyLoggedException("Questa sessione è gia stata occupata");
             }
 
@@ -52,16 +52,15 @@ public class LoginService {
                     "Login avvenuto con successo",
                     httpSession.getId()
             );
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return new LoginInfo(false, null, e.getMessage(), null);
         }
     }
 
     private Role validateLogin(String username, String password, Optional<Login> loginQuery) {
-        if (loginQuery.isPresent()){
+        if (loginQuery.isPresent()) {
             Login login = loginQuery.get();
-            if (login.getPassword().equals(password)){
+            if (login.getPassword().equals(password)) {
                 return setAuthentication(username, login, password);
             }
             throw new BadCredentialsException("Password non valida");
@@ -78,11 +77,10 @@ public class LoginService {
         return role;
     }
 
-    public MutationResult logout(){
-        try{
+    public MutationResult logout() {
+        try {
             new SecurityContextLogoutHandler().logout(request, null, null);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return new MutationResult(false, e.getMessage());
         }
         return new MutationResult(true, "Logout success");

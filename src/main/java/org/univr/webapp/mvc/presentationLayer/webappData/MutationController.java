@@ -15,7 +15,7 @@ public class MutationController extends AbstractDataController {
     }
 
     @MutationMapping
-    public MutationResult addDomanda(@Argument DomandaInput domandaInput){
+    public MutationResult addDomanda(@Argument DomandaInput domandaInput) {
         return getDomandaService().addDomanda(domandaInput);
     }
 }

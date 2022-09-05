@@ -23,9 +23,9 @@ import javax.sql.DataSource;
         basePackages = {"org.univr.webapp.mvc.dataAccessLayer.webappLogin", "org.univr.webapp.model.webappLogin"}
 )
 public class WebappLoginConfig {
-    @Bean(name= "loginDataSource")
-    @ConfigurationProperties(prefix="spring.dslogin")
-    public DataSource loginDatasource(){
+    @Bean(name = "loginDataSource")
+    @ConfigurationProperties(prefix = "spring.dslogin")
+    public DataSource loginDatasource() {
         return DataSourceBuilder.create().build();
     }
 
@@ -33,17 +33,17 @@ public class WebappLoginConfig {
     public LocalContainerEntityManagerFactoryBean loginDbEntityManagerFactory(
             EntityManagerFactoryBuilder builder,
             @Qualifier("loginDataSource") DataSource loginDataSource
-    ){
+    ) {
         return builder
                 .dataSource(loginDataSource)
                 .packages("org.univr.webapp.dataLayer.webappLogin", "org.univr.webapp.model.webappLogin")
                 .build();
     }
 
-    @Bean(name= "loginTransactionManager")
+    @Bean(name = "loginTransactionManager")
     public PlatformTransactionManager loginDbTransactionManager(
             @Qualifier("loginEntityManagerFactory") EntityManagerFactory loginDbEntityManagerFactory
-    ){
+    ) {
         return new JpaTransactionManager(loginDbEntityManagerFactory);
     }
 }

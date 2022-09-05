@@ -5,4 +5,5 @@ import java.math.BigDecimal;
 public record RispostaInput(
         String testo,
         BigDecimal punteggio
-) {}
+) {
+}

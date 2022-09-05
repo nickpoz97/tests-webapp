@@ -14,22 +14,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Status {
+    @EmbeddedId
+    private StatoPK statoPK;
+    @Column(name = "idrisposta", nullable = false)
+    private Long idRisposta;
+
     @Data
     @Embeddable
     @NoArgsConstructor
     @AllArgsConstructor
     public static class StatoPK implements Serializable {
-        @Column(name="timestamptest", nullable = false)
+        @Column(name = "timestamptest", nullable = false)
         private LocalDateTime timestampTest;
-        @Column(name="nometest", nullable = false)
+        @Column(name = "nometest", nullable = false)
         private String nomeTest;
-        @Column(name="idutente", nullable=false)
+        @Column(name = "idutente", nullable = false)
         private String idUtente;
-        @Column(name="nomedomanda", nullable = false)
+        @Column(name = "nomedomanda", nullable = false)
         private String nomeDomanda;
     }
-    @EmbeddedId
-    private StatoPK statoPK;
-    @Column(name="idrisposta", nullable = false)
-    private Long idRisposta;
 }

@@ -15,15 +15,17 @@ import java.util.Optional;
 public class QueryController extends AbstractDataController {
 
     @QueryMapping
-    public List<Test> getAllTests(){
+    public List<Test> getAllTests() {
         return getTestService().getAllTests();
     }
 
     @QueryMapping
-    public List<Domanda> getAllDomande() { return getDomandaService().getAllDomande(); }
+    public List<Domanda> getAllDomande() {
+        return getDomandaService().getAllDomande();
+    }
 
     @QueryMapping
-    public Optional<Test> getTestById(@Argument LocalDate data, @Argument LocalTime orario, @Argument String nome){
+    public Optional<Test> getTestById(@Argument LocalDate data, @Argument LocalTime orario, @Argument String nome) {
         return getTestService().getTestById(data, orario, nome);
     }
 }

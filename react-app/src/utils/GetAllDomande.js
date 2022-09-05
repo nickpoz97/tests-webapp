@@ -17,9 +17,9 @@ const queryBody = `
 `;
 
 const getAllDomande = () => graphqlRequest(queryBody)
-        .then(data => data.getAllDomande)
-        .catch(errors => {
-            throw errors
-        })
+    .then(data => data.getAllDomande)
+    .catch(errors => {
+        throw errors
+    })
 
 export default getAllDomande;

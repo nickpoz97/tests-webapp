@@ -34,23 +34,22 @@ const LoginPage = () => {
         setErrorMessage(<Alert severity="info">attendere</Alert>)
 
         login(credentials).then(response => {
-            if (response.success){
+            if (response.success) {
                 sessionStorage.setItem("logId", response.id)
                 sessionStorage.setItem("role", response.role)
                 setLoginStatus("success")
-            }
-            else{
+            } else {
                 setErrorMessage(<Alert severity="error">{response.message}</Alert>)
             }
         })
-        .catch(errors => {
-            setErrorMessage(<Alert severity="error">{errors.message}</Alert>)
-        })
-        .finally(() => setButtonDisabled(false))
+            .catch(errors => {
+                setErrorMessage(<Alert severity="error">{errors.message}</Alert>)
+            })
+            .finally(() => setButtonDisabled(false))
     }
 
-    useEffect(() =>{
-        if (sessionStorage.getItem("logId")){
+    useEffect(() => {
+        if (sessionStorage.getItem("logId")) {
             setLoginStatus("success")
         }
     }, [])
@@ -71,43 +70,44 @@ const LoginPage = () => {
         })
     }
 
-    if (loginStatus === "success"){
+    if (loginStatus === "success") {
         return <Home logoutCallback={logoutCallback}/>
     }
 
-    return(
+    return (
         //<Stack direction='row' justifyContent='center'>
         <Container>
             <Paper elevation={10} onKeyDown={handleKeypress}>
                 <form onSubmit={submitHandler}>
-                <Box padding="20px">
-                    <Stack direction='column' alignItems='center' spacing="20px">
-                        <Typography variant="h3">Login</Typography>
-                        <TextField
-                            label='id utente'
-                            placeholder=""
-                            fullWidth
-                            onChange={textHandler}
-                            size='large'
-                            id='username'
-                            required
-                        />
-                        <TextField
-                            label='password'
-                            placeholder=""
-                            fullWidth
-                            type='password'
-                            onChange={textHandler}
-                            size='large'
-                            id='password'
-                            required
-                        />
-                        <Button id="loginButton" variant='contained' size='large' fullWidth type="submit" disabled={buttonDisabled}>
-                            Invia
-                        </Button>
-                        {errorMessage}
-                    </Stack>
-                </Box>
+                    <Box padding="20px">
+                        <Stack direction='column' alignItems='center' spacing="20px">
+                            <Typography variant="h3">Login</Typography>
+                            <TextField
+                                label='id utente'
+                                placeholder=""
+                                fullWidth
+                                onChange={textHandler}
+                                size='large'
+                                id='username'
+                                required
+                            />
+                            <TextField
+                                label='password'
+                                placeholder=""
+                                fullWidth
+                                type='password'
+                                onChange={textHandler}
+                                size='large'
+                                id='password'
+                                required
+                            />
+                            <Button id="loginButton" variant='contained' size='large' fullWidth type="submit"
+                                    disabled={buttonDisabled}>
+                                Invia
+                            </Button>
+                            {errorMessage}
+                        </Stack>
+                    </Box>
                 </form>
             </Paper>
         </Container>

@@ -4,10 +4,11 @@ import React from "react";
 
 
 const ResultHeader = (props) => {
-    return(
+    return (
         <TableHead>
             <TableRow>
-                {props.headerColumns.map(colName => <TableCell key={colName}><Typography variant="body1">{colName}</Typography></TableCell>)}
+                {props.headerColumns.map(colName => <TableCell key={colName}><Typography
+                    variant="body1">{colName}</Typography></TableCell>)}
             </TableRow>
         </TableHead>
     )
@@ -15,17 +16,21 @@ const ResultHeader = (props) => {
 
 const ResultBody = (props) => {
     var tabindex = props.indicetab;
-    
-    return(
+
+    return (
         <TableBody>
             {
                 props.listRisposte.map(
                     (risposta, index) =>
-                        <TableRow id={"riga"+index} key={index}>
-                            <TableCell tabIndex={tabindex++} aria-label={"Domanda:" +risposta.testoDomanda}>{risposta.testoDomanda} </TableCell>
-                            <TableCell tabIndex={tabindex++} aria-label={"Risposta data:" +risposta.rispostaData}>{risposta.rispostaData}</TableCell>
-                            <TableCell tabIndex={tabindex++} aria-label={"Risposta corretta:" +risposta.rispostaCorretta}>{risposta.rispostaCorretta}</TableCell>
-                            <TableCell tabIndex={tabindex++} aria-label={"Punti:" +risposta.punteggio}>{risposta.punteggio}</TableCell>
+                        <TableRow id={"riga" + index} key={index}>
+                            <TableCell tabIndex={tabindex++}
+                                       aria-label={"Domanda:" + risposta.testoDomanda}>{risposta.testoDomanda} </TableCell>
+                            <TableCell tabIndex={tabindex++}
+                                       aria-label={"Risposta data:" + risposta.rispostaData}>{risposta.rispostaData}</TableCell>
+                            <TableCell tabIndex={tabindex++}
+                                       aria-label={"Risposta corretta:" + risposta.rispostaCorretta}>{risposta.rispostaCorretta}</TableCell>
+                            <TableCell tabIndex={tabindex++}
+                                       aria-label={"Punti:" + risposta.punteggio}>{risposta.punteggio}</TableCell>
                         </TableRow>
                 )
             }
@@ -38,8 +43,8 @@ const BigScreenResultTable = (props) => {
 
     return (
         <TableContainer>
-            <Table stickyHeader >
-                <ResultHeader headerColumns={props.headerColumns} />
+            <Table stickyHeader>
+                <ResultHeader headerColumns={props.headerColumns}/>
                 <ResultBody indicetab={tabindex} listRisposte={props.listRisposte}/>
             </Table>
         </TableContainer>

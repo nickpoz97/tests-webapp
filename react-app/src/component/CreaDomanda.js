@@ -10,7 +10,7 @@ import CheckBox from "@mui/material/Checkbox";
 import displayInfo from "../utils/DisplayInfo";
 
 
-const CreaDomanda = () =>{
+const CreaDomanda = () => {
     const [arrayRisposte, setArrayRisposte] = useState([])
     const [info, setInfo] = useState(null)
 
@@ -29,13 +29,13 @@ const CreaDomanda = () =>{
         RenderInsertQuestion(domandaInput);
     }
 
-    function RenderInsertQuestion(domandaInput){
+    function RenderInsertQuestion(domandaInput) {
         displayInfo(addDomanda, domandaInput).then(result => setInfo(result))
     }
 
-    function aggiungiRisposta(){
+    function aggiungiRisposta() {
         const risposta = {
-            numero: arrayRisposte.length+1,
+            numero: arrayRisposte.length + 1,
             testo: "",
             punteggio: 0,
             domanda: ""
@@ -43,35 +43,35 @@ const CreaDomanda = () =>{
         setArrayRisposte([...arrayRisposte, risposta]);
     }
 
-    function rimuoviRisposta(risposta){
+    function rimuoviRisposta(risposta) {
         var array = [...arrayRisposte];
         var index = array.indexOf(risposta)
         array.splice(index, 1);
         setArrayRisposte(array);
     }
 
-    function EmptyList(){
-        if(arrayRisposte.length < 2){
-            return(<Alert severity="info">Inserire almeno 2 risposte</Alert>)
+    function EmptyList() {
+        if (arrayRisposte.length < 2) {
+            return (<Alert severity="info">Inserire almeno 2 risposte</Alert>)
         }
     }
 
 
-
-    return(
+    return (
         <Box>
             <Box sx={GlobalStyle.divCreaDomanda}>
-            <Typography className="headerCreate" variant="h3">Crea una domanda:</Typography>
+                <Typography className="headerCreate" variant="h3">Crea una domanda:</Typography>
                 <form onSubmit={handleSubmit}>
                     <Box sx={GlobalStyle.formCreate}>
-                        <TextField required id="nome_domanda" label="Nome domanda" variant="outlined" />
+                        <TextField required id="nome_domanda" label="Nome domanda" variant="outlined"/>
                     </Box>
                     <Box sx={GlobalStyle.formCreate}>
-                        <TextField className="formCreate" required id="testo_domanda" label="Testo domanda" variant="outlined" />
+                        <TextField className="formCreate" required id="testo_domanda" label="Testo domanda"
+                                   variant="outlined"/>
                     </Box>
                     <Box sx={GlobalStyle.formCreate}>
                         <TextField
-                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]+(.[0-9]{0,2})?' }}
+                            inputProps={{inputMode: 'numeric', pattern: '[0-9]+(.[0-9]{0,2})?'}}
                             className="formCreate"
                             required id="punti_domanda"
                             label="Punti domanda"
@@ -82,10 +82,10 @@ const CreaDomanda = () =>{
                     </Box>
                     <Typography sx={GlobalStyle.headerCreate} variant="h3">Aggiungi risposte:</Typography>
                     <Box>
-                    <FormControlLabel
-                        control={<CheckBox id="ordineCasuale" name="ordineCasuale"/>}
-                        label="Risposte in ordine casuale"
-                    />
+                        <FormControlLabel
+                            control={<CheckBox id="ordineCasuale" name="ordineCasuale"/>}
+                            label="Risposte in ordine casuale"
+                        />
                     </Box>
                     <Box>
                         <FormControlLabel
@@ -97,55 +97,63 @@ const CreaDomanda = () =>{
                         <EmptyList/>
                     </Box>
                     {arrayRisposte.map((risposta, index) => (
-                    //inzio componente domanda
-                    <Stack
-                        key={index}
-                        sx={{margin: 3, padding: 3, border: 1}}
-                        direction={{ xs: 'column', sm: 'row' }}
-                        alignItems='center'
-                        justifyContent={{xs: 'center', sm: 'space-between'}}
-                        spacing={2}
-                    >
-                        <Box>
-                        <TextField
-                            required id={"risposta" + risposta.numero}
-                            label="Testo risposta"
-                            variant="outlined"
-                            onChange={(e) => {risposta.testo = e.target.value}}
-                        />
-                        </Box>
-                        <Stack direction="column" justifyContent="center" alignItems="center"
-                               width={{sm: "40%", xs: "100%"}}>
-                            <Typography variant="body1">Punteggio </Typography>
-                            <Slider
-                                defaultValue={0.0}
-                                required
-                                id={"punti" + risposta.numero}
-                                step={0.1}
-                                min={0.0}
-                                max={1.0}
-                                marks
-                                valueLabelDisplay="auto"
-                                onChange={(e) => {risposta.punteggio = e.target.value}}
-                            />
-                        </Stack>
-                        <Box>
-                        <Button className="rimuovi"
-                                onClick={() => { rimuoviRisposta(risposta) }}
-                                variant="contained" color="error"
-                                startIcon={<DeleteIcon />}
+                        //inzio componente domanda
+                        <Stack
+                            key={index}
+                            sx={{margin: 3, padding: 3, border: 1}}
+                            direction={{xs: 'column', sm: 'row'}}
+                            alignItems='center'
+                            justifyContent={{xs: 'center', sm: 'space-between'}}
+                            spacing={2}
                         >
-                            Rimuovi
-                        </Button>
-                        </Box>
-                    </Stack>
-                    //fine componente domanda 
+                            <Box>
+                                <TextField
+                                    required id={"risposta" + risposta.numero}
+                                    label="Testo risposta"
+                                    variant="outlined"
+                                    onChange={(e) => {
+                                        risposta.testo = e.target.value
+                                    }}
+                                />
+                            </Box>
+                            <Stack direction="column" justifyContent="center" alignItems="center"
+                                   width={{sm: "40%", xs: "100%"}}>
+                                <Typography variant="body1">Punteggio </Typography>
+                                <Slider
+                                    defaultValue={0.0}
+                                    required
+                                    id={"punti" + risposta.numero}
+                                    step={0.1}
+                                    min={0.0}
+                                    max={1.0}
+                                    marks
+                                    valueLabelDisplay="auto"
+                                    onChange={(e) => {
+                                        risposta.punteggio = e.target.value
+                                    }}
+                                />
+                            </Stack>
+                            <Box>
+                                <Button className="rimuovi"
+                                        onClick={() => {
+                                            rimuoviRisposta(risposta)
+                                        }}
+                                        variant="contained" color="error"
+                                        startIcon={<DeleteIcon/>}
+                                >
+                                    Rimuovi
+                                </Button>
+                            </Box>
+                        </Stack>
+                        //fine componente domanda
                     ))}
                     <Box textAlign='center'>
-                        <Button sx={GlobalStyle.addButton} variant="contained" onClick={aggiungiRisposta} color="primary">Aggiungi Risposta</Button>
+                        <Button sx={GlobalStyle.addButton} variant="contained" onClick={aggiungiRisposta}
+                                color="primary">Aggiungi Risposta</Button>
                     </Box>
                     <Box textAlign='center'>
-                        <Button sx={GlobalStyle.submitButton} type="submit" variant="contained" color="success">Crea Domanda</Button>
+                        <Button sx={GlobalStyle.submitButton} type="submit" variant="contained" color="success">Crea
+                            Domanda</Button>
                     </Box>
                 </form>
                 {info}

@@ -19,15 +19,15 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-    entityManagerFactoryRef = "dataEntityManagerFactory",
-    transactionManagerRef = "dataTransactionManager",
-    basePackages = {"org.univr.webapp.mvc.dataAccessLayer.webappData", "org.univr.webapp.model.webappData"}
+        entityManagerFactoryRef = "dataEntityManagerFactory",
+        transactionManagerRef = "dataTransactionManager",
+        basePackages = {"org.univr.webapp.mvc.dataAccessLayer.webappData", "org.univr.webapp.model.webappData"}
 )
 public class WebappDataConfig {
-    @Bean(name= "dataDataSource")
+    @Bean(name = "dataDataSource")
     @Primary
-    @ConfigurationProperties(prefix="spring.dsdata")
-    public DataSource dataDatasource(){
+    @ConfigurationProperties(prefix = "spring.dsdata")
+    public DataSource dataDatasource() {
         return DataSourceBuilder.create().build();
     }
 
@@ -36,17 +36,17 @@ public class WebappDataConfig {
     public LocalContainerEntityManagerFactoryBean dataDbEntityManagerFactory(
             EntityManagerFactoryBuilder builder,
             @Qualifier("dataDataSource") DataSource dataDataSource
-    ){
+    ) {
         return builder
-            .dataSource(dataDataSource)
-            .packages("org.univr.webapp.dataLayer.webappData", "org.univr.webapp.model.webappData")
-            .build();
+                .dataSource(dataDataSource)
+                .packages("org.univr.webapp.dataLayer.webappData", "org.univr.webapp.model.webappData")
+                .build();
     }
 
-    @Bean(name= "dataTransactionManager")
+    @Bean(name = "dataTransactionManager")
     public PlatformTransactionManager dataDbTransactionManager(
             @Qualifier("dataEntityManagerFactory") EntityManagerFactory dataDbEntityManagerFactory
-    ){
+    ) {
         return new JpaTransactionManager(dataDbEntityManagerFactory);
     }
 }

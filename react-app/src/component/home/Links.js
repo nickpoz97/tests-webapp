@@ -9,11 +9,10 @@ import Button from "@mui/material/Button";
 import {GlobalStyle} from '../../Style/GlobalStyle'
 
 
-
 const links = [
-    {text: "Home", ref: <TestList />},
-    {text: "Crea Test", ref: <CreateTest />},
-    {text: "Crea Domanda", ref: <CreaDomanda />}
+    {text: "Home", ref: <TestList/>},
+    {text: "Crea Test", ref: <CreateTest/>},
+    {text: "Crea Domanda", ref: <CreaDomanda/>}
 ]
 
 const StandardLinkList = (props) => {
@@ -30,11 +29,11 @@ const StandardLinkList = (props) => {
 }
 
 const BigScreenLinksRendering = (props) => {
-    return(
-        <Typography variant="h6" sx={{ flexGrow: 1 }} >
-        <Stack direction="row" spacing={5}>
-            <StandardLinkList setState={props.setState}/>
-        </Stack>
+    return (
+        <Typography variant="h6" sx={{flexGrow: 1}}>
+            <Stack direction="row" spacing={5}>
+                <StandardLinkList setState={props.setState}/>
+            </Stack>
         </Typography>
     )
 }
@@ -45,20 +44,20 @@ const DrawerLinkList = (props) => {
         props.setState(links[index].ref)
     }
 
-    return(
+    return (
         <List>
             {links.map((link, index) =>
                 <ListItem key={index}>
-                <Button
-                    fullWidth
-                    sx={{margin:2}}
-                    name={index.toString()}
-                    variant="outlined"
-                    size="medium"
-                    onClick={clickHandler}
-                >
-                    {link.text}
-                </Button>
+                    <Button
+                        fullWidth
+                        sx={{margin: 2}}
+                        name={index.toString()}
+                        variant="outlined"
+                        size="medium"
+                        onClick={clickHandler}
+                    >
+                        {link.text}
+                    </Button>
                 </ListItem>
             )}
         </List>
@@ -68,14 +67,14 @@ const DrawerLinkList = (props) => {
 const SmallScreenListRendering = (props) => {
     return (
         <SwipeableDrawer anchor="left"
-            open={props.open}
-            onOpen={() => props.setOpen(true)}
-            onClose={() => props.setOpen(false)}
-            PaperProps = {{
-                sx: {width: "70%"}
-            }}
+                         open={props.open}
+                         onOpen={() => props.setOpen(true)}
+                         onClose={() => props.setOpen(false)}
+                         PaperProps={{
+                             sx: {width: "70%"}
+                         }}
         >
-        <DrawerLinkList setState={props.setState}/>
+            <DrawerLinkList setState={props.setState}/>
         </SwipeableDrawer>
     )
 }

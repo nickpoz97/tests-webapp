@@ -25,9 +25,9 @@ query {
 `
 
 const getAllTests = () => graphqlRequest(queryBody)
-        .then(data => data.getAllTests)
-        .catch(errors => {
-            throw errors
-        })
+    .then(data => data.getAllTests)
+    .catch(errors => {
+        throw errors
+    })
 
 export default getAllTests;

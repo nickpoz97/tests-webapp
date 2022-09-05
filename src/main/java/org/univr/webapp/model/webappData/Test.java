@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +15,30 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Test {
+    @EmbeddedId
+    private TestID testID;
+    @Column(name = "ordinecasuale", nullable = false)
+    private boolean ordineCasuale = false;
+    @Column(name = "domandeconnumero", nullable = false)
+    private boolean domandeConNumero = false;
+    @ManyToMany
+    @JoinTable(
+            name = "intest",
+            joinColumns = {
+                    @JoinColumn(name = "datatest"),
+                    @JoinColumn(name = "nometest")
+            },
+            inverseJoinColumns = @JoinColumn(name = "domanda")
+    )
+    private List<Domanda> domandeList;
+
+    public Test(LocalDateTime data, String nome, boolean ordineCasuale, boolean domandeConNumero, List<Domanda> domandeList) {
+        this.testID = new TestID(data, nome);
+        this.ordineCasuale = ordineCasuale;
+        this.domandeConNumero = domandeConNumero;
+        this.domandeList = domandeList;
+    }
+
     @Data
     @Embeddable
     @NoArgsConstructor
@@ -26,31 +49,4 @@ public class Test {
         @Column(name = "nome", nullable = false)
         private String nome;
     }
-
-    public Test(LocalDateTime data, String nome, boolean ordineCasuale, boolean domandeConNumero, List<Domanda> domandeList) {
-        this.testID = new TestID(data, nome);
-        this.ordineCasuale = ordineCasuale;
-        this.domandeConNumero = domandeConNumero;
-        this.domandeList = domandeList;
-    }
-
-    @EmbeddedId
-    private TestID testID;
-
-    @Column(name = "ordinecasuale", nullable = false)
-    private boolean ordineCasuale = false;
-
-    @Column(name = "domandeconnumero", nullable = false)
-    private boolean domandeConNumero = false;
-
-    @ManyToMany
-    @JoinTable(
-        name = "intest",
-        joinColumns = {
-            @JoinColumn(name = "datatest"),
-            @JoinColumn(name = "nometest")
-        },
-        inverseJoinColumns = @JoinColumn(name = "domanda")
-    )
-    private List<Domanda> domandeList;
 }
