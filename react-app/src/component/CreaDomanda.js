@@ -8,11 +8,12 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBox from "@mui/material/Checkbox";
+import displayInfo from "./displayInfo";
 
 
 const CreaDomanda = () =>{
     const [arrayRisposte, setArrayRisposte] = useState([])
-    const [result, setResult] = useState(null)
+    const [info, setInfo] = useState(null)
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -30,21 +31,8 @@ const CreaDomanda = () =>{
     }
 
     function RenderInsertQuestion(domandaInput){
-        addDomanda(domandaInput).then(result => {
-            const severityLevel = result.success ? "success" : "warning"
-            setResult(
-                <Box>
-                    <Alert severity={severityLevel}>{result.message}</Alert>
-                </Box>
-            )
-        })
-        .catch(error =>
-            setResult(
-                <Box>
-                    <Alert severity="error">{error.message}</Alert>
-                </Box>
-            )
-        );
+        displayInfo(addDomanda, domandaInput).then(result => setInfo(result)
+        )
     }
 
     function aggiungiRisposta(){
@@ -158,7 +146,7 @@ const CreaDomanda = () =>{
                         <Button sx={GlobalStyle.submitButton} type="submit" variant="contained" color="success">Crea Domanda</Button>
                     </Box>
                 </form>
-                {result}
+                {info}
             </Box>
         </Box>
     )

@@ -1,6 +1,6 @@
 import styles from "../style.module.css";
 import React, {useState} from 'react';
-import InsertTest from "./InsertTest";
+import displayInfo from "./displayInfo";
 import getAllDomande from "../utils/GetAllDomande";
 import {
   Alert,
@@ -22,6 +22,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBox from "@mui/material/Checkbox";
+import addTest from "../utils/AddTest";
 
 const CreateTest = () =>{
 
@@ -91,11 +92,9 @@ const CreateTest = () =>{
       nomeDomande: arrayDomande.map(d => d.id)
     }
 
-    setInfo(
-        <Box sx={GlobalStyle.divDomanda}>
-          {<InsertTest input={testInput}/>}
-        </Box>
-    );
+    displayInfo(addTest, testInput, GlobalStyle.divDomanda).then( result =>
+        setInfo(result)
+    )
   }
 
   function EmptyList(){
