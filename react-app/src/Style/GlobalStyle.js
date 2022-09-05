@@ -15,6 +15,7 @@ const GlobalStyle = {
   },
 
   headerCreate: {
+    marginTop: "3%",
     marginBottom: "2%"
   },
 
@@ -39,7 +40,8 @@ const GlobalStyle = {
   },
 
   addButton: {
-    marginBottom: "20px",
+    marginTop: "2%",
+    marginBottom: "2%",
     backgroundColor: "#446bc2"
   },
 

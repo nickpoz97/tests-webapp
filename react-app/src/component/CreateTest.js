@@ -147,7 +147,7 @@ const CreateTest = () =>{
             </Box>
           </Box>
 
-          <Box sx={GlobalStyle.divDomanda}>
+          <Box sx={GlobalStyle.divRisposte}>
             <Typography sx={GlobalStyle.headerCreate} variant="h3">Domande aggiunte</Typography>
             <Box>
               <EmptyList/>
