@@ -28,6 +28,21 @@ const GlobalStyle = {
     fontSize: "1.5em"
   },
 
+  linkToHome: {
+    textDecoration: 'none', 
+    color: 'white',
+  },
+
+  divDomanda:{
+    margin: "auto",
+    marginTop: "2%",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    borderCollapse: "collapse",
+    width: "90%",
+    backgroundColor: "#e7eeee",
+    padding: "2%"
+  },
+
   submitButton: {
     marginBottom: "20px",
     backgroundColor: "#46b74b"

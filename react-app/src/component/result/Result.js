@@ -2,7 +2,6 @@ import {useParams} from "react-router-dom";
 import getRisposte from "../../utils/GetRisposte";
 import React, {useEffect, useState} from "react";
 import {Hidden, Stack} from "@mui/material";
-import styles from "../../style.module.css"
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import BigScreenResultTable from "./BigScreenResultTable";
@@ -80,7 +79,7 @@ const Result = (props) => {
                 <title>Risultati test</title>
                 <html lang="it"></html>
             </Helmet>
-            <Typography tabindex={tabindex} variant="h3" component="h1" className={styles.result}>Risultati del test</Typography>
+            <Typography tabindex={tabindex} variant="h3" component="h1">Risultati del test</Typography>
             <Hidden smDown>
             <BigScreenResultTable indicetab={tabindex} listRisposte={result.listRisposte} headerColumns={headerColumns}/>
             </Hidden>

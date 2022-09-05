@@ -1,7 +1,6 @@
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { useState } from "react";
 
 
 const ResultHeader = (props) => {

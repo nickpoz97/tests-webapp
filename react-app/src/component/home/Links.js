@@ -3,10 +3,12 @@ import CreaDomanda from "../CreaDomanda";
 import TestList from "../TestList";
 import * as React from "react";
 import {Link} from "react-router-dom";
-import styles from "../../style.module.css";
 import Typography from "@mui/material/Typography";
 import {List, ListItem, Stack, SwipeableDrawer} from "@mui/material";
 import Button from "@mui/material/Button";
+import {GlobalStyle} from '../../Style/GlobalStyle'
+
+
 
 const links = [
     {text: "Home", ref: <TestList />},
@@ -22,7 +24,7 @@ const StandardLinkList = (props) => {
 
     return links.map(
         (link, index) =>
-            <Link name={index} key={index} className={styles.linkToHome} onClick={clickHandler}
+            <Link name={index} key={index} style={GlobalStyle.linkToHome} onClick={clickHandler}
                   to="#">{link.text}</Link>
     );
 }

@@ -6,7 +6,7 @@ import InsertTest from "./component/InsertTest";
 import CreaDomanda from "./component/CreaDomanda";
 import Result from "./component/result/Result";
 import LoginPage from "./component/LoginPage";
-import {createTheme, responsiveFontSizes, ThemeProvider} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
 import {ResponsiveTheme} from "./Style/GlobalStyle";
 
 function App() {
