@@ -22,10 +22,10 @@ const ResultBody = (props) => {
                 props.listRisposte.map(
                     (risposta, index) =>
                         <TableRow id={"riga"+index} key={index}>
-                            <TableCell tabindex={tabindex++} aria-label={"Domanda:" +risposta.testoDomanda}>{risposta.testoDomanda} </TableCell>
-                            <TableCell tabindex={tabindex++} aria-label={"Risposta data:" +risposta.rispostaData}>{risposta.rispostaData}</TableCell>
-                            <TableCell tabindex={tabindex++} aria-label={"Risposta corretta:" +risposta.rispostaCorretta}>{risposta.rispostaCorretta}</TableCell>
-                            <TableCell tabindex={tabindex++} aria-label={"Punti:" +risposta.punteggio}>{risposta.punteggio}</TableCell>
+                            <TableCell tabIndex={tabindex++} aria-label={"Domanda:" +risposta.testoDomanda}>{risposta.testoDomanda} </TableCell>
+                            <TableCell tabIndex={tabindex++} aria-label={"Risposta data:" +risposta.rispostaData}>{risposta.rispostaData}</TableCell>
+                            <TableCell tabIndex={tabindex++} aria-label={"Risposta corretta:" +risposta.rispostaCorretta}>{risposta.rispostaCorretta}</TableCell>
+                            <TableCell tabIndex={tabindex++} aria-label={"Punti:" +risposta.punteggio}>{risposta.punteggio}</TableCell>
                         </TableRow>
                 )
             }

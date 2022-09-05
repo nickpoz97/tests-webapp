@@ -79,14 +79,14 @@ const Result = (props) => {
                 <title>Risultati test</title>
                 <html lang="it"></html>
             </Helmet>
-            <Typography tabindex={tabindex} variant="h3" component="h1">Risultati del test</Typography>
+            <Typography tabIndex={tabindex} variant="h3" component="h1">Risultati del test</Typography>
             <Hidden smDown>
             <BigScreenResultTable indicetab={tabindex} listRisposte={result.listRisposte} headerColumns={headerColumns}/>
             </Hidden>
             <Hidden smUp>
             <SmallScreenResultTable listRisposte={result.listRisposte} headerColumns={headerColumns}/>
             </Hidden>
-            <Typography aria-label={"Punteggio totale: " + result.yourScore.toFixed(2) + "su" + result.maxScore.toFixed(2)} variant="h4" component="h2" sx={{margin: 5}} tabindex={result.listRisposte.length*4+2}>
+            <Typography aria-label={"Punteggio totale: " + result.yourScore.toFixed(2) + "su" + result.maxScore.toFixed(2)} variant="h4" component="h2" sx={{margin: 5}} tabIndex={result.listRisposte.length*4+2}>
             Punteggio: {result.yourScore.toFixed(2)} su {result.maxScore.toFixed(2)}
             </Typography>
             <Button

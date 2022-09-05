@@ -176,17 +176,17 @@ const Domanda = () =>{
           <html lang="it"></html>
         </Helmet>
        <Box sx={GlobalStyle.divDomanda}>
-            <Typography name="nome_test" variant='h2' fontWeight="bold" tabindex="1"><u>Nome test</u>: {test.nome}</Typography>
+            <Typography name="nome_test" variant='h2' fontWeight="bold" tabIndex="1"><u>Nome test</u>: {test.nome}</Typography>
               <Box sx={GlobalStyle.divDomanda2} name="box_domonda">
                 <RenderNumDom domandeConNumero={domande[ordineDomande[index]-1].risposteConNumero}></RenderNumDom><i>
-                  <Box  display="inline"  tabindex="3" ><Typography display="inline" sx={GlobalStyle.nomeDomanda} variant='h4' name="nome_domanda" ><u>Nome domanda</u>: {domande[ordineDomande[index]-1].nome}</Typography></Box><Typography  tabindex="4" display="inline" variant='h4' name="punti_domanda">({domande[ordineDomande[index]-1].punti} punti)</Typography></i> 
-                <Typography  tabindex="6" name="testo_domanda" variant='h5' sx={GlobalStyle.nomeDomanda}><u>Testo domanda</u>: {domande[ordineDomande[index]-1].testo}</Typography>
+                  <Box  display="inline"  tabIndex="3" ><Typography display="inline" sx={GlobalStyle.nomeDomanda} variant='h4' name="nome_domanda" ><u>Nome domanda</u>: {domande[ordineDomande[index]-1].nome}</Typography></Box><Typography  tabIndex="4" display="inline" variant='h4' name="punti_domanda">({domande[ordineDomande[index]-1].punti} punti)</Typography></i>
+                <Typography  tabIndex="6" name="testo_domanda" variant='h5' sx={GlobalStyle.nomeDomanda}><u>Testo domanda</u>: {domande[ordineDomande[index]-1].testo}</Typography>
               </Box>
        </Box>
        <Box name="box_risposte"sx={GlobalStyle.divRisposte}>
-          <Typography tabindex="7" name="seleziona_risposte" variant='h3'>Seleziona una risposta:</Typography>
+          <Typography tabIndex="7" name="seleziona_risposte" variant='h3'>Seleziona una risposta:</Typography>
            <RadioGroup >
-           <p tabindex="8" hidden="true"> Premi tab e naviga le risposte con i tasti direzionali</p>
+           <p tabIndex="8" hidden={true}> Premi tab e naviga le risposte con i tasti direzionali</p>
           {domande[ordineDomande[index]-1].risposte.map((risposta) => (
             <Box name={"risposta_"+risposta.id} sx={GlobalStyle.divRisposte} key={risposta.id}>
               <RenderNumRisp risposteConNumero={domande[ordineDomande[index]-1].risposteConNumero}></RenderNumRisp>
@@ -194,7 +194,7 @@ const Domanda = () =>{
                     aria-label={risposta.testo + ",  naviga le risposte utilizzando i tasti direzionali"}
                     control={<Radio sx={GlobalStyle.AnswersRadioButton} />}
                     label={risposta.testo}
-                    name={domande[ordineDomande[index]-1]}
+                    name={domande[ordineDomande[index]-1].nome}
                     onClick={() => setActualAnswer(risposta.id)}
                     checked={
                         actualAnswer ? (actualAnswer === risposta.id) : status.map(r => r.id).includes(parseInt(risposta.id))
