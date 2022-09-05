@@ -7,11 +7,15 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import BigScreenResultTable from "./BigScreenResultTable";
 import SmallScreenResultTable from "./SmallScreenResultTable";
+import { Helmet } from 'react-helmet'
+
 
 const Result = (props) => {
     const {nomeTest, dataTest, orarioTest} = useParams()
 
     const [result, setResult] = useState({listRisposte: [], yourScore: 0, maxScore: 0})
+
+    var tabindex = 1;
 
     const getYourScore = (risposte) => {
         let yourScore = 0;
@@ -72,14 +76,18 @@ const Result = (props) => {
 
     return(
         <Stack direction="column" alignItems="center" justifyContent="center">
-            <Typography variant="h3" component="h1" className={styles.result}>Risultati del test</Typography>
+            <Helmet>
+                <title>Risultati test</title>
+                <html lang="it"></html>
+            </Helmet>
+            <Typography tabindex={tabindex} variant="h3" component="h1" className={styles.result}>Risultati del test</Typography>
             <Hidden smDown>
-            <BigScreenResultTable listRisposte={result.listRisposte} headerColumns={headerColumns}/>
+            <BigScreenResultTable indicetab={tabindex} listRisposte={result.listRisposte} headerColumns={headerColumns}/>
             </Hidden>
             <Hidden smUp>
             <SmallScreenResultTable listRisposte={result.listRisposte} headerColumns={headerColumns}/>
             </Hidden>
-            <Typography variant="h4" component="h2" sx={{margin: 5}}>
+            <Typography aria-label={"Punteggio totale: " + result.yourScore.toFixed(2) + "su" + result.maxScore.toFixed(2)} variant="h4" component="h2" sx={{margin: 5}} tabindex={result.listRisposte.length*4+2}>
             Punteggio: {result.yourScore.toFixed(2)} su {result.maxScore.toFixed(2)}
             </Typography>
             <Button

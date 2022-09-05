@@ -13,7 +13,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
 import { Helmet } from 'react-helmet'
-import { wait } from '@testing-library/user-event/dist/utils';
 
 const TITLE = 'COMPILA IL TEST '
 

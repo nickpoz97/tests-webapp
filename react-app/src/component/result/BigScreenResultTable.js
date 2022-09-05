@@ -1,6 +1,8 @@
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { useState } from "react";
+
 
 const ResultHeader = (props) => {
     return(
@@ -13,16 +15,18 @@ const ResultHeader = (props) => {
 }
 
 const ResultBody = (props) => {
+    var tabindex = props.indicetab;
+    
     return(
         <TableBody>
             {
                 props.listRisposte.map(
                     (risposta, index) =>
-                        <TableRow key={index}>
-                            <TableCell>{risposta.testoDomanda} </TableCell>
-                            <TableCell>{risposta.rispostaData}</TableCell>
-                            <TableCell>{risposta.rispostaCorretta}</TableCell>
-                            <TableCell>{risposta.punteggio}</TableCell>
+                        <TableRow id={"riga"+index} key={index}>
+                            <TableCell tabindex={tabindex++} aria-label={"Domanda:" +risposta.testoDomanda}>{risposta.testoDomanda} </TableCell>
+                            <TableCell tabindex={tabindex++} aria-label={"Risposta data:" +risposta.rispostaData}>{risposta.rispostaData}</TableCell>
+                            <TableCell tabindex={tabindex++} aria-label={"Risposta corretta:" +risposta.rispostaCorretta}>{risposta.rispostaCorretta}</TableCell>
+                            <TableCell tabindex={tabindex++} aria-label={"Punti:" +risposta.punteggio}>{risposta.punteggio}</TableCell>
                         </TableRow>
                 )
             }
@@ -31,11 +35,13 @@ const ResultBody = (props) => {
 }
 
 const BigScreenResultTable = (props) => {
+    var tabindex = props.indicetab;
+
     return (
         <TableContainer>
             <Table stickyHeader >
                 <ResultHeader headerColumns={props.headerColumns} />
-                <ResultBody listRisposte={props.listRisposte}/>
+                <ResultBody indicetab={tabindex} listRisposte={props.listRisposte}/>
             </Table>
         </TableContainer>
     )
