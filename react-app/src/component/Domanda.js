@@ -42,6 +42,7 @@ const Domanda = () => {
     var flag = false;
     useEffect(() => {
         setActualAnswer(undefined);
+        window.scrollTo({top: 0, behavior: "smooth"})
     }, [index])
 
     var numRisp = 0;
