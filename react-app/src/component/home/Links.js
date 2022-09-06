@@ -12,7 +12,7 @@ import {GlobalStyle} from '../../Style/GlobalStyle'
 const links = [
     {text: "Home", ref: <TestList/>},
     {text: "Crea Test", ref: <CreateTest/>},
-    {text: "Crea AnswerQuestion", ref: <CreateQuestion/>}
+    {text: "Crea Domanda", ref: <CreateQuestion/>}
 ]
 
 const StandardLinkList = (props) => {
