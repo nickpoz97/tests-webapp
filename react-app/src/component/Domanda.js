@@ -1,5 +1,5 @@
 import {useLocation} from 'react-router-dom'
-import React, {useEffect, useState} from 'react';
+import React, {createRef, useEffect, useState} from 'react';
 import saveAnswer from "../utils/SaveAnswer";
 import Button from "@mui/material/Button";
 import {FormControlLabel, Radio, RadioGroup, Stack, Typography} from "@mui/material";
@@ -39,11 +39,16 @@ const Domanda = () => {
     )
 
     const [index, setIndex] = useState(0);
+    let newQuestionRef = createRef()
 
     var flag = false;
     useEffect(() => {
         setActualAnswer(undefined);
         window.scrollTo({top: 0, behavior: "smooth"})
+        if(newQuestionRef.current) {
+            newQuestionRef.current.tabIndex = "-1"
+            newQuestionRef.current.focus()
+        }
     }, [index])
 
     var numRisp = 0;
@@ -78,7 +83,7 @@ const Domanda = () => {
 
     function RenderNumDom(props) {
         if (props.domandeConNumero)
-            return (<Box tabindex="2"><br></br><Typography variant='h3' sx={{marginBottom: "2%"}}><u>Domanda
+            return (<Box tabIndex={0}><br></br><Typography variant='h3' sx={{marginBottom: "2%"}}><u>Domanda
                 n° {index + 1}</u></Typography></Box>);
     }
 
@@ -155,6 +160,7 @@ const Domanda = () => {
                 onClick={increment}
                 disabled={disabledButtons}
                 name="bottone_avanti"
+                tabIndex={0}
             >
                 Avanti
                 <ArrowForwardIcon></ArrowForwardIcon>
@@ -178,24 +184,25 @@ const Domanda = () => {
                 <html lang="it"></html>
             </Helmet>
             <Box sx={GlobalStyle.divDomanda}>
-                <Typography name="nome_test" variant='h2' fontWeight="bold" tabIndex="1"><u>Nome test</u>: {test.nome}
+                <Typography name="nome_test" variant='h2' fontWeight="bold" tabIndex={0}><u>Nome test</u>: {test.nome}
                 </Typography>
                 <Box sx={GlobalStyle.divDomanda2} name="box_domonda">
                     <RenderNumDom domandeConNumero={numeraDomande}></RenderNumDom><i>
-                    <Box display="inline" tabIndex="3"><Typography display="inline" sx={GlobalStyle.nomeDomanda}
+                    <Box display="inline" tabIndex={0}><Typography display="inline" sx={GlobalStyle.nomeDomanda}
                                                                    variant='h4' name="nome_domanda"><u>Nome
-                        domanda</u>: {domande[ordineDomande[index] - 1].nome}</Typography></Box><Typography tabIndex="4"
+                        domanda</u>: {domande[ordineDomande[index] - 1].nome}</Typography></Box><Typography tabIndex={0}
+                                                                                                            ref={newQuestionRef}
                                                                                                             display="inline"
                                                                                                             variant='h4'
                                                                                                             name="punti_domanda">({domande[ordineDomande[index] - 1].punti} punti)</Typography></i>
-                    <Typography tabIndex="6" name="testo_domanda" variant='h5' sx={GlobalStyle.nomeDomanda}><u>Testo
+                    <Typography tabIndex={0} name="testo_domanda" variant='h5' sx={GlobalStyle.nomeDomanda}><u>Testo
                         domanda</u>: {domande[ordineDomande[index] - 1].testo}</Typography>
                 </Box>
             </Box>
             <Box name="box_risposte" sx={GlobalStyle.divRisposte}>
-                <Typography tabIndex="7" name="seleziona_risposte" variant='h3'>Seleziona una risposta:</Typography>
+                <Typography tabIndex={0} name="seleziona_risposte" variant='h3'>Seleziona una risposta:</Typography>
                 <RadioGroup>
-                    <p tabIndex="8" hidden={true}> Premi tab e naviga le risposte con i tasti direzionali</p>
+                    <p tabIndex={0} hidden={true}> Premi tab e naviga le risposte con i tasti direzionali</p>
                     {domande[ordineDomande[index] - 1].risposte.map((risposta) => (
                         <Box name={"risposta_" + risposta.id} sx={GlobalStyle.divRisposte} key={risposta.id}>
                             <RenderNumRisp
