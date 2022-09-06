@@ -1,5 +1,5 @@
 import CreateTest from "../CreateTest";
-import CreateQuestion from "../CreateQuestion";
+import CreaDomanda from "../CreaDomanda";
 import TestList from "../TestList";
 import * as React from "react";
 import {Link} from "react-router-dom";
@@ -12,7 +12,7 @@ import {GlobalStyle} from '../../Style/GlobalStyle'
 const links = [
     {text: "Home", ref: <TestList/>},
     {text: "Crea Test", ref: <CreateTest/>},
-    {text: "Crea AnswerQuestion", ref: <CreateQuestion/>}
+    {text: "Crea Domanda", ref: <CreaDomanda/>}
 ]
 
 const StandardLinkList = (props) => {

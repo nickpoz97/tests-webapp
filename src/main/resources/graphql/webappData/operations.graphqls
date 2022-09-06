@@ -1,6 +1,6 @@
 type Query{
     getAllTests: [Test!]!
-    getAllDomande: [AnswerQuestion!]!
+    getAllDomande: [Domanda!]!
     getTestById(data: Date!, orario: LocalTime!, nome: String!): Test
 }
 

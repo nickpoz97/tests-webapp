@@ -1,9 +1,9 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import AnswerQuestion from "./component/AnswerQuestion";
+import Domanda from "./component/Domanda";
 import React from 'react';
 import CreateTest from "./component/CreateTest";
 import displayInfo from "./utils/DisplayInfo";
-import CreateQuestion from "./component/CreateQuestion";
+import CreaDomanda from "./component/CreaDomanda";
 import Result from "./component/result/Result";
 import LoginPage from "./component/LoginPage";
 import {ThemeProvider} from "@mui/material";
@@ -16,10 +16,10 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route exact path="/" element={<LoginPage/>}></Route>
-                        <Route path="/test/:id" element={<AnswerQuestion/>}></Route>
+                        <Route path="/test/:id" element={<Domanda/>}></Route>
                         <Route path="/createtest" element={<CreateTest/>}></Route>
                         <Route path="/createtest/inserttest" element={<displayInfo/>}></Route>
-                        <Route path="/createquestion" element={<CreateQuestion/>}></Route>
+                        <Route path="/createquestion" element={<CreaDomanda/>}></Route>
                         <Route path="/result/:nomeTest/:dataTest/:orarioTest" element={<Result/>}></Route>
                     </Routes>
                 </BrowserRouter>

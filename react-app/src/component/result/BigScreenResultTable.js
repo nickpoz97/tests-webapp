@@ -24,7 +24,7 @@ const ResultBody = (props) => {
                     (risposta, index) =>
                         <TableRow id={"riga" + index} key={index}>
                             <TableCell tabIndex={tabindex++}
-                                       aria-label={"AnswerQuestion:" + risposta.testoDomanda}>{risposta.testoDomanda} </TableCell>
+                                       aria-label={"Domanda:" + risposta.testoDomanda}>{risposta.testoDomanda} </TableCell>
                             <TableCell tabIndex={tabindex++}
                                        aria-label={"Risposta data:" + risposta.rispostaData}>{risposta.rispostaData}</TableCell>
                             <TableCell tabIndex={tabindex++}

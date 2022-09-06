@@ -16,7 +16,7 @@ import {Helmet} from 'react-helmet'
 
 const TITLE = 'COMPILA IL TEST '
 
-const AnswerQuestion = () => {
+const Domanda = () => {
     const location = useLocation();
     const {ordineDomande, test, numeraDomande} = location.state;
     const domande = test.domande;
@@ -226,7 +226,7 @@ const AnswerQuestion = () => {
                     href="/"
                     color="secondary"
                 >
-                <HomeIcon></HomeIcon>
+                    <HomeIcon></HomeIcon>
                     home 
                 </Button>
             </Stack>
@@ -234,4 +234,4 @@ const AnswerQuestion = () => {
     )
 }
 
-export default AnswerQuestion;
+export default Domanda;
