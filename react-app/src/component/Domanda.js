@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import {GlobalStyle} from '../Style/GlobalStyle'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import HomeIcon from '@mui/icons-material/Home';
 
 
 import {Helmet} from 'react-helmet'
@@ -225,7 +226,8 @@ const Domanda = () => {
                     href="/"
                     color="secondary"
                 >
-                    home
+                    <HomeIcon></HomeIcon>
+                    home 
                 </Button>
             </Stack>
         </Box>

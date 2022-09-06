@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import BigScreenResultTable from "./BigScreenResultTable";
 import SmallScreenResultTable from "./SmallScreenResultTable";
 import {Helmet} from 'react-helmet'
+import HomeIcon from '@mui/icons-material/Home';
+
 
 
 const Result = (props) => {
@@ -102,7 +104,9 @@ const Result = (props) => {
             <Button
                 variant="contained"
                 href="/"
+                color="secondary"
             >
+                <HomeIcon></HomeIcon>
                 Home
             </Button>
         </Stack>
