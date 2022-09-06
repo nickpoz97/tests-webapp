@@ -10,7 +10,7 @@ import CheckBox from "@mui/material/Checkbox";
 import displayInfo from "../utils/DisplayInfo";
 
 
-const CreaDomanda = () => {
+const CreateQuestion = () => {
     const [arrayRisposte, setArrayRisposte] = useState([])
     const [info, setInfo] = useState(null)
 
@@ -162,4 +162,4 @@ const CreaDomanda = () => {
     )
 }
 
-export default CreaDomanda;
+export default CreateQuestion;

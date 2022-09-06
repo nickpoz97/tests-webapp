@@ -50,7 +50,7 @@ public class DomandaService extends AbstractDataService {
         }
 
         if (getDomandaRepository().findById(domandaInput.nome()).isPresent()) {
-            return new MutationResult(false, "Domanda gia presente");
+            return new MutationResult(false, "AnswerQuestion gia presente");
         }
 
         if (domandaInput.punti().compareTo(new BigDecimal("0.0")) <= 0) {
@@ -81,6 +81,6 @@ public class DomandaService extends AbstractDataService {
             return new MutationResult(false, e.getMessage());
         }
 
-        return new MutationResult(true, "Domanda Aggiunta");
+        return new MutationResult(true, "AnswerQuestion Aggiunta");
     }
 }

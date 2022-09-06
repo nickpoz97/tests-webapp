@@ -51,7 +51,7 @@ const CreateTest = () => {
         };
 
         if (arrayDomande.map(d => d.id).includes(domanda.id)) {
-            alert("Domanda con lo stesso titolo già inserita");
+            alert("AnswerQuestion con lo stesso titolo già inserita");
             return;
         }
 

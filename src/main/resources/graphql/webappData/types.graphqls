@@ -1,4 +1,4 @@
-type Domanda{
+type AnswerQuestion{
     nome: String!
     testo: String!
     punti: BigDecimal
@@ -13,12 +13,12 @@ type Test{
     nome: String!
     ordineCasuale: Boolean!
     domandeConNumero: Boolean!
-    domande: [Domanda!]!
+    domande: [AnswerQuestion!]!
 }
 
 type Risposta{
     id: Long!
     testo: String!
     punteggio: BigDecimal!
-    domanda: Domanda!
+    domanda: AnswerQuestion!
 }
