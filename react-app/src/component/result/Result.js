@@ -10,6 +10,7 @@ import {Helmet} from 'react-helmet'
 import HomeIcon from '@mui/icons-material/Home';
 
 
+document.title = "Risultati test";
 
 const Result = (props) => {
     const {nomeTest, dataTest, orarioTest} = useParams()
@@ -50,6 +51,7 @@ const Result = (props) => {
 
     useEffect(() => {
         if(titleRef.current){
+            titleRef.current.tabIndex = -1;
             titleRef.current.focus()
         }
     }, [result])
@@ -90,13 +92,10 @@ const Result = (props) => {
         'Punti'
     ]
 
+
     return (
         <Stack direction="column" alignItems="center" justifyContent="center">
-            <Helmet >
-                <title>Risultati test</title>
-                <html lang="it"></html>
-            </Helmet>
-            <Typography tabIndex={tabindex} ref={titleRef} variant="h3" component="h1">Risultati del test</Typography>
+            <Typography tabIndex={tabindex} variant="h3" component="h1" ref={titleRef} aria-label="Premi tab per leggere i risultati">Risultati del test</Typography>
             <Hidden smDown>
                 <BigScreenResultTable indicetab={tabindex} listRisposte={result.listRisposte}
                                       headerColumns={headerColumns}/>
