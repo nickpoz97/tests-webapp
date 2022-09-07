@@ -72,15 +72,6 @@ const Domanda = () => {
         }
     }
 
-    function RenderAccessibilityInstruction(props) {
-        if (flag === false) {
-            flag = true;
-            console.log(flag);
-            return (<Typography sx={GlobalStyle.accessibilityInstruction}>Naviga le risposte con tasti
-                freccia</Typography>);
-        }
-    }
-
     function RenderNumDom(props) {
         if (props.domandeConNumero)
             return (<Box tabIndex={0}><br></br><Typography variant='h3' sx={{marginBottom: "2%"}}><u>Domanda

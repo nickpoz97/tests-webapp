@@ -45,17 +45,21 @@ const CreateTest = () => {
     function addDomanda() {
         let e = document.getElementById("selectDomande");
 
-        const domanda = {
-            id: e.options[e.selectedIndex].id,
-            testo: e.options[e.selectedIndex].value,
-        };
+        try{
+          const domanda = {
+              id: e.options[e.selectedIndex].id,
+              testo: e.options[e.selectedIndex].value,
+          };
 
-        if (arrayDomande.map(d => d.id).includes(domanda.id)) {
-            alert("Domanda con lo stesso titolo già inserita");
-            return;
+          if (arrayDomande.map(d => d.id).includes(domanda.id)) {
+              alert("Domanda con lo stesso titolo già inserita");
+              return;
+          }
+          setArrayDomande([...arrayDomande, domanda]);
         }
-
-        setArrayDomande([...arrayDomande, domanda]);
+        catch(error){
+          return;
+        }        
     }
 
     function deleteDomanda(domanda) {
