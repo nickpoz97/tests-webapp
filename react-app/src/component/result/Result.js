@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import getRisposte from "../../utils/GetRisposte";
-import React, {useEffect, createRef, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {Hidden, Stack} from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -34,13 +34,9 @@ const Result = (props) => {
         return maxScore
     }
 
-    
-    let titleRef = createRef();
-    
+    let titleRef = useRef()
 
     useEffect(() => {
-            console.log(titleRef.current)
-            //titleRef.current.focus();
             getRisposte(nomeTest, dataTest, orarioTest).then(response => {
                     setResult({
                         listRisposte: getListRisposte(response),
@@ -51,6 +47,12 @@ const Result = (props) => {
             )
         }, []
     )
+
+    useEffect(() => {
+        if(titleRef.current){
+            titleRef.current.focus()
+        }
+    }, [result])
 
     const getListRisposte = (response) => {
         return response.map(
@@ -94,7 +96,7 @@ const Result = (props) => {
                 <title>Risultati test</title>
                 <html lang="it"></html>
             </Helmet>
-            <Typography tabIndex={tabindex} variant="h3" component="h1">Risultati del test</Typography>
+            <Typography tabIndex={tabindex} ref={titleRef} variant="h3" component="h1">Risultati del test</Typography>
             <Hidden smDown>
                 <BigScreenResultTable indicetab={tabindex} listRisposte={result.listRisposte}
                                       headerColumns={headerColumns}/>
