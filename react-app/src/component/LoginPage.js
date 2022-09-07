@@ -13,7 +13,9 @@ const emptyCredentials = {
 
 const LoginPage = () => {
     const [credentials, setCredentials] = useState(emptyCredentials)
-    const [loginStatus, setLoginStatus] = useState("pending")
+    const [loginStatus, setLoginStatus] = useState(
+        sessionStorage.getItem("logId") ? "success" : "pending"
+    )
     const [errorMessage, setErrorMessage] = useState(null)
     const [buttonDisabled, setButtonDisabled] = useState(false)
 
@@ -47,12 +49,6 @@ const LoginPage = () => {
             })
             .finally(() => setButtonDisabled(false))
     }
-
-    useEffect(() => {
-        if (sessionStorage.getItem("logId")) {
-            setLoginStatus("success")
-        }
-    }, [])
 
     const handleKeypress = e => {
         //it triggers by pressing the enter key

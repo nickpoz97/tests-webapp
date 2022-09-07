@@ -188,9 +188,10 @@ const Domanda = () => {
                 </Typography>
                 <Box sx={GlobalStyle.divDomanda2} name="box_domonda">
                     <RenderNumDom domandeConNumero={numeraDomande}></RenderNumDom><i>
-                    <Box display="inline" tabIndex={0} ref={newQuestionRef}><Typography display="inline" sx={GlobalStyle.nomeDomanda}
+                    <Box display="inline" tabIndex={0}><Typography display="inline" sx={GlobalStyle.nomeDomanda}
                                                                    variant='h4' name="nome_domanda"><u>Nome
                         domanda</u>: {domande[ordineDomande[index] - 1].nome}</Typography></Box><Typography tabIndex={0}
+                                                                                                            ref={newQuestionRef}
                                                                                                             display="inline"
                                                                                                             variant='h4'
                                                                                                             name="punti_domanda">({domande[ordineDomande[index] - 1].punti} punti)</Typography></i>
