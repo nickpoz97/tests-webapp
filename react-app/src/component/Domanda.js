@@ -184,14 +184,14 @@ const Domanda = () => {
                 <html lang="it"></html>
             </Helmet>
             <Box sx={GlobalStyle.divDomanda}>
-                <Typography name="nome_test" variant='h2' fontWeight="bold" tabIndex={0}><u>Nome test</u>: {test.nome}
+                <Typography name="nome_test" variant='h2' fontWeight="bold" tabIndex={0} ref={newQuestionRef} ><u>Nome test</u>: {test.nome}
                 </Typography>
                 <Box sx={GlobalStyle.divDomanda2} name="box_domonda">
                     <RenderNumDom domandeConNumero={numeraDomande}></RenderNumDom><i>
                     <Box display="inline" tabIndex={0}><Typography display="inline" sx={GlobalStyle.nomeDomanda}
                                                                    variant='h4' name="nome_domanda"><u>Nome
                         domanda</u>: {domande[ordineDomande[index] - 1].nome}</Typography></Box><Typography tabIndex={0}
-                                                                                                            ref={newQuestionRef}
+                                                                                                            
                                                                                                             display="inline"
                                                                                                             variant='h4'
                                                                                                             name="punti_domanda">({domande[ordineDomande[index] - 1].punti} punti)</Typography></i>
