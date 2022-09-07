@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import getRisposte from "../../utils/GetRisposte";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, createRef, useState} from "react";
 import {Hidden, Stack} from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -34,7 +34,13 @@ const Result = (props) => {
         return maxScore
     }
 
+    
+    let titleRef = createRef();
+    
+
     useEffect(() => {
+            console.log(titleRef.current)
+            //titleRef.current.focus();
             getRisposte(nomeTest, dataTest, orarioTest).then(response => {
                     setResult({
                         listRisposte: getListRisposte(response),
@@ -84,7 +90,7 @@ const Result = (props) => {
 
     return (
         <Stack direction="column" alignItems="center" justifyContent="center">
-            <Helmet>
+            <Helmet >
                 <title>Risultati test</title>
                 <html lang="it"></html>
             </Helmet>

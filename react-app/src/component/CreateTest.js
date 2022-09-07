@@ -144,8 +144,8 @@ const CreateTest = () => {
                     <Typography sx={GlobalStyle.headerCreate} variant="h3">Lista Domande</Typography>
                     <Box>
                         <NativeSelect id="selectDomande" sx={GlobalStyle.listaDomande}>
-                            {domande.map((domanda) => (
-                                <option key={domanda.nome} id={domanda.nome}
+                            {domande.map((domanda, index) => (
+                                <option key={index} id={domanda.nome}
                                         value={domanda.testo}>{domanda.testo}</option>
                             ))}
                         </NativeSelect>
@@ -162,8 +162,8 @@ const CreateTest = () => {
                         <EmptyList/>
                         <List>
                             {arrayDomande.map((domanda, index) => (
-                                <>
-                                    <ListItem sx={GlobalStyle.liCreateTest} key={index} id={domanda.nome}
+                                <Box key={index}>
+                                    <ListItem sx={GlobalStyle.liCreateTest}  id={domanda.nome}
                                               value={domanda.testo}>
                                         <Stack direction="row" width="100%">
                                             <Box width="50%">
@@ -187,7 +187,7 @@ const CreateTest = () => {
                                         </Stack>
                                     </ListItem>
                                     <Divider/>
-                                </>
+                                </Box>
                             ))}
                         </List>
                         <Stack sx={GlobalStyle.divCheckBox} spacing={2}>
